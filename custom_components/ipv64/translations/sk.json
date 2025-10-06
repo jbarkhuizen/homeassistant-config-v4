@@ -1,0 +1,80 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Integrácia už bola nakonfigurovaná",
+      "single_instance_allowed": "Povolená je iba jedna konfigurácia."
+    },
+    "error": {
+      "domain_not_found": "Zadaná doména (napr. ludy1987.ipv64.de alebo peter.ludy1987.home64.de) nebola nájdená vo vašom účte. Skontrolujte zadanie.",
+      "invalid_api_key": "Zadaný kľúč API je neplatný.",
+      "unauthorized": "Token aktualizácie účtu je neplatný.",
+      "retry_limit_exceeded": "Zlyhalo pripojenie k IPv64.net po viacerých pokusoch. Skontrolujte svoje sieťové pripojenie.",
+      "invalid_domain": "Zadaná doména má neplatný formát alebo nie je povolená. Povolené domény: ipv64.net, ipv64.de, any64.de, eth64.de, home64.de, iot64.de, lan64.de, nas64.de, srv64.de, tcp64.de, udp64.de, vpn64.de, wan64.de, api64.de, dyndns64.de, dynipv6.de, dns64.de, root64.de, route64.de.",
+      "cannot_connect": "Chyba siete: Nepodarilo sa nadviazať spojenie s IPv64.net. Skontrolujte svoje pripojenie k internetu."
+    },
+    "step": {
+      "user": {
+        "data": {
+          "api_key_economy": "Povoliť ekonomický režim (aktualizácie iba pri zmene IP, overené cez https://checkip.amazonaws.com/)",
+          "apikey": "Kľúč API",
+          "domain": "Doména",
+          "scan_interval": "Interval aktualizácie (0–120 minút, 0=vypnuté)",
+          "token": "Token aktualizácie účtu"
+        },
+        "description": "IPv64.net poskytuje služby DynDNS a zdravotné kontroly, ktoré umožňujú spravovať domény a udržiavať zariadenia dostupné aj pri dynamických IP adresách. Zadajte kľúč API a Token aktualizácie účtu na konfiguráciu integrácie.",
+        "title": "IPv64.net | Bezplatná služba DynDNS2 a Healthcheck"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "api_key_economy": "Povoliť ekonomický režim (aktualizácie iba pri zmene IP, overené cez https://checkip.amazonaws.com/)",
+          "scan_interval": "Interval aktualizácie (0–120 minút, 0=vypnuté)"
+        },
+        "description": "Nakonfigurujte interval aktualizácie a ekonomický režim. S bezplatným účtom máte k dispozícii 64 aktualizácií denne. Odporúčaný interval je 23 minút (24 hodín ÷ 64 aktualizácií ≈ 22,5 minúty).",
+        "title": "Konfigurácia IPv64.net"
+      }
+    }
+  },
+  "services": {
+    "refresh": {
+      "description": "Manuálne aktualizovať IP adresu. Poznámka: Každá aktualizácia spotrebuje 1 zo 64 denných tokenov.",
+      "fields": {
+        "economy": {
+          "description": "Povoliť ekonomický režim (aktualizácie iba pri zmene IP, overené cez https://checkip.amazonaws.com/)",
+          "name": "Ekonomický režim"
+        }
+      },
+      "name": "Obnoviť IP adresu"
+    },
+    "add_domain": {
+      "description": "Vytvoriť novú doménu cez API IPv64.net (napr. test1234.any64.de).",
+      "fields": {
+        "domain": {
+          "description": "Doména, ktorá sa má vytvoriť (musí byť jednou z povolených domén: ipv64.net, ipv64.de, any64.de, atď.).",
+          "name": "Doména"
+        }
+      },
+      "name": "Pridať doménu"
+    },
+    "delete_domain": {
+      "description": "Odstrániť existujúcu doménu cez API IPv64.net (napr. test1234.any64.de).",
+      "fields": {
+        "domain": {
+          "description": "Doména, ktorá sa má odstrániť (musí byť jednou z povolených domén: ipv64.net, ipv64.de, any64.de, atď.).",
+          "name": "Doména"
+        }
+      },
+      "name": "Odstrániť doménu"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "wildcard": {
+        "name": "Podpora zástupných znakov"
+      }
+    }
+  }
+}

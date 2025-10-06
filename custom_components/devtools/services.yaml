@@ -1,0 +1,17 @@
+call_ws_endpoint:
+  name: Call websocket endpoint
+  description: "Submit a command to the Home Assistant WebSocket API"
+  fields:
+    type:
+      name: Message type
+      required: true
+      example: "zwave_js/get_raw_config_parameter"
+      selector:
+        text:
+    data:
+      name: Message data
+      example: |
+        device_id: "a15bd8ce9e5b291834136e0f7b2c7a6e"
+        property: 12
+      selector:
+        object:

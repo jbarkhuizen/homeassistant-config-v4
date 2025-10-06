@@ -1,0 +1,14 @@
+{
+  "domain": "devtools",
+  "name": "Developer tools",
+  "codeowners": [
+    "@bendikrb"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/bendikrb/ha-devtools",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/bendikrb/ha-devtools/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "untagged-21eeceb24c5c2b0bfc1b"
+}
