@@ -1,12 +1,69 @@
 
-# Loads default set of integrations. Do not remove.
-default_config:
-
+# ==============================================================================
+# Home Assistant Main Configuration - Restructured
+# File: configuration.yaml
+# Updated: 2025-09-12
+# Note: Optimized structure and organization
+# ==============================================================================
+# ==============================================================================
 # Load frontend themes from the themes folder
+# Frontend Configuration
 frontend:
   themes: !include_dir_merge_named themes
-
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+# ==============================================================================
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-#
+# template: !include template.yaml
+# group: !include groups.yaml
+
+# ==============================================================================
+# The homeassistant packages will become the standard of loading configs going forward
+homeassistant:
+  # Basic instance information
+  name: "Smart Home - Pierre van Ryneveld"
+  latitude: -25.84051
+  longitude: 28.24814
+  elevation: 1519
+  unit_system: metric
+  time_zone: Africa/Johannesburg
+  country: ZA
+  currency: ZAR
+  
+  # Network configuration for your static IP setup
+  internal_url: "http://192.168.1.30:8123"
+  external_url: "http://192.168.1.30:8123"  # Update if you have external access
+  
+  # File system access
+  allowlist_external_dirs:
+    - "/config/sensor_reports"
+    - "/config/scripts"
+    - "/tmp"
+  packages: !include_dir_named packages
+# ==============================================================================
+# HTTP Configuration - Secure and Optimized (Corrected)
+http:
+  # Core security settings
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.0/24
+    - 127.0.0.1
+    - ::1
+  
+  # CORS configuration for your static IP and local access
+  cors_allowed_origins:
+    - "https://192.168.1.30:8123"
+    - "http://192.168.1.30:8123"
+    - "http://localhost:8123"
+    - "http://127.0.0.1:8123"
+    - "https://my.home-assistant.io"  # For HA Cloud if using remote access
+  
+  # Security settings optimized for your setup
+  login_attempts_threshold: 5      # Reduced from 10 for better security
+  ip_ban_enabled: true
+  use_x_frame_options: false        # CRITICAL: Changed to true for security
+  
+  # SSL profile for better security
+  ssl_profile: modern

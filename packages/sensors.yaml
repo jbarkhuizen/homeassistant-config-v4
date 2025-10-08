@@ -1,0 +1,17 @@
+sensor:
+# ==============================================================================
+# Sunsynk Sensors added from 
+# https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/configuration.yaml
+# on 7 Oct 2025
+# ==============================================================================
+  - platform: integration
+    name: deyeinvertermaster_summary_total_battery_charge_grid
+    source: sensor.deyeinvertermaster_battery_charge_grid_power
+    method: left
+
+  - platform: integration
+    name: deyeinverterslave_summary_total_battery_charge_grid
+    source: sensor.deyeinverterslave_battery_charge_grid_power
+    method: left
+# ==============================================================================
+

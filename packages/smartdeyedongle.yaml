@@ -1,0 +1,115 @@
+#===============================================================================
+# Smart Deye Dongle Package
+# Template sensors and integrations for Deye Solar inverter monitoring
+# Source: https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/template.yaml    
+#===============================================================================
+
+# Template Sensors
+template:
+  - sensor:
+      # Solar Power Used (Direct consumption from solar)
+      - name: "deyeinvertermaster_solar_power_used"
+        unique_id: "deyeinvertermaster_solar_power_used"
+        state: "{{ (states('sensor.deyeinvertermaster_summary_day_pv') | float(1) - states('sensor.deyeinvertermaster_solar_power_battery_charge') | float(1)) | round(1) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      # Solar Power to Battery Charge
+      - name: "deyeinvertermaster_solar_power_battery_charge"
+        unique_id: "deyeinvertermaster_solar_power_battery_charge"
+        state: "{{ (states('sensor.deyeinvertermaster_summary_day_battery_charge') | float(1) - states('sensor.deyeinvertermaster_summary_day_battery_charge_grid') | float(1)) | round(1) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      # Essential Load Calculation
+      # Formula: inverter_power + grid_power - aux_power
+      - name: "deyeinvertermaster_essential_load"
+        unique_id: "deyeinvertermaster_essential_load"
+        state: "{{ (states('sensor.deyeinvertermaster_inverter_output_power') | float(0) + (states('sensor.deyeinvertermaster_grid_load_l1') | float(0) - states('sensor.deyeinvertermaster_aux_output_power') | float(0))) | round(0) }}"
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+
+      # Non-Essential Load Calculation
+      # Formula: grid_ct_power - grid_power
+      - name: "deyeinvertermaster_non_essential_load"
+        unique_id: "deyeinvertermaster_non_essential_load"
+        state: "{{ (states('sensor.deyeinvertermaster_grid_power_ct_clamp') | float(0) - (states('sensor.deyeinvertermaster_grid_load_l1') | float(0))) | round(0) }}"
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+
+      # Priority Mode Indicator
+      - name: "deyeinvertermaster_priority_charge_or_load"
+        unique_id: "deyeinvertermaster_priority_charge_or_load"
+        state: |
+          {% if is_state('select.deyeinvertermaster_energy_management_model', 'Battery Priority Mode') %}
+            off
+          {% else %}
+            on
+          {% endif %}
+
+      # Battery Charge from Grid Power
+      - name: "deyeinvertermaster_battery_charge_grid_power"
+        unique_id: "deyeinvertermaster_battery_charge_grid_power"
+        unit_of_measurement: "kW"
+        state_class: measurement
+        device_class: power
+        state: >-
+          {% if states('sensor.deyeinvertermaster_inverter_output_power') | float < 0.0 %}
+            {{ (states('sensor.deyeinvertermaster_battery_output_power') | float(4) | abs) * 0.001 }}
+          {% else %}
+            0.0
+          {% endif %}
+
+      # Home Assistant Time for Inverter Sync
+      - name: "deyeinvertermaster_ha_time"
+        unique_id: "deyeinvertermaster_ha_time"
+        state: "{{ now().strftime('%y%m%d%H%M') }}"
+
+# Integration Sensors (for tracking totals)
+sensor:
+  # Battery Charge from Grid - Master Inverter
+  - platform: integration
+    name: deyeinvertermaster_summary_total_battery_charge_grid
+    unique_id: deyeinvertermaster_summary_total_battery_charge_grid
+    source: sensor.deyeinvertermaster_battery_charge_grid_power
+    method: left
+
+  # Battery Charge from Grid - Slave Inverter
+  - platform: integration
+    name: deyeinverterslave_summary_total_battery_charge_grid
+    unique_id: deyeinverterslave_summary_total_battery_charge_grid
+    source: sensor.deyeinverterslave_battery_charge_grid_power
+    method: left
+
+  # PV String Integrations (Fixed for timezone issues)
+  - platform: integration
+    name: deyeinvertermaster_summary_total_pv1_fix
+    unique_id: deyeinvertermaster_summary_total_pv1_fix
+    source: sensor.deyeinvertermaster_pv1_power
+    method: left
+    unit_prefix: k
+
+  - platform: integration
+    name: deyeinvertermaster_summary_total_pv2_fix
+    unique_id: deyeinvertermaster_summary_total_pv2_fix
+    source: sensor.deyeinvertermaster_pv2_power
+    method: left
+    unit_prefix: k
+
+  - platform: integration
+    name: deyeinvertermaster_summary_total_pv3_fix
+    unique_id: deyeinvertermaster_summary_total_pv3_fix
+    source: sensor.deyeinvertermaster_pv3_power
+    method: left
+    unit_prefix: k
+
+  - platform: integration
+    name: deyeinvertermaster_summary_total_pv4_fix
+    unique_id: deyeinvertermaster_summary_total_pv4_fix
+    source: sensor.deyeinvertermaster_pv4_power
+    method: left
+    unit_prefix: k

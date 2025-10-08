@@ -1,0 +1,47 @@
+utility_meter:
+# ==============================================================================
+# Sunsynk Utility Meters added from 
+# https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/configuration.yaml
+# on 7 Oct 2025
+# ==============================================================================
+  master_energy_battery_charge_grid:
+    name: deyeinvertermaster_summary_day_battery_charge_grid
+    source: sensor.deyeinvertermaster_summary_total_battery_charge_grid
+    cycle: daily
+
+  slave_energy_battery_charge_grid:
+    name: deyeinverterslave_summary_day_battery_charge_grid
+    source: sensor.deyeinverterslave_summary_total_battery_charge_grid
+    cycle:
+      daily
+# ==============================================================================
+#  Duplicate Key - Consider to delete
+#  master_energy_battery_charge_grid:
+#    unique_id: "1754346329929"
+#    name: deyeinvertermaster_summary_day_battery_charge_grid
+#    source: sensor.deyeinvertermaster_summary_total_battery_charge_grid
+#    cycle: daily
+
+#  Duplicate Key - Consider to delete
+#  slave_energy_battery_charge_grid:
+#    unique_id: "1754346329938"
+#    name: deyeinverterslave_summary_day_battery_charge_grid
+#    source: sensor.deyeinverterslave_summary_total_battery_charge_grid
+#    cycle: daily
+
+  master_pv1_fix:
+    unique_id: "1754346329947"
+    name: deyeinvertermaster_summary_day_pv1_fix
+    source: sensor.deyeinvertermaster_summary_total_pv1_fix
+    cycle: daily
+
+  master_pv2_fix:
+    unique_id: "1754346329956"
+    name: deyeinvertermaster_summary_day_pv2_fix
+    source: sensor.deyeinvertermaster_summary_total_pv2_fix
+    cycle: daily
+
+  master_pv3_fix:
+    unique_id: "1754346329958"
+    name: deyeinvertermaster_summary_day_pv3_fix
+    source: sensor.deyeinvertermaster_summary_total_pv3_fix

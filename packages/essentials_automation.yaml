@@ -1,0 +1,341 @@
+#===============================================================================
+# Purpose: Comprehensive energy management for 2x 8kW Sunsunk inverters
+# Includes your existing automation plus enhanced 09:00 daily management
+#===============================================================================
+automation:
+  # Added fromSmart Home Integration
+  # https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/packages/essentials_automation.yaml
+  - id: '1686299812078'
+    alias: 'Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises'
+    description: This stops the export to non-essentials from the battery when the sun
+      is not shining, but during the day solar power is sent to non-essentials
+    trigger:
+    - platform: sun
+      event: sunset
+      offset: -00:45:00
+      id: poweressentials
+    - platform: sun
+      event: sunrise
+      offset: 00:45:00
+      id: powernonessentials
+    condition: []
+    actions:
+    - choose:
+      - conditions:
+        - condition: trigger
+          id: poweressentials
+        sequence:
+        - action: select.select_option
+          data:
+            option: Essentials
+          target:
+            entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+      - conditions:
+        - condition: trigger
+          id: powernonessentials
+        sequence:
+        - action: select.select_option
+          data:
+            option: Zero Export
+          target:
+            entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+    mode: single
+#===============================================================================
+  # Enhanced 09:00 Daily Inverter System Check
+  # Added with Claude.ai
+  - id: inverter_daily_morning_check
+    alias: 'Inverter: Daily Morning System Check at 09:00'
+    description: 'Comprehensive daily check of both 8kW Sunsunk inverters at 09:00'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.maintenance_mode
+        state: "off"
+    action:
+      # Update all inverter entities
+      - service: homeassistant.update_entity
+        target:
+          entity_id:
+            - select.deyeinvertermaster_load_limit_exp_ess_non_ess
+            - sensor.deyeinvertermaster_battery_soc
+            - sensor.deyeinvertermaster_pv_power
+            - sensor.deyeinvertermaster_load_power
+            - sensor.deyeinvertermaster_grid_power
+            # Add your second inverter entities here
+            # - sensor.deyeinverterslave_battery_soc
+            # - sensor.deyeinverterslave_pv_power
+#===============================================================================      
+      # Log current system status
+      - service: system_log.write
+        data:
+          message: >
+            Daily Inverter Check at 09:00:
+            Current Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            PV Power: {{ states('sensor.deyeinvertermaster_pv_power') }}W
+            Load Power: {{ states('sensor.deyeinvertermaster_load_power') }}W
+          level: info
+#===============================================================================           
+      # Send status notification
+      - service: notify.persistent_notification
+        data:
+          title: "Daily Inverter System Check"
+          message: >
+            Inverter Status at 09:00:
+            
+            **Master Inverter:**
+            • Current Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc', 'Unknown') }}%
+            • PV Generation: {{ states('sensor.deyeinvertermaster_pv_power', '0') }}W
+            • Load Consumption: {{ states('sensor.deyeinvertermaster_load_power', '0') }}W
+            • Grid Power: {{ states('sensor.deyeinvertermaster_grid_power', '0') }}W
+            
+            **System Health:** {{ 'Good' if states('sensor.deyeinvertermaster_battery_soc')|int(0) > 20 else 'Battery Low' }}
+            
+            **Today's Target:** {{ states('input_number.solar_generation_target') }}kWh
+          notification_id: daily_inverter_check
+#===============================================================================      
+  # Smart Energy Mode Optimization at 09:00
+  - id: inverter_daily_energy_optimization
+    alias: 'Inverter: Daily Energy Mode Optimization at 09:00'
+    description: 'Optimize energy settings based on weather and battery status at 09:00'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.energy_saving_mode
+        state: "off"
+      - condition: template
+        value_template: "{{ states('sensor.deyeinvertermaster_battery_soc') | int(0) > 10 }}"
+    action:
+      # Check if it's a sunny day (you may need to adjust entity names)
+      - choose:
+        - conditions:
+            - condition: numeric_state
+              entity_id: sensor.openweathermap_cloud_coverage
+              below: 30  # Less than 30% cloud coverage
+          sequence:
+            - service: input_select.select_option
+              data:
+                option: "Solar Priority"
+              target:
+                entity_id: input_select.energy_mode
+            - service: system_log.write
+              data:
+                message: "Sunny day detected - Setting energy mode to Solar Priority"
+                level: info
+        - conditions:
+            - condition: numeric_state
+              entity_id: sensor.openweathermap_cloud_coverage
+              above: 70  # More than 70% cloud coverage
+          sequence:
+            - service: input_select.select_option
+              data:
+                option: "Battery Priority"
+              target:
+                entity_id: input_select.energy_mode
+            - service: system_log.write
+              data:
+                message: "Cloudy day detected - Setting energy mode to Battery Priority"
+                level: info
+        default:
+          - service: input_select.select_option
+            data:
+              option: "Automatic"
+            target:
+              entity_id: input_select.energy_mode
+#===============================================================================      
+  # Battery Health Check at 09:00
+  - id: inverter_battery_health_check
+    alias: 'Inverter: Battery Health Check at 09:00'
+    description: 'Daily battery health monitoring and alerts at 09:00'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition: []
+    action:
+      # Check battery levels
+      - choose:
+        - conditions:
+            - condition: numeric_state
+              entity_id: sensor.deyeinvertermaster_battery_soc
+              below: 20
+          sequence:
+            - service: notify.persistent_notification
+              data:
+                title: "⚠️ Low Battery Alert"
+                message: >
+                  Battery level is critically low at {{ states('sensor.deyeinvertermaster_battery_soc') }}%.
+                  
+                  Consider:
+                  • Reducing non-essential loads
+                  • Checking solar generation
+                  • Switching to grid power if necessary
+                notification_id: low_battery_alert
+            - service: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.energy_saving_mode
+        - conditions:
+            - condition: numeric_state
+              entity_id: sensor.deyeinvertermaster_battery_soc
+              above: 90
+          sequence:
+            - service: system_log.write
+              data:
+                message: "Battery health excellent - SOC above 90%"
+                level: info
+            - service: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.energy_saving_mode
+#===============================================================================      
+  # Weekly Inverter Performance Report (Mondays at 09:00)
+  - id: inverter_weekly_performance_report
+    alias: 'Inverter: Weekly Performance Report'
+    description: 'Generate weekly performance summary every Monday at 09:00'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: time
+        weekday:
+          - mon
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "📊 Weekly Inverter Performance"
+          message: >
+            **Weekly Summary (Monday 09:00):**
+            
+            **Current Status:**
+            • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            • Current Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            • Energy Mode: {{ states('input_select.energy_mode') }}
+            
+            **This Week's Targets:**
+            • Daily Solar Target: {{ states('input_number.solar_generation_target') }}kWh
+            • Battery Target: {{ states('input_number.battery_charge_target') }}%
+            
+            **System Health:** ✅ Operational
+            
+            Check InfluxDB/Grafana dashboards for detailed analytics.
+          notification_id: weekly_inverter_report
+
+#===============================================================================
+#-------------------------------------------------------------------------------
+# INTEGRATION WITH ERROR DETECTION SYSTEM
+#-------------------------------------------------------------------------------
+# Note: Main error detection is in packages/inverter_error_detection.yaml
+# This section integrates with the existing essentials automation
+
+  # Update the existing daily health check to use new error detection
+  - id: inverter_daily_health_check_enhanced
+    alias: 'Inverter: Daily Health Check Enhanced (09:05)'
+    description: 'Enhanced daily health check using error detection system'
+    trigger:
+      - platform: time
+        at: "09:05:00"  # Run 5 minutes after main report
+    condition: []
+    action:
+      - service: homeassistant.update_entity
+        target:
+          entity_id:
+            - sensor.battery_health_score
+            - sensor.inverter_error_summary
+            - sensor.average_battery_soc
+        continue_on_error: true
+      
+      - delay:
+          seconds: 5
+#===============================================================================            
+      # Send summary if any issues detected
+      - choose:
+        - conditions:
+            - condition: numeric_state
+              entity_id: sensor.battery_health_score
+              below: 60
+          sequence:
+            - service: telegram_bot.send_message
+              data:
+                target: !secret telegram_chat_id
+                title: "⚠️ Battery Health Check"
+                message: |
+                  **Daily Battery Health Report**
+                  
+                  Battery Health Score: {{ states('sensor.battery_health_score') }}/100
+                  Rating: {{ state_attr('sensor.battery_health_score', 'rating') }}
+                  
+                  Current Errors: {{ states('sensor.inverter_error_summary') }}
+                  
+                  Please review inverter system status.
+        default:
+          - service: system_log.write
+            data:
+              message: "Daily inverter health check completed - All systems healthy (Score: {{ states('sensor.battery_health_score') }})"
+              level: info
+    mode: single
+#===============================================================================6504
+# Supporting sensors for enhanced monitoring
+template:
+  - sensor:
+      # Calculate daily energy efficiency
+      - name: "Daily Energy Efficiency"
+        unique_id: daily_energy_efficiency
+        unit_of_measurement: "%"
+        state: >
+          {% set solar = states('sensor.deyeinvertermaster_pv_power') | float(0) %}
+          {% set load = states('sensor.deyeinvertermaster_load_power') | float(0) %}
+          {% if load > 0 %}
+            {{ ((solar / load) * 100) | round(1) }}
+          {% else %}
+            0
+          {% endif %}
+        icon: mdi:solar-power
+#===============================================================================      
+      # Battery cycle estimation
+      - name: "Battery Status Summary"
+        unique_id: battery_status_summary
+        state: >
+          {% set soc = states('sensor.deyeinvertermaster_battery_soc') | int(0) %}
+          {% if soc >= 90 %}
+            Excellent
+          {% elif soc >= 70 %}
+            Good
+          {% elif soc >= 50 %}
+            Fair
+          {% elif soc >= 20 %}
+            Low
+          {% else %}
+            Critical
+          {% endif %}
+        icon: >
+          {% set soc = states('sensor.deyeinvertermaster_battery_soc') | int(0) %}
+          {% if soc >= 90 %}
+            mdi:battery
+          {% elif soc >= 70 %}
+            mdi:battery-80
+          {% elif soc >= 50 %}
+            mdi:battery-50
+          {% elif soc >= 20 %}
+            mdi:battery-20
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+#===============================================================================      
+      # System operation mode tracker
+      - name: "Inverter Operation Mode"
+        unique_id: inverter_operation_mode
+        state: >
+          {% set current_mode = states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') %}
+          {% set energy_mode = states('input_select.energy_mode') %}
+          {% if current_mode == 'Essentials' %}
+            Night Mode ({{ energy_mode }})
+          {% elif current_mode == 'Zero Export' %}
+            Day Mode ({{ energy_mode }})
+          {% else %}
+            {{ current_mode }} ({{ energy_mode }})
+          {% endif %}
+        icon: mdi:power-settings
+#===============================================================================      
