@@ -1,0 +1,80 @@
+# customize.yaml
+#Sonoff Bedroom Sensor Management
+sensor.sonoff_a4800986dd_temperature:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.sonoff_a4800986dd_humidity:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.sonoff_a4800986dd_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Tuya Braai afdak Sensor Management
+sensor.braai_afdak_temperature_humidity_sensor_temperature:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.braai_afdak_temperature_humidity_sensor_humidity:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.braai_afdak_temperature_humidity_sensor_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Power Room Sensor Management
+sensor.sonoff_a48008e4cc_temperature:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.sonoff_a48008e4cc_humidity:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.sonoff_a48008e4cc_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Tuya Study Sensor Management
+sensor.study_temperature_humidity_sensor_temperature:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.study_temperature_humidity_sensor_humidity:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.study_temperature_humidity_sensor_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Tuya TV Room Sensor Management
+sensor.tv_room_temperature_humidity_sensor_temperature:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.tv_room_temperature_humidity_sensor_humidity:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.tv_room_temperature_humidity_sensor_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Gang Motion Sensor Management
+binary_sensor.sonoff_a48005596e:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.sonoff_a48005596e_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Front Door Sensor Management
+sensor.sonoff_a480098890_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Salon Back Door Sensor Management
+sensor.sonoff_a4800d7025_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+  
+#Sonoff Salon Front Door Sensor Management
+sensor.sonoff_1000fd4860_battery_voltage:
+  scan_interval: 14400  # seconds (240 minutes)
+  
+#Sonoff Braai Door Sensor Management
+sensor.sonoff_100150e8d2_battery_voltage:  
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Test Door Sensor Management
+sensor.sonoff_1002357bda_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Garage Mid Door Sensor Management
+sensor.sonoff_100150eae4_battery_voltage:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Water Tank Sensor Management
+binary_sensor.sonoff_a4800e446e_moisture:
+  scan_interval: 600   # seconds (10 minutes)
+sensor.sonoff_a4800e446e_battery:
+  scan_interval: 14400  # seconds (240 minutes)
+
+#Sonoff Study Window Sensor Management
+sensor.sonoff_1002357619_battery:
+  scan_interval: 14400  # seconds (240 minutes)
