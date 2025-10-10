@@ -63,7 +63,7 @@ http:
   # Security settings optimized for your setup
   login_attempts_threshold: 5      # Reduced from 10 for better security
   ip_ban_enabled: true
-  use_x_frame_options: false        # CRITICAL: Changed to true for security
+  use_x_frame_options: true    # Changed to true for security on 10 Oct 2025
   
   # SSL profile for better security
   ssl_profile: modern
