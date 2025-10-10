@@ -15,20 +15,6 @@ utility_meter:
     cycle:
       daily
 # ==============================================================================
-#  Duplicate Key - Consider to delete
-#  master_energy_battery_charge_grid:
-#    unique_id: "1754346329929"
-#    name: deyeinvertermaster_summary_day_battery_charge_grid
-#    source: sensor.deyeinvertermaster_summary_total_battery_charge_grid
-#    cycle: daily
-
-#  Duplicate Key - Consider to delete
-#  slave_energy_battery_charge_grid:
-#    unique_id: "1754346329938"
-#    name: deyeinverterslave_summary_day_battery_charge_grid
-#    source: sensor.deyeinverterslave_summary_total_battery_charge_grid
-#    cycle: daily
-
   master_pv1_fix:
     unique_id: "1754346329947"
     name: deyeinvertermaster_summary_day_pv1_fix
