@@ -1,0 +1,31 @@
+# Morning Test Telegram Message - Simple Version
+- id: 'morning_test_telegram_system_check'
+  alias: 'Morning Test Telegram - System Check'
+  description: 'Sends a test Telegram message every morning at 08:00 to verify the system is operational'
+  
+  trigger:
+    - platform: time
+      at: '08:00:00'
+  
+  condition: []
+  
+  action:
+    - service: telegram_bot.send_message
+      data:
+        target: !secret telegram_chat_id
+        message: |
+          🏠 *HOME ASSISTANT DAILY CHECK*
+          
+          ✅ System Status: *OPERATIONAL*
+          
+          📊 *System Details:*
+          🕐 Time: {{ now().strftime('%H:%M:%S') }}
+          📅 Date: {{ now().strftime('%A, %d %B %Y') }}
+          📡 IP: 192.168.1.30:8123
+          
+          All automation services are running normally! ✨
+          
+          _Automated daily system verification message_
+        parse_mode: markdown
+  
+  mode: single

@@ -13,7 +13,8 @@ frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
 # ==============================================================================
-automation: !include automations.yaml
+# automation: !include automations.yaml
+automation: !include_dir_merge_list automations/
 script: !include scripts.yaml
 scene: !include scenes.yaml
 template: !include template.yaml
@@ -79,7 +80,7 @@ logger:
   default: critical
   logs:
     homeassistant.components.http: warning
-    homeeassistant.core: warning
+    homeassistant.core: warning
     homeassistant.loader: error
     homeassistant.setup: warning
     homeassistant.config: warning

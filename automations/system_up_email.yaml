@@ -1,0 +1,77 @@
+# Morning Test Email - Verifies System is Running
+- id: 'morning_test_email_system_check'
+  alias: 'Morning Test Email - System Check'
+  description: 'Sends a test email every morning at 08:00 to verify the system is operational'
+  
+  trigger:
+    - platform: time
+      at: '08:00:00'
+  
+  condition: []
+  
+  action:
+    - service: notify.email_notification
+      data:
+        title: '✅ Home Assistant - System Status OK'
+        message: >
+          Good morning!
+          
+          This is your daily system check email.
+          
+          Home Assistant is up and running successfully.
+          
+          System Details:
+          - Time: {{ now().strftime('%H:%M:%S') }}
+          - Date: {{ now().strftime('%A, %d %B %Y') }}
+          - System Uptime: {{ states('sensor.uptime') if states('sensor.uptime') != 'unknown' else 'N/A' }}
+          
+          All systems operational.
+          
+          ---
+          Sent from Home Assistant
+          IP: 192.168.1.30:8123
+        data:
+          html: >
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
+                .header { background-color: #41BDF5; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }
+                .content { background-color: white; padding: 20px; border-radius: 0 0 5px 5px; }
+                .status { background-color: #4CAF50; color: white; padding: 10px; border-radius: 5px; text-align: center; margin: 15px 0; }
+                .details { background-color: #f9f9f9; padding: 15px; border-left: 4px solid #41BDF5; margin: 15px 0; }
+                .footer { text-align: center; padding: 10px; color: #777; font-size: 12px; }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <div class="header">
+                  <h1>✅ Home Assistant System Check</h1>
+                </div>
+                <div class="content">
+                  <p>Good morning!</p>
+                  <div class="status">
+                    <strong>🟢 ALL SYSTEMS OPERATIONAL</strong>
+                  </div>
+                  <p>This is your daily system check email confirming that Home Assistant is up and running successfully.</p>
+                  <div class="details">
+                    <h3>System Details:</h3>
+                    <ul>
+                      <li><strong>Time:</strong> {{ now().strftime('%H:%M:%S') }}</li>
+                      <li><strong>Date:</strong> {{ now().strftime('%A, %d %B %Y') }}</li>
+                      <li><strong>System IP:</strong> 192.168.1.30:8123</li>
+                    </ul>
+                  </div>
+                  <p>All automation services are functioning normally.</p>
+                </div>
+                <div class="footer">
+                  <p>Automated message from Home Assistant<br>
+                  This email confirms your notification system is working correctly.</p>
+                </div>
+              </div>
+            </body>
+            </html>
+  
+  mode: single

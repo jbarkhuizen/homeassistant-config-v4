@@ -1,0 +1,14 @@
+# Email Notification Service
+notify:
+  - name: email_notification
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    timeout: 15
+    sender: !secret gmail_email_address
+    encryption: starttls
+    username: !secret gmail_email_address
+    password: !secret gmail_app_password
+    recipient:
+      - jbarkhuizen@gmail.com
+    sender_name: Home Assistant
