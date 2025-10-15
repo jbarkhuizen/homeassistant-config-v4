@@ -28,3 +28,42 @@ input_number:
     max: 1000000.01
     mode: box
 # ==============================================================================
+# Added by Claude.ai on 14 Oct 2025 to enable Prepaid Thresholds
+# Prepaid Meter Alert Thresholds
+# ==============================================================================
+  prepaid_meter_warning_threshold:
+    name: Prepaid Meter Warning Level
+    min: 10
+    max: 200
+    step: 5
+    initial: 50
+    unit_of_measurement: "kWh"
+    icon: mdi:alert-circle
+    mode: box
+
+  prepaid_meter_critical_threshold:
+    name: Prepaid Meter Critical Level
+    min: 5
+    max: 100
+    step: 5
+    initial: 20
+    unit_of_measurement: "kWh"
+    icon: mdi:alert
+    mode: box
+
+  prepaid_meter_emergency_threshold:
+    name: Prepaid Meter Emergency Level
+    min: 1
+    max: 50
+    step: 1
+    initial: 5
+    unit_of_measurement: "kWh"
+    icon: mdi:alert-octagon
+    mode: box
+
+# Input Boolean for Emergency Mode
+input_boolean:
+  prepaid_meter_emergency_mode:
+    name: Prepaid Meter Emergency Mode
+    icon: mdi:flash-alert
+# ==============================================================================

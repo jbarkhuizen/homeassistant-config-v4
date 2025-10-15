@@ -1,0 +1,21 @@
+# Automation to send daily update summary email at 09:15
+
+- alias: "Daily System Update Email"
+  trigger:
+    - platform: time
+      at: "09:15:00"
+  action:
+    - service: notify.email
+      data:
+        title: "Daily Home Assistant Update Report"
+        message: >
+          Updates and Upgrades Summary for {{ now().strftime('%Y-%m-%d') }}:
+
+          {{ states('sensor.home_assistant_updates_summary') }}
+
+          Details:
+          {% for attr, value in state_attr('sensor.home_assistant_updates_summary', 'detailed_status').items() %}
+            - {{ attr }}: {{ value }}
+          {% endfor %}
+
+          Tip: Visit your Home Assistant dashboard for more info.
