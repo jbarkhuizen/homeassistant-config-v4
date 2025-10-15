@@ -115,7 +115,8 @@ automation:
       - choose:
         - conditions:
             - condition: numeric_state
-              entity_id: sensor.openweathermap_cloud_coverage
+#             entity_id: sensor.openweathermap_cloud_coverage
+              entity_id: sensor.cloud_coverage
               below: 30  # Less than 30% cloud coverage
           sequence:
             - service: input_select.select_option
@@ -129,7 +130,8 @@ automation:
                 level: info
         - conditions:
             - condition: numeric_state
-              entity_id: sensor.openweathermap_cloud_coverage
+#             entity_id: sensor.openweathermap_cloud_coverage
+              entity_id: sensor.cloud_coverage
               above: 70  # More than 70% cloud coverage
           sequence:
             - service: input_select.select_option

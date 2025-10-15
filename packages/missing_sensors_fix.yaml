@@ -1,0 +1,267 @@
+#===============================================================================
+# MISSING SENSORS FIX PACKAGE
+# File: packages/missing_sensors_fix.yaml
+# Created: 2025-10-15
+# Purpose: Create and configure all missing sensors referenced in automations
+#===============================================================================
+
+#===============================================================================
+# INPUT HELPERS - Energy Mode Selector
+#===============================================================================
+input_select:
+  energy_mode:
+    name: Energy Mode
+    options:
+      - "Automatic"
+      - "Solar Priority"
+      - "Battery Priority"
+      - "Grid Priority"
+      - "Eco Mode"
+    initial: "Automatic"
+    icon: mdi:solar-power
+
+#===============================================================================
+# SYSTEM MONITOR INTEGRATION - CPU, Memory, Disk
+#===============================================================================
+# Enable System Monitor for CPU, Memory, and Disk monitoring
+sensor:
+  # System Monitor Platform
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: disk_use
+        arg: /
+      - type: disk_free
+        arg: /
+      - type: memory_use_percent
+      - type: memory_use
+      - type: memory_free
+      - type: swap_use_percent
+      - type: swap_use
+      - type: swap_free
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+      - type: processor_use
+      - type: processor_temperature
+      - type: last_boot
+      - type: throughput_network_in
+        arg: eth0
+      - type: throughput_network_out
+        arg: eth0
+
+#===============================================================================
+# WEATHER INTEGRATION REPLACEMENT
+#===============================================================================
+# Replace OpenWeatherMap with built-in Met.no weather integration
+# This provides cloud_coverage sensor without requiring API key
+
+# OPTION 1: Met.no Weather (Recommended - No API Key Required)
+weather:
+  - platform: met
+    name: Home Weather
+
+# The Met.no integration will create: sensor.home_weather_cloud_coverage
+
+#===============================================================================
+# TEMPLATE SENSORS - Weather & System Fallbacks
+#===============================================================================
+template:
+  - sensor:
+      #-------------------------------------------------------------------------
+      # Cloud Coverage Sensor (with fallback logic)
+      #-------------------------------------------------------------------------
+      - name: "Cloud Coverage"
+        unique_id: cloud_coverage_unified
+        unit_of_measurement: "%"
+        device_class: "humidity"  # Closest match for percentage
+        state: >
+          {% if states('sensor.home_weather_cloud_coverage') not in ['unknown', 'unavailable'] %}
+            {{ states('sensor.home_weather_cloud_coverage') }}
+          {% elif states('weather.home_weather') not in ['unknown', 'unavailable'] %}
+            {% set condition = states('weather.home_weather') %}
+            {% if condition in ['sunny', 'clear-night'] %}
+              0
+            {% elif condition in ['partlycloudy'] %}
+              50
+            {% elif condition in ['cloudy', 'fog'] %}
+              85
+            {% elif condition in ['rainy', 'pouring'] %}
+              95
+            {% else %}
+              50
+            {% endif %}
+          {% else %}
+            50
+          {% endif %}
+        icon: >
+          {% set coverage = states('sensor.cloud_coverage') | int(50) %}
+          {% if coverage < 20 %}
+            mdi:weather-sunny
+          {% elif coverage < 50 %}
+            mdi:weather-partly-cloudy
+          {% elif coverage < 80 %}
+            mdi:weather-cloudy
+          {% else %}
+            mdi:weather-pouring
+          {% endif %}
+        attributes:
+          source: >
+            {% if states('sensor.home_weather_cloud_coverage') not in ['unknown', 'unavailable'] %}
+              met.no
+            {% elif states('weather.home_weather') not in ['unknown', 'unavailable'] %}
+              weather_condition_estimate
+            {% else %}
+              default
+            {% endif %}
+          last_updated: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+      #-------------------------------------------------------------------------
+      # CPU Percentage (using Supervisor sensor)
+      #-------------------------------------------------------------------------
+      - name: "CPU Usage Percent"
+        unique_id: cpu_usage_percent_unified
+        unit_of_measurement: "%"
+        state: >
+          {% if states('sensor.processor_use') not in ['unknown', 'unavailable'] %}
+            {{ states('sensor.processor_use') }}
+          {% elif states('sensor.home_assistant_supervisor_cpu_percent') not in ['unknown', 'unavailable'] %}
+            {{ states('sensor.home_assistant_supervisor_cpu_percent') }}
+          {% else %}
+            0
+          {% endif %}
+        icon: mdi:chip
+        attributes:
+          source: >
+            {% if states('sensor.processor_use') not in ['unknown', 'unavailable'] %}
+              systemmonitor
+            {% elif states('sensor.home_assistant_supervisor_cpu_percent') not in ['unknown', 'unavailable'] %}
+              supervisor
+            {% else %}
+              unavailable
+            {% endif %}
+
+#===============================================================================
+# INPUT BOOLEANS - Energy Management
+#===============================================================================
+input_boolean:
+  energy_saving_mode:
+    name: Energy Saving Mode
+    icon: mdi:leaf
+    initial: off
+
+#===============================================================================
+# INPUT NUMBERS - Solar & Battery Targets
+#===============================================================================
+input_number:
+  solar_generation_target:
+    name: Daily Solar Generation Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "kWh"
+    icon: mdi:solar-power
+    initial: 25
+    mode: box
+
+  battery_charge_target:
+    name: Battery Charge Target
+    min: 0
+    max: 100
+    step: 5
+    unit_of_measurement: "%"
+    icon: mdi:battery-charging-80
+    initial: 90
+    mode: slider
+
+#===============================================================================
+# AUTOMATION - Energy Mode Synchronization
+#===============================================================================
+automation:
+  #-----------------------------------------------------------------------------
+  # Keep energy_mode in sync with inverter settings
+  #-----------------------------------------------------------------------------
+  - id: energy_mode_sync_with_inverter
+    alias: 'Energy: Sync Mode with Inverter'
+    description: 'Keep input_select.energy_mode synchronized with inverter mode'
+    
+    trigger:
+      - platform: state
+        entity_id: select.deyeinvertermaster_energy_management_model
+    
+    condition:
+      - condition: template
+        value_template: "{{ trigger.from_state.state != trigger.to_state.state }}"
+    
+    action:
+      - choose:
+        - conditions:
+            - condition: state
+              entity_id: select.deyeinvertermaster_energy_management_model
+              state: 'Battery Priority Mode'
+          sequence:
+            - service: input_select.select_option
+              data:
+                option: "Battery Priority"
+              target:
+                entity_id: input_select.energy_mode
+        
+        - conditions:
+            - condition: state
+              entity_id: select.deyeinvertermaster_energy_management_model
+              state: 'Zero Export'
+          sequence:
+            - service: input_select.select_option
+              data:
+                option: "Solar Priority"
+              target:
+                entity_id: input_select.energy_mode
+        
+        default:
+          - service: input_select.select_option
+            data:
+              option: "Automatic"
+            target:
+              entity_id: input_select.energy_mode
+    
+    mode: single
+
+#===============================================================================
+# SCRIPTS - System Diagnostics
+#===============================================================================
+script:
+  check_missing_sensors:
+    alias: 'Check Missing Sensors'
+    sequence:
+      - service: system_log.write
+        data:
+          message: >
+            Sensor Status Check:
+            - Cloud Coverage: {{ states('sensor.cloud_coverage') }}
+            - Energy Mode: {{ states('input_select.energy_mode') }}
+            - Memory Use %: {{ states('sensor.memory_use_percent') }}
+            - Disk Use %: {{ states('sensor.disk_use_percent') }}
+            - CPU Use %: {{ states('sensor.cpu_usage_percent') }}
+            - Inverter Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+          level: info
+      
+      - service: persistent_notification.create
+        data:
+          title: "✅ Sensor Status Check"
+          message: |
+            **All Sensors Status:**
+            
+            🌤️ **Cloud Coverage:** {{ states('sensor.cloud_coverage') }}%
+            ⚡ **Energy Mode:** {{ states('input_select.energy_mode') }}
+            🧠 **Memory Usage:** {{ states('sensor.memory_use_percent') }}%
+            💾 **Disk Usage:** {{ states('sensor.disk_use_percent') }}%
+            🖥️ **CPU Usage:** {{ states('sensor.cpu_usage_percent') }}%
+            🔋 **Inverter Mode:** {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            
+            Status: All sensors operational
+          notification_id: sensor_status_check
+
+#===============================================================================
+# END OF MISSING SENSORS FIX PACKAGE
+#===============================================================================

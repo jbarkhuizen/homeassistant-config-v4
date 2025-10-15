@@ -52,6 +52,7 @@ homeassistant:
 http:
   # Core security settings
   use_x_forwarded_for: true
+  
   trusted_proxies:
     - 192.168.1.0/24
     - 127.0.0.1
@@ -68,6 +69,7 @@ http:
   # Security settings optimized for your setup
   login_attempts_threshold: 5      # Reduced from 10 for better security
   ip_ban_enabled: true
+
   use_x_frame_options: true    # Changed to true for security on 10 Oct 2025
   
   # SSL profile for better security
