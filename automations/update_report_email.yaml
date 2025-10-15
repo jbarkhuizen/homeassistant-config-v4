@@ -1,11 +1,9 @@
-# Automation to send daily update summary email at 09:15
-
 - alias: "Daily System Update Email"
   trigger:
     - platform: time
       at: "09:15:00"
   action:
-    - service: notify.email
+    - service: notify.email_notification
       data:
         title: "Daily Home Assistant Update Report"
         message: >

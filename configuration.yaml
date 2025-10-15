@@ -22,6 +22,7 @@ template: !include template.yaml
 group: !include groups.yaml
 
 sensor: !include sensors/update_summary.yaml
+# automation: !include automations/update_report_email.yaml
 
 # ==============================================================================
 # The homeassistant packages will become the standard of loading configs going forward

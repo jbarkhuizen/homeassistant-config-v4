@@ -1,7 +1,3 @@
-# Home Assistant template sensor to summarize all core, supervisor, OS, and integration/add-on updates.
-# Place this file in your 'sensors' directory (e.g., /config/sensors/update_summary.yaml).
-# You must include this file in your configuration.yaml with: sensor: !include sensors/update_summary.yaml
-
 - platform: template
   sensors:
     home_assistant_updates_summary:
