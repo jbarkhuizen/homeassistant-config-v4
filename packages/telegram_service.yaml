@@ -5,7 +5,11 @@
 #    allowed_chat_ids:
 #      - !secret telegram_chat_id
 
-#notify:
-#  - name: telegram
-#    platform: telegram
-#    chat_id: !secret telegram_chat_id
+notify:
+  - name: BarkieHome
+    platform: telegram
+    chat_id: !secret telegram_chat_id_1
+
+  - name: JohanBarkhuizen
+    platform: telegram
+    chat_id: !secret telegram_chat_id_2
