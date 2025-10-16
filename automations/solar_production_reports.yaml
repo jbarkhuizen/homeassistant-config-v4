@@ -2,7 +2,7 @@
 # SOLAR PRODUCTION DAILY REPORTS
 # File: automations/solar_production_reports.yaml
 # Created: 2025-10-15
-# Description: Daily solar production reports with statistics and insights
+# Updated: 2025-10-16 - Fixed template formatting for email notifications
 #===============================================================================
 
 #-----------------------------------------------------------------------------
@@ -10,7 +10,7 @@
 #-----------------------------------------------------------------------------
 - id: daily_solar_production_report
   alias: 'Solar: Daily Production Report at 22:00'
-  description: 'Comprehensive daily solar production summary with statistics'
+  description: 'Comprehensive daily solar production summary'
   
   trigger:
     - platform: time
@@ -19,7 +19,6 @@
   condition: []
   
   action:
-    # Send Telegram Report
     - service: telegram_bot.send_message
       data:
         target: !secret telegram_chat_id
@@ -33,152 +32,71 @@
 
           *PV STRING PRODUCTION*
 
-          🔆 PV1 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
+          🔆 PV1: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
 
-          🔆 PV2 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
+          🔆 PV2: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
 
-          ⚡ Total Today: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
+          ⚡ Total: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
 
 
-          *CUMULATIVE TOTALS*
+          *CUMULATIVE*
 
-          📊 Total PV1: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
+          📊 PV1 Total: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
 
-          📊 Total PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
-
-          📈 Combined: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
+          📊 PV2 Total: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
 
 
           *PERFORMANCE*
 
-          🎯 Daily Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh
+          🎯 Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh
 
           📊 Achievement: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) / states('input_number.solar_generation_target') | float(25) * 100) | round(1) }}%
 
 
-          *ENERGY METRICS*
-
-          🔋 Battery Charged: {{ states('sensor.deyeinvertermaster_summary_day_battery_charge') | float(0) | round(2) }} kWh
-
-          🏠 Load: {{ states('sensor.deyeinvertermaster_summary_day_load') | float(0) | round(2) }} kWh
-
-          🌐 Grid Export: {{ states('sensor.deyeinvertermaster_summary_day_grid_export_sell') | float(0) | round(2) }} kWh
-
-          📥 Grid Import: {{ states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0) | round(2) }} kWh
-
-
-          🌐 System: 192.168.1.30:8123
+          🌐 http://192.168.1.30:8123
     
-    # Send Email Report
     - service: notify.email_notification
       data:
-        title: "☀️ Daily Solar Production Report - {{ now().strftime('%Y-%m-%d') }}"
+        title: >-
+          Daily Solar Production - {{ now().strftime('%Y-%m-%d') }}
         message: >-
           DAILY SOLAR PRODUCTION REPORT
 
           Date: {{ now().strftime('%A, %d %B %Y') }}
 
-          ================================================================================
+
+          PV1: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
+
+          PV2: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
+
+          Total: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
 
 
-          PV STRING PRODUCTION
-
-          --------
-
-          PV1 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
-
-          PV2 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
-
-          Total Today: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
-
-
-          CUMULATIVE TOTALS
-
-          --------
-
-          Total PV1 (All Time): {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
-
-          Total PV2 (All Time): {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
-
-          Combined Total: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
-
-
-          PERFORMANCE ANALYSIS
-
-          --------
-
-          Daily Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh
+          Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh
 
           Achievement: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) / states('input_number.solar_generation_target') | float(25) * 100) | round(1) }}%
 
-          {% set total = states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) %}
-
-          {% set target = states('input_number.solar_generation_target') | float(25) %}
-
-          Status: {% if total >= target %}TARGET MET - Excellent!{% elif total >= target * 0.8 %}NEAR TARGET - Good{% else %}BELOW TARGET - Check system{% endif %}
-
-
-          ENERGY METRICS
-
-          --------
 
           Battery Charged: {{ states('sensor.deyeinvertermaster_summary_day_battery_charge') | float(0) | round(2) }} kWh
 
-          Load Consumption: {{ states('sensor.deyeinvertermaster_summary_day_load') | float(0) | round(2) }} kWh
-
           Grid Export: {{ states('sensor.deyeinvertermaster_summary_day_grid_export_sell') | float(0) | round(2) }} kWh
 
-          Grid Import: {{ states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0) | round(2) }} kWh
 
-
-          STRING BALANCE
-
-          --------
-
-          {% set pv1 = states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) %}
-
-          {% set pv2 = states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) %}
-
-          {% set diff = (pv1 - pv2) | abs %}
-
-          Difference: {{ diff | round(2) }} kWh
-
-          {% if diff < (pv1 + pv2) / 2 * 0.1 %}
-
-          Status: Balanced - Both strings performing equally
-
-          {% else %}
-
-          Status: Imbalance detected - Check for shading or issues
-
-          {% endif %}
-
-
-          ================================================================================
-
-          Home Assistant System: http://192.168.1.30:8123
-
-          Report generated: {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
-
-          ================================================================================
-
-
-          This is an automated report from your Home Assistant solar monitoring system.
+          System: http://192.168.1.30:8123
     
-    # Log the report
     - service: system_log.write
       data:
         message: >-
-          Daily solar production report sent via Telegram and Email. Total: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
+          Solar report sent. Total: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
         level: info
   
   mode: single
 
 #-----------------------------------------------------------------------------
-# WEEKLY SOLAR PRODUCTION SUMMARY - MONDAYS 09:00
+# WEEKLY SUMMARY - MONDAYS 09:00
 #-----------------------------------------------------------------------------
 - id: weekly_solar_production_summary
-  alias: 'Solar: Weekly Production Summary'
+  alias: 'Solar: Weekly Summary'
   description: 'Weekly solar production statistics'
   
   trigger:
@@ -199,55 +117,35 @@
           📊 *WEEKLY SOLAR SUMMARY*
 
 
-          📅 Week Ending: {{ now().strftime('%d %B %Y') }}
+          📅 {{ now().strftime('%d %B %Y') }}
 
 
-          *TOTAL PRODUCTION*
+          *PRODUCTION*
 
-          ☀️ Total PV1: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
+          ☀️ PV1: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
 
-          ☀️ Total PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
+          ☀️ PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
 
-          ⚡ Combined: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
+          ⚡ Total: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
 
 
-          *DAILY AVERAGE*
+          *AVERAGE*
 
-          📈 Average: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 7) | round(2) }} kWh/day
+          📈 Daily: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 7) | round(2) }} kWh/day
 
           🎯 Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh/day
 
 
-          Have a great week ahead!
-
-
-          📅 {{ now().strftime('%A, %d %B %Y') }}
+          Have a great week!
     
         mode: single
 
-    - service: notify.email_notification
-      data:
-        title: "📊 Weekly Solar Production Summary"
-        message: >-
-          WEEKLY SOLAR PRODUCTION SUMMARY
-          
-          Week Ending: {{ now().strftime('%d %B %Y') }}
-          
-          Total PV1: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
-          Total PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
-          Combined: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
-          
-          Daily Average: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 7) | round(2) }} kWh/day
-          Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh/day
-          
-          Have a great week ahead!
-
 #-----------------------------------------------------------------------------
-# HIGH PRODUCTION DAY CELEBRATION
+# HIGH PRODUCTION DAY
 #-----------------------------------------------------------------------------
 - id: solar_high_production_celebration
   alias: 'Solar: High Production Day'
-  description: 'Celebrate when production exceeds target by 20%'
+  description: 'Celebrate high production days'
   
   trigger:
     - platform: time
@@ -269,10 +167,10 @@
           🎉 *EXCEPTIONAL SOLAR DAY!*
 
 
-          🏆 Your solar system exceeded expectations today!
+          🏆 Outstanding performance today!
 
 
-          *TODAY'S PRODUCTION*
+          *PRODUCTION*
 
           • PV1: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
 
@@ -288,35 +186,16 @@
           • Achievement: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) / states('input_number.solar_generation_target') | float(25) * 100) | round(1) }}%
 
 
-          Keep up the excellent work!
-
-
-          📅 {{ now().strftime('%A, %d %B %Y') }}
+          Keep it up!
     
         mode: single
 
-    - service: notify.email_notification
-      data:
-        title: "📊 Monthly Solar Production Report - {{ (now() - timedelta(days=1)).strftime('%B %Y') }}"
-        message: >-
-          MONTHLY SOLAR PRODUCTION REPORT
-          
-          Month: {{ (now() - timedelta(days=1)).strftime('%B %Y') }}
-          
-          Total Generated: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
-          PV1: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
-          PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
-          
-          Daily Average: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 30) | round(2) }} kWh/day
-          
-          Financial Value: ZAR {{ ((states('sensor.deyeinvertermaster_summary_to
-
 #-----------------------------------------------------------------------------
-# LOW PRODUCTION DAY ALERT
+# LOW PRODUCTION ALERT
 #-----------------------------------------------------------------------------
 - id: solar_low_production_alert
   alias: 'Solar: Low Production Alert'
-  description: 'Alert when production is below 50% of target'
+  description: 'Alert on low production days'
   
   trigger:
     - platform: time
@@ -338,10 +217,10 @@
           ⚠️ *LOW SOLAR PRODUCTION*
 
 
-          Production is significantly below normal.
+          Production below normal today.
 
 
-          *TODAY'S PRODUCTION*
+          *TODAY*
 
           • PV1: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
 
@@ -359,28 +238,19 @@
 
           *WEATHER*
 
-          🌥️ Cloud Coverage: {{ states('sensor.cloud_coverage') }}%
+          Cloud Coverage: {{ states('sensor.cloud_coverage') }}%
 
 
-          *RECOMMENDED ACTIONS*
-
-          1. Check for panel obstructions
-
-          2. Verify inverter operation
-
-          3. Monitor tomorrow's production
-
-
-          📅 {{ now().strftime('%A, %d %B %Y') }}
+          Check system tomorrow.
     
         mode: single
 
 #-----------------------------------------------------------------------------
-# PV STRING IMBALANCE ALERT
+# STRING IMBALANCE
 #-----------------------------------------------------------------------------
 - id: solar_pv_string_imbalance
-  alias: 'Solar: PV String Imbalance'
-  description: 'Alert when PV strings differ by more than 20%'
+  alias: 'Solar: String Imbalance'
+  description: 'Alert on PV string imbalance'
   
   trigger:
     - platform: time
@@ -404,53 +274,40 @@
           ⚠️ *PV STRING IMBALANCE*
 
 
-          Significant difference between strings detected.
+          String production difference detected.
 
 
-          *STRING PRODUCTION*
+          *STRINGS*
 
           🔆 PV1: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
 
           🔆 PV2: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
 
 
-          *ANALYSIS*
+          *DIFFERENCE*
 
-          • Difference: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) - states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | abs | round(2) }} kWh
-
-
-          *POSSIBLE CAUSES*
-
-          1. Partial shading on one string
-
-          2. Panel soiling or dirt
-
-          3. Wiring or connection issue
-
-          4. Panel degradation
+          {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) - states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | abs | round(2) }} kWh
 
 
-          *RECOMMENDED ACTIONS*
+          *CHECK FOR*
 
-          ✅ Inspect both PV strings
+          1. Shading on one string
 
-          ✅ Check for shading
+          2. Panel soiling
 
-          ✅ Clean panels if needed
-
-          ✅ Monitor for several days
+          3. Connection issues
 
 
-          📅 {{ now().strftime('%A, %d %B %Y') }}
+          Monitor for several days.
     
         mode: single
 
 #-----------------------------------------------------------------------------
-# MONTHLY PRODUCTION SUMMARY
+# MONTHLY SUMMARY
 #-----------------------------------------------------------------------------
 - id: solar_monthly_summary
   alias: 'Solar: Monthly Summary'
-  description: 'Monthly production report on 1st of month'
+  description: 'Monthly production report'
   
   trigger:
     - platform: time
@@ -469,10 +326,10 @@
           📊 *MONTHLY SOLAR REPORT*
 
 
-          📅 {{ (now() - timedelta(days=1)).strftime('%B %Y') }}
+          📅 {{ now().strftime('%B %Y') }}
 
 
-          *TOTAL PRODUCTION*
+          *TOTAL*
 
           ☀️ Generated: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
 
@@ -481,22 +338,46 @@
           • PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
 
 
-          *DAILY AVERAGE*
+          *AVERAGE*
 
-          📈 Average: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 30) | round(2) }} kWh/day
+          📈 Daily: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 30) | round(2) }} kWh/day
 
           🎯 Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh/day
 
 
-          *FINANCIAL*
+          *VALUE*
 
-          💰 Value: ZAR {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) * 2.50) | round(2) }}
-
-
-          Looking forward to another productive month!
+          💰 ZAR {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) * 2.50) | round(2) }}
 
 
-          📅 {{ now().strftime('%A, %d %B %Y') }}
+          Great month!
+    
+    - service: notify.email_notification
+      data:
+        title: >-
+          Monthly Solar Report - {{ now().strftime('%B %Y') }}
+        message: >-
+          MONTHLY SOLAR PRODUCTION REPORT
+
+          Month: {{ now().strftime('%B %Y') }}
+
+
+          Total Generated: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
+
+          PV1: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
+
+          PV2: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
+
+
+          Daily Average: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 30) | round(2) }} kWh/day
+
+          Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh/day
+
+
+          Financial Value: ZAR {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) * 2.50) | round(2) }}
+
+
+          System: http://192.168.1.30:8123
     
         mode: single
 
