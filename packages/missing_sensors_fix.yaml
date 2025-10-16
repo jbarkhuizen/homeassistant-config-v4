@@ -2,6 +2,7 @@
 # MISSING SENSORS FIX PACKAGE
 # File: packages/missing_sensors_fix.yaml
 # Created: 2025-10-15
+# Updated: 2025-10-15 - Fixed systemmonitor configuration
 # Purpose: Create and configure all missing sensors referenced in automations
 #===============================================================================
 
@@ -21,50 +22,6 @@ input_select:
     icon: mdi:solar-power
 
 #===============================================================================
-# SYSTEM MONITOR INTEGRATION - CPU, Memory, Disk
-#===============================================================================
-# Enable System Monitor for CPU, Memory, and Disk monitoring
-sensor:
-  # System Monitor Platform
-  - platform: systemmonitor
-    resources:
-      - type: disk_use_percent
-        arg: /
-      - type: disk_use
-        arg: /
-      - type: disk_free
-        arg: /
-      - type: memory_use_percent
-      - type: memory_use
-      - type: memory_free
-      - type: swap_use_percent
-      - type: swap_use
-      - type: swap_free
-      - type: load_1m
-      - type: load_5m
-      - type: load_15m
-      - type: processor_use
-      - type: processor_temperature
-      - type: last_boot
-      - type: throughput_network_in
-        arg: eth0
-      - type: throughput_network_out
-        arg: eth0
-
-#===============================================================================
-# WEATHER INTEGRATION REPLACEMENT
-#===============================================================================
-# Replace OpenWeatherMap with built-in Met.no weather integration
-# This provides cloud_coverage sensor without requiring API key
-
-# OPTION 1: Met.no Weather (Recommended - No API Key Required)
-weather:
-  - platform: met
-    name: Home Weather
-
-# The Met.no integration will create: sensor.home_weather_cloud_coverage
-
-#===============================================================================
 # TEMPLATE SENSORS - Weather & System Fallbacks
 #===============================================================================
 template:
@@ -75,7 +32,7 @@ template:
       - name: "Cloud Coverage"
         unique_id: cloud_coverage_unified
         unit_of_measurement: "%"
-        device_class: "humidity"  # Closest match for percentage
+        device_class: "humidity"
         state: >
           {% if states('sensor.home_weather_cloud_coverage') not in ['unknown', 'unavailable'] %}
             {{ states('sensor.home_weather_cloud_coverage') }}
@@ -118,7 +75,7 @@ template:
           last_updated: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
 
       #-------------------------------------------------------------------------
-      # CPU Percentage (using Supervisor sensor)
+      # CPU Percentage Unified Sensor
       #-------------------------------------------------------------------------
       - name: "CPU Usage Percent"
         unique_id: cpu_usage_percent_unified
@@ -243,6 +200,7 @@ script:
             - Memory Use %: {{ states('sensor.memory_use_percent') }}
             - Disk Use %: {{ states('sensor.disk_use_percent') }}
             - CPU Use %: {{ states('sensor.cpu_usage_percent') }}
+            - Processor Use: {{ states('sensor.processor_use') }}
             - Inverter Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
           level: info
       
@@ -256,8 +214,14 @@ script:
             ⚡ **Energy Mode:** {{ states('input_select.energy_mode') }}
             🧠 **Memory Usage:** {{ states('sensor.memory_use_percent') }}%
             💾 **Disk Usage:** {{ states('sensor.disk_use_percent') }}%
-            🖥️ **CPU Usage:** {{ states('sensor.cpu_usage_percent') }}%
+            🖥️ **CPU Usage (System):** {{ states('sensor.processor_use') }}%
+            🖥️ **CPU Usage (Unified):** {{ states('sensor.cpu_usage_percent') }}%
             🔋 **Inverter Mode:** {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            
+            **System Info:**
+            📈 Load (1m): {{ states('sensor.load_1m') }}
+            🌡️ CPU Temp: {{ states('sensor.processor_temperature') }}°C
+            🔄 Last Boot: {{ states('sensor.last_boot') }}
             
             Status: All sensors operational
           notification_id: sensor_status_check

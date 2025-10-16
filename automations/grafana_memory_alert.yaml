@@ -1,0 +1,16 @@
+# 1. Automation: Alert if Grafana memory usage is high
+
+- alias: "Grafana Memory High Alert"
+  description: "Sends a persistent notification if Grafana memory usage exceeds 80%."
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.grafana_memory_percent
+      above: 80
+  action:
+    - service: notify.persistent_notification
+      data:
+        title: "Grafana Memory Usage High"
+        message: >
+          Grafana memory usage is above 80%. Please check your Grafana server for potential performance issues
+          that may impact your energy monitoring dashboards.
+  mode: single

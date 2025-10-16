@@ -1,19 +1,432 @@
-- alias: "Daily System Update Email"
+#===============================================================================
+# SYSTEM UPDATE REPORTING AUTOMATION
+# File: automations/update_report_automation.yaml
+# Created: 2025-10-15
+# Updated: 2025-10-15 - Fixed template formatting
+# Description: Daily update status reports via Email and Telegram at 09:15
+# Triggers: Daily at 09:15:00
+#===============================================================================
+
+#-----------------------------------------------------------------------------
+# DAILY UPDATE REPORT - TELEGRAM NOTIFICATION
+#-----------------------------------------------------------------------------
+- id: daily_update_status_report_telegram
+  alias: 'System: Daily Update Status Report at 09:15 (Telegram)'
+  description: 'Send daily report of available updates via Telegram at 09:15'
+  
   trigger:
     - platform: time
       at: "09:15:00"
+  
+  condition: []
+  
   action:
-    - service: notify.email_notification
+    # Wait for update sensors to stabilize
+    - delay:
+        seconds: 5
+    
+    # Send Telegram Report
+    - service: telegram_bot.send_message
       data:
-        title: "Daily Home Assistant Update Report"
-        message: >
-          Updates and Upgrades Summary for {{ now().strftime('%Y-%m-%d') }}:
+        target: !secret telegram_chat_id
+        parse_mode: markdown
+        message: >-
+          📊 *DAILY UPDATE STATUS REPORT*
 
-          {{ states('sensor.home_assistant_updates_summary') }}
 
-          Details:
-          {% for attr, value in state_attr('sensor.home_assistant_updates_summary', 'detailed_status').items() %}
-            - {{ attr }}: {{ value }}
+          **System Status:**
+
+          {{ state_attr('sensor.home_assistant_updates_summary', 'friendly_summary') | default('Checking updates...') }}
+
+
+          {% if state_attr('sensor.home_assistant_updates_summary', 'total_updates') | int(0) > 0 %}
+
+          **Pending Updates ({{ state_attr('sensor.home_assistant_updates_summary', 'total_updates') }}):**
+
+          {% for update in state_attr('sensor.home_assistant_updates_summary', 'updates_list') | default([]) %}
+
+          • {{ update }}
+
           {% endfor %}
 
-          Tip: Visit your Home Assistant dashboard for more info.
+
+          {% if state_attr('sensor.home_assistant_updates_summary', 'has_critical_updates') %}
+
+          ⚠️ *CRITICAL UPDATES AVAILABLE* - Please update soon
+
+
+          **Critical Components:**
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% for component, details in detailed.items() %}
+
+          {% if details.update_available and component in ['Home Assistant Core', 'Home Assistant Supervisor', 'Home Assistant OS'] %}
+
+          • {{ component }}: {{ details.current_version }} → {{ details.latest_version }}
+
+          {% endif %}
+
+          {% endfor %}
+
+          {% endif %}
+
+
+          **Add-on Updates:** {{ state_attr('sensor.home_assistant_updates_summary', 'addon_updates') | default(0) }}
+
+          {% else %}
+
+          ✅ *All systems are up to date!*
+
+
+          **Current Versions:**
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% if 'Home Assistant Core' in detailed %}
+
+          • Core: {{ detailed['Home Assistant Core'].current_version }}
+
+          {% endif %}
+
+          {% if 'Home Assistant Supervisor' in detailed %}
+
+          • Supervisor: {{ detailed['Home Assistant Supervisor'].current_version }}
+
+          {% endif %}
+
+          {% if 'Home Assistant OS' in detailed %}
+
+          • OS: {{ detailed['Home Assistant OS'].current_version }}
+
+          {% endif %}
+
+          {% endif %}
+
+
+          🕐 Checked: {{ state_attr('sensor.home_assistant_updates_summary', 'last_checked') | default(now().strftime('%Y-%m-%d %H:%M:%S')) }}
+
+          🌐 IP: 192.168.1.30:8123
+
+          📅 {{ now().strftime('%A, %d %B %Y at %H:%M') }}
+    
+    # Log the report
+    - service: system_log.write
+      data:
+        message: >-
+          Daily update report sent - Total updates: {{ state_attr('sensor.home_assistant_updates_summary', 'total_updates') | default(0) }}
+        level: info
+  
+  mode: single
+
+#-----------------------------------------------------------------------------
+# DAILY UPDATE REPORT - EMAIL NOTIFICATION
+#-----------------------------------------------------------------------------
+- id: daily_update_status_report_email
+  alias: 'System: Daily Update Status Report at 09:15 (Email)'
+  description: 'Send daily report of available updates via Email at 09:15'
+  
+  trigger:
+    - platform: time
+      at: "09:15:00"
+  
+  condition:
+    # Only send email if updates are available or it's Monday (weekly summary)
+    - condition: or
+      conditions:
+        - condition: template
+          value_template: "{{ state_attr('sensor.home_assistant_updates_summary', 'total_updates') | int(0) > 0 }}"
+        - condition: time
+          weekday:
+            - mon
+  
+  action:
+    # Wait for update sensors to stabilize
+    - delay:
+        seconds: 10
+    
+    # Send Email Report
+    - service: notify.email_notification
+      data:
+        title: "📊 Daily Home Assistant Update Report - {{ now().strftime('%Y-%m-%d') }}"
+        message: >-
+          HOME ASSISTANT UPDATE REPORT
+
+          Generated: {{ now().strftime('%A, %d %B %Y at %H:%M:%S') }}
+
+          ================================================================================
+
+
+          SUMMARY
+
+          --------
+
+          {{ state_attr('sensor.home_assistant_updates_summary', 'friendly_summary') | default('Checking updates...') }}
+
+
+          Total Updates Available: {{ state_attr('sensor.home_assistant_updates_summary', 'total_updates') | default(0) }}
+
+
+          {% if state_attr('sensor.home_assistant_updates_summary', 'total_updates') | int(0) > 0 %}
+
+          AVAILABLE UPDATES
+
+          -----------------
+
+          {% for update in state_attr('sensor.home_assistant_updates_summary', 'updates_list') | default([]) %}
+
+          {{ loop.index }}. {{ update }}
+
+          {% endfor %}
+
+
+          DETAILED STATUS
+
+          ---------------
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% for component, details in detailed.items() %}
+
+          {% if details.update_available %}
+
+
+          {{ component }}:
+
+            Status: UPDATE AVAILABLE
+
+            Current Version: {{ details.current_version }}
+
+            Latest Version: {{ details.latest_version }}
+
+            {% if 'entity_id' in details %}Entity: {{ details.entity_id }}{% endif %}
+
+          {% endif %}
+
+          {% endfor %}
+
+
+          {% if state_attr('sensor.home_assistant_updates_summary', 'has_critical_updates') %}
+
+          ⚠️ CRITICAL UPDATES AVAILABLE ⚠️
+
+          ---------------------------------
+
+          Critical system components need updating. Please update as soon as possible:
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% for component, details in detailed.items() %}
+
+          {% if details.update_available and component in ['Home Assistant Core', 'Home Assistant Supervisor', 'Home Assistant OS'] %}
+
+          - {{ component }}: {{ details.current_version }} → {{ details.latest_version }}
+
+          {% endif %}
+
+          {% endfor %}
+
+          {% endif %}
+
+
+          ADD-ON UPDATES
+
+          --------------
+
+          Add-ons requiring updates: {{ state_attr('sensor.home_assistant_updates_summary', 'addon_updates') | default(0) }}
+
+
+          {% else %}
+
+          ================================================================================
+
+          ✅ ALL SYSTEMS UP TO DATE
+
+          ================================================================================
+
+
+          Your Home Assistant installation is fully up to date!
+
+
+          CURRENT VERSIONS
+
+          ----------------
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% if 'Home Assistant Core' in detailed %}
+
+          Core: {{ detailed['Home Assistant Core'].current_version }}
+
+          {% endif %}
+
+          {% if 'Home Assistant Supervisor' in detailed %}
+
+          Supervisor: {{ detailed['Home Assistant Supervisor'].current_version }}
+
+          {% endif %}
+
+          {% if 'Home Assistant OS' in detailed %}
+
+          Operating System: {{ detailed['Home Assistant OS'].current_version }}
+
+          {% endif %}
+
+
+          {% endif %}
+
+
+          ================================================================================
+
+          SYSTEM INFORMATION
+
+          ================================================================================
+
+          Last Check: {{ state_attr('sensor.home_assistant_updates_summary', 'last_checked') | default(now().strftime('%Y-%m-%d %H:%M:%S')) }}
+
+          Home Assistant URL: http://192.168.1.30:8123
+
+          Update Dashboard: http://192.168.1.30:8123/config/updates
+
+
+          To update your system:
+
+          1. Navigate to Settings > System > Updates
+
+          2. Review each available update
+
+          3. Click "UPDATE" for components you want to update
+
+          4. For critical updates, prioritize Core, Supervisor, and OS
+
+
+          ================================================================================
+
+
+          This is an automated report from your Home Assistant system.
+
+          For questions or concerns, check the system logs or documentation.
+    
+    # Log the email sent
+    - service: system_log.write
+      data:
+        message: >-
+          Daily update email report sent - Updates available: {{ state_attr('sensor.home_assistant_updates_summary', 'total_updates') | default(0) }}
+        level: info
+  
+  mode: single
+
+#-----------------------------------------------------------------------------
+# CRITICAL UPDATE ALERT - IMMEDIATE NOTIFICATION
+#-----------------------------------------------------------------------------
+- id: critical_update_immediate_alert
+  alias: 'System: Critical Update Alert (Immediate)'
+  description: 'Send immediate alert when critical updates become available'
+  
+  trigger:
+    - platform: state
+      entity_id: sensor.home_assistant_updates_summary
+      attribute: has_critical_updates
+      to: true
+  
+  condition:
+    # Only trigger if has_critical_updates changed from false to true
+    - condition: template
+      value_template: "{{ trigger.from_state.attributes.has_critical_updates == false }}"
+  
+  action:
+    # Send Urgent Telegram Alert
+    - service: telegram_bot.send_message
+      data:
+        target: !secret telegram_chat_id
+        parse_mode: markdown
+        message: >-
+          🚨 *CRITICAL UPDATE AVAILABLE*
+
+
+          ⚠️ *IMPORTANT SYSTEM UPDATES DETECTED*
+
+
+          Critical Home Assistant components have updates available:
+
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% for component, details in detailed.items() %}
+
+          {% if details.update_available and component in ['Home Assistant Core', 'Home Assistant Supervisor', 'Home Assistant OS'] %}
+
+          *{{ component }}*
+
+          Current: `{{ details.current_version }}`
+
+          Latest: `{{ details.latest_version }}`
+
+
+          {% endif %}
+
+          {% endfor %}
+
+
+          *Recommended Action:*
+
+          Update these components as soon as convenient
+
+
+          📱 Update URL: http://192.168.1.30:8123/config/updates
+
+          📅 {{ now().strftime('%A, %d %B %Y at %H:%M') }}
+    
+    # Send Email Alert
+    - service: notify.email_notification
+      data:
+        title: "🚨 CRITICAL: Home Assistant Updates Available"
+        message: >-
+          CRITICAL UPDATE ALERT
+
+          =====================
+
+
+          Important Home Assistant system components have updates available.
+
+
+          CRITICAL UPDATES:
+
+          {% set detailed = state_attr('sensor.home_assistant_updates_summary', 'detailed_status') | default({}) %}
+
+          {% for component, details in detailed.items() %}
+
+          {% if details.update_available and component in ['Home Assistant Core', 'Home Assistant Supervisor', 'Home Assistant OS'] %}
+
+
+          {{ component }}:
+
+            Current: {{ details.current_version }}
+
+            Latest: {{ details.latest_version }}
+
+          {% endif %}
+
+          {% endfor %}
+
+
+          RECOMMENDED ACTION:
+
+          Please update these components at your earliest convenience.
+
+
+          Update URL: http://192.168.1.30:8123/config/updates
+
+          Time: {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
+    
+    # Log critical alert
+    - service: system_log.write
+      data:
+        message: "Critical update alert sent - Core/Supervisor/OS updates available"
+        level: warning
+  
+  mode: single
+
+#===============================================================================
+# END OF UPDATE REPORT AUTOMATION
+#===============================================================================

@@ -1,0 +1,92 @@
+#===============================================================================
+# SOLAR PRODUCTION MONITORING SENSORS
+#===============================================================================
+template:
+  - sensor:
+      #-------------------------------------------------------------------------
+      # Daily Total Solar Production
+      #-------------------------------------------------------------------------
+      - name: "Daily Total Solar Production"
+        unique_id: daily_total_solar_production
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: >
+          {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + 
+              states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }}
+        icon: mdi:solar-power
+        attributes:
+          pv1_today: "{{ states('sensor.deyeinvertermaster_summary_day_pv1') }}"
+          pv2_today: "{{ states('sensor.deyeinvertermaster_summary_day_pv2') }}"
+          target: "{{ states('input_number.solar_generation_target') }}"
+          achievement_percentage: >
+            {% set total = states('sensor.daily_total_solar_production') | float(0) %}
+            {% set target = states('input_number.solar_generation_target') | float(25) %}
+            {{ (total / target * 100) | round(1) if target > 0 else 0 }}
+          target_status: >
+            {% set total = states('sensor.daily_total_solar_production') | float(0) %}
+            {% set target = states('input_number.solar_generation_target') | float(25) %}
+            {% if total >= target %}
+              Target Met ✅
+            {% elif total >= target * 0.8 %}
+              Near Target 📍
+            {% else %}
+              Below Target ⚠️
+            {% endif %}
+
+      #-------------------------------------------------------------------------
+      # Lifetime Total Solar Production
+      #-------------------------------------------------------------------------
+      - name: "Lifetime Total Solar Production"
+        unique_id: lifetime_total_solar_production
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: >
+          {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + 
+              states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }}
+        icon: mdi:chart-line
+        attributes:
+          pv1_total: "{{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') }}"
+          pv2_total: "{{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') }}"
+          estimated_value_zar: >
+            {% set total = states('sensor.lifetime_total_solar_production') | float(0) %}
+            {% set rate = 2.50 %}
+            {{ (total * rate) | round(2) }}
+
+      #-------------------------------------------------------------------------
+      # PV String Balance
+      #-------------------------------------------------------------------------
+      - name: "PV String Balance"
+        unique_id: pv_string_balance
+        unit_of_measurement: "%"
+        state: >
+          {% set pv1 = states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) %}
+          {% set pv2 = states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) %}
+          {% set avg = (pv1 + pv2) / 2 %}
+          {% set diff = (pv1 - pv2) | abs %}
+          {% set variance = (diff / avg * 100) if avg > 0 else 0 %}
+          {{ variance | round(1) }}
+        icon: >
+          {% set variance = states('sensor.pv_string_balance') | float(0) %}
+          {% if variance < 10 %}
+            mdi:scale-balance
+          {% else %}
+            mdi:scale-unbalanced
+          {% endif %}
+        attributes:
+          status: >
+            {% set variance = states('sensor.pv_string_balance') | float(0) %}
+            {% if variance < 10 %}
+              Balanced ✅
+            {% elif variance < 20 %}
+              Minor Imbalance ⚠️
+            {% else %}
+              Significant Imbalance 🔴
+            {% endif %}
+          pv1_production: "{{ states('sensor.deyeinvertermaster_summary_day_pv1') }}"
+          pv2_production: "{{ states('sensor.deyeinvertermaster_summary_day_pv2') }}"
+          difference_kwh: >
+            {% set pv1 = states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) %}
+            {% set pv2 = states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) %}
+            {{ (pv1 - pv2) | abs | round(2) }}

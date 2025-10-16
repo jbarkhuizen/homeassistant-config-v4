@@ -29,3 +29,32 @@
         parse_mode: markdown
   
   mode: single
+
+- id: test_telegram_simple
+  alias: 'Test: Simple Telegram Message'
+  description: 'Test telegram with simple template'
+  
+  trigger:
+    - platform: time
+      at: "09:16:00"  # Different time for testing
+  
+  action:
+    - service: telegram_bot.send_message
+      data:
+        target: !secret telegram_chat_id
+        parse_mode: markdown
+        message: >-
+          🧪 *TEST MESSAGE*
+
+          
+          This is a test of the Telegram notification system.
+
+          
+          **Time:** {{ now().strftime('%H:%M:%S') }}
+
+          **Date:** {{ now().strftime('%Y-%m-%d') }}
+
+          
+          ✅ If you see this, Telegram is working correctly!
+  
+  mode: single

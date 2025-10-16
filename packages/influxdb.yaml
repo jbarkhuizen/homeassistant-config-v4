@@ -14,6 +14,16 @@ influxdb:
   max_retries: 3
   default_measurement: state
   
+  exclude:
+    entity_globs:
+      - sensor.*_uptime
+      - sensor.*_last_boot
+      - sensor.date*
+      - sensor.time*
+    entities:
+      - sun.sun
+      - sensor.last_boot
+      - sensor.uptime
   include:
     domains:
       - sensor
