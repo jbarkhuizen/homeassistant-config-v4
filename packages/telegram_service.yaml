@@ -5,7 +5,7 @@
 #    allowed_chat_ids:
 #      - !secret telegram_chat_id
 
-notify:
-  - name: telegram
-    platform: telegram
-    chat_id: !secret telegram_chat_id
+#notify:
+#  - name: telegram
+#    platform: telegram
+#    chat_id: !secret telegram_chat_id
