@@ -1,0 +1,747 @@
+#===============================================================================
+# BATTERY MONITORING SYSTEM
+# File: packages/battery_monitoring.yaml
+# Created: 2025-01-17
+# Description: Comprehensive battery monitoring for all SONOFF and TUYA devices
+#              with alerts, notifications, and weekly status reports
+#===============================================================================
+
+#===============================================================================
+# INPUT NUMBERS - Battery Threshold Configuration
+#===============================================================================
+input_number:
+  battery_critical_threshold:
+    name: Battery Critical Level
+    min: 5
+    max: 25
+    step: 1
+    initial: 15
+    unit_of_measurement: "%"
+    icon: mdi:battery-alert
+
+  battery_low_threshold:
+    name: Battery Low Level
+    min: 15
+    max: 40
+    step: 1
+    initial: 25
+    unit_of_measurement: "%"
+    icon: mdi:battery-30
+
+  battery_warning_threshold:
+    name: Battery Warning Level
+    min: 25
+    max: 50
+    step: 1
+    initial: 35
+    unit_of_measurement: "%"
+    icon: mdi:battery-50
+
+#===============================================================================
+# INPUT BOOLEANS - Control Flags
+#===============================================================================
+input_boolean:
+  battery_alerts_enabled:
+    name: Enable Battery Alerts
+    initial: true
+    icon: mdi:bell-ring
+
+  battery_weekly_report_enabled:
+    name: Enable Weekly Battery Report
+    initial: true
+    icon: mdi:calendar-check
+
+#===============================================================================
+# TEMPLATE SENSORS - Battery Monitoring
+#===============================================================================
+template:
+  - sensor:
+      #-------------------------------------------------------------------------
+      # Count of Low Battery Devices
+      #-------------------------------------------------------------------------
+      - name: "Battery Devices Low Count"
+        unique_id: battery_devices_low_count
+        state: >
+          {% set ns = namespace(count=0) %}
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set battery_level = state.state | float(100) %}
+              {% if battery_level < states('input_number.battery_low_threshold') | float %}
+                {% set ns.count = ns.count + 1 %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.count }}
+        unit_of_measurement: "devices"
+        icon: mdi:battery-alert
+        attributes:
+          devices: >
+            {% set ns = namespace(devices=[]) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(100) %}
+                {% if battery_level < states('input_number.battery_low_threshold') | float %}
+                  {% set ns.devices = ns.devices + [{
+                    'name': state.name,
+                    'entity_id': state.entity_id,
+                    'battery': battery_level,
+                    'last_updated': state.last_updated.strftime('%Y-%m-%d %H:%M')
+                  }] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.devices }}
+
+      #-------------------------------------------------------------------------
+      # Count of Critical Battery Devices
+      #-------------------------------------------------------------------------
+      - name: "Battery Devices Critical Count"
+        unique_id: battery_devices_critical_count
+        state: >
+          {% set ns = namespace(count=0) %}
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set battery_level = state.state | float(100) %}
+              {% if battery_level < states('input_number.battery_critical_threshold') | float %}
+                {% set ns.count = ns.count + 1 %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.count }}
+        unit_of_measurement: "devices"
+        icon: mdi:battery-alert-variant-outline
+        attributes:
+          devices: >
+            {% set ns = namespace(devices=[]) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(100) %}
+                {% if battery_level < states('input_number.battery_critical_threshold') | float %}
+                  {% set ns.devices = ns.devices + [{
+                    'name': state.name,
+                    'entity_id': state.entity_id,
+                    'battery': battery_level,
+                    'last_updated': state.last_updated.strftime('%Y-%m-%d %H:%M')
+                  }] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.devices }}
+
+      #-------------------------------------------------------------------------
+      # Total Battery Devices Count
+      #-------------------------------------------------------------------------
+      - name: "Battery Devices Total Count"
+        unique_id: battery_devices_total_count
+        state: >
+          {% set ns = namespace(count=0) %}
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set ns.count = ns.count + 1 %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.count }}
+        unit_of_measurement: "devices"
+        icon: mdi:battery
+
+      #-------------------------------------------------------------------------
+      # Battery Health Score (Overall System)
+      #-------------------------------------------------------------------------
+      - name: "Battery System Health Score"
+        unique_id: battery_system_health_score
+        state: >
+          {% set ns = namespace(total=0, count=0) %}
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set battery_level = state.state | float(0) %}
+              {% set ns.total = ns.total + battery_level %}
+              {% set ns.count = ns.count + 1 %}
+            {% endif %}
+          {% endfor %}
+          {% if ns.count > 0 %}
+            {{ (ns.total / ns.count) | round(1) }}
+          {% else %}
+            100
+          {% endif %}
+        unit_of_measurement: "%"
+        icon: >
+          {% set score = states('sensor.battery_system_health_score') | float(100) %}
+          {% if score >= 75 %}
+            mdi:battery-heart
+          {% elif score >= 50 %}
+            mdi:battery-medium
+          {% elif score >= 25 %}
+            mdi:battery-low
+          {% else %}
+            mdi:battery-alert
+          {% endif %}
+        attributes:
+          rating: >
+            {% set score = states('sensor.battery_system_health_score') | float(100) %}
+            {% if score >= 80 %}
+              Excellent
+            {% elif score >= 60 %}
+              Good
+            {% elif score >= 40 %}
+              Fair
+            {% elif score >= 20 %}
+              Poor
+            {% else %}
+              Critical
+            {% endif %}
+          total_devices: "{{ states('sensor.battery_devices_total_count') }}"
+          low_battery: "{{ states('sensor.battery_devices_low_count') }}"
+          critical_battery: "{{ states('sensor.battery_devices_critical_count') }}"
+
+      #-------------------------------------------------------------------------
+      # Next Device Needing Battery Replacement
+      #-------------------------------------------------------------------------
+      - name: "Battery Next Replacement Needed"
+        unique_id: battery_next_replacement_needed
+        state: >
+          {% set ns = namespace(lowest_battery=100, device_name='None') %}
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set battery_level = state.state | float(100) %}
+              {% if battery_level < ns.lowest_battery %}
+                {% set ns.lowest_battery = battery_level %}
+                {% set ns.device_name = state.name | replace(' Battery', '') %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.device_name }}
+        icon: mdi:battery-sync
+        attributes:
+          battery_level: >
+            {% set ns = namespace(lowest_battery=100) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(100) %}
+                {% if battery_level < ns.lowest_battery %}
+                  {% set ns.lowest_battery = battery_level %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.lowest_battery | round(1) }}
+
+  - binary_sensor:
+      #-------------------------------------------------------------------------
+      # Battery Alert Status
+      #-------------------------------------------------------------------------
+      - name: "Battery Alert Active"
+        unique_id: battery_alert_active
+        state: >
+          {{ states('sensor.battery_devices_critical_count') | int(0) > 0 }}
+        device_class: problem
+        icon: >
+          {% if is_state('binary_sensor.battery_alert_active', 'on') %}
+            mdi:bell-alert
+          {% else %}
+            mdi:bell-check
+          {% endif %}
+
+#===============================================================================
+# AUTOMATIONS - Battery Monitoring
+#===============================================================================
+automation:
+  #-----------------------------------------------------------------------------
+  # LOW BATTERY ALERT - Individual Device
+  #-----------------------------------------------------------------------------
+  - id: battery_low_battery_alert
+    alias: 'Battery Monitor: Low Battery Alert'
+    description: 'Send alert when any device battery drops below low threshold'
+    
+    trigger:
+      # Trigger when any battery sensor goes below low threshold
+      - platform: template
+        value_template: >
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set battery_level = state.state | float(100) %}
+              {% if battery_level < states('input_number.battery_low_threshold') | float 
+                 and battery_level >= states('input_number.battery_critical_threshold') | float %}
+                {{ true }}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+    
+    condition:
+      - condition: state
+        entity_id: input_boolean.battery_alerts_enabled
+        state: 'on'
+    
+    action:
+      - repeat:
+          for_each: >
+            {% set ns = namespace(devices=[]) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(100) %}
+                {% if battery_level < states('input_number.battery_low_threshold') | float 
+                   and battery_level >= states('input_number.battery_critical_threshold') | float %}
+                  {% set ns.devices = ns.devices + [{
+                    'name': state.name,
+                    'entity_id': state.entity_id,
+                    'battery': battery_level
+                  }] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.devices }}
+          sequence:
+            # Send Telegram Alert
+            - service: telegram_bot.send_message
+              data:
+                config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
+                message: |
+                  🟡 *LOW BATTERY ALERT*
+                  
+                  ⚠️ *Device Battery Running Low*
+                  
+                  📱 *Device:* {{ repeat.item.name | replace(' Battery', '') }}
+                  🔋 *Battery Level:* {{ repeat.item.battery | round(1) }}%
+                  📊 *Threshold:* {{ states('input_number.battery_low_threshold') }}%
+                  
+                  💡 *Action Required:*
+                  • Order replacement battery
+                  • Plan battery replacement soon
+                  • Monitor device functionality
+                  
+                  🏠 System: 192.168.1.30:8123
+                  📅 {{ now().strftime('%A, %d %B %Y %H:%M') }}
+                parse_mode: markdown
+            
+            # Send Email Alert
+            - service: notify.email_notification
+              data:
+                title: '🟡 Low Battery Alert - {{ repeat.item.name | replace(" Battery", "") }}'
+                message: >
+                  LOW BATTERY ALERT
+                  
+                  Device: {{ repeat.item.name | replace(' Battery', '') }}
+                  Battery Level: {{ repeat.item.battery | round(1) }}%
+                  Low Threshold: {{ states('input_number.battery_low_threshold') }}%
+                  
+                  The battery level has dropped below the low threshold.
+                  
+                  ACTION REQUIRED:
+                  - Order replacement battery
+                  - Plan for battery replacement within the next few days
+                  - Continue monitoring device functionality
+                  
+                  Time: {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
+                  
+                  Home Assistant: http://192.168.1.30:8123
+            
+            # Log Event
+            - service: system_log.write
+              data:
+                message: "Low battery alert: {{ repeat.item.name }} at {{ repeat.item.battery | round(1) }}%"
+                level: warning
+    
+    mode: single
+
+  #-----------------------------------------------------------------------------
+  # CRITICAL BATTERY ALERT - Urgent Action Required
+  #-----------------------------------------------------------------------------
+  - id: battery_critical_battery_alert
+    alias: 'Battery Monitor: Critical Battery Alert'
+    description: 'Send urgent alert when battery drops below critical threshold'
+    
+    trigger:
+      - platform: template
+        value_template: >
+          {% for state in states.sensor 
+             | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery') %}
+            {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+              {% set battery_level = state.state | float(100) %}
+              {% if battery_level < states('input_number.battery_critical_threshold') | float %}
+                {{ true }}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+    
+    condition:
+      - condition: state
+        entity_id: input_boolean.battery_alerts_enabled
+        state: 'on'
+    
+    action:
+      - repeat:
+          for_each: >
+            {% set ns = namespace(devices=[]) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(100) %}
+                {% if battery_level < states('input_number.battery_critical_threshold') | float %}
+                  {% set ns.devices = ns.devices + [{
+                    'name': state.name,
+                    'entity_id': state.entity_id,
+                    'battery': battery_level
+                  }] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.devices }}
+          sequence:
+            # Send Urgent Telegram Alert
+            - service: telegram_bot.send_message
+              data:
+                config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
+                message: |
+                  🔴 *CRITICAL BATTERY ALERT*
+                  
+                  ⛔ *IMMEDIATE ACTION REQUIRED*
+                  
+                  📱 *Device:* {{ repeat.item.name | replace(' Battery', '') }}
+                  🔋 *Battery Level:* {{ repeat.item.battery | round(1) }}% ⚠️ CRITICAL
+                  📊 *Critical Threshold:* {{ states('input_number.battery_critical_threshold') }}%
+                  
+                  ⚡ *URGENT ACTIONS:*
+                  ⚠️ Replace battery IMMEDIATELY
+                  ⚠️ Device may stop functioning soon
+                  ⚠️ Potential for missed alerts/automations
+                  
+                  📦 *Replacement Priority:* HIGH
+                  
+                  🏠 System: 192.168.1.30:8123
+                  📅 {{ now().strftime('%A, %d %B %Y %H:%M') }}
+                parse_mode: markdown
+            
+            # Send Urgent Email
+            - service: notify.email_notification
+              data:
+                title: '🔴 CRITICAL - Battery Emergency: {{ repeat.item.name | replace(" Battery", "") }}'
+                message: >
+                  ⚠️⚠️⚠️ CRITICAL BATTERY ALERT ⚠️⚠️⚠️
+                  
+                  IMMEDIATE ACTION REQUIRED
+                  
+                  Device: {{ repeat.item.name | replace(' Battery', '') }}
+                  Battery Level: {{ repeat.item.battery | round(1) }}% - CRITICAL
+                  Critical Threshold: {{ states('input_number.battery_critical_threshold') }}%
+                  
+                  URGENT ACTIONS REQUIRED:
+                  1. Replace battery IMMEDIATELY
+                  2. Device may stop functioning at any moment
+                  3. Critical for system functionality
+                  4. Order/install replacement battery TODAY
+                  
+                  WARNING: Device failure imminent. This device may stop reporting
+                  or functioning correctly until battery is replaced.
+                  
+                  Time: {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
+                  
+                  Home Assistant: http://192.168.1.30:8123
+            
+            # Log Critical Event
+            - service: system_log.write
+              data:
+                message: "CRITICAL: Battery at {{ repeat.item.battery | round(1) }}% for {{ repeat.item.name }} - Immediate replacement required"
+                level: error
+    
+    mode: single
+
+  #-----------------------------------------------------------------------------
+  # WEEKLY BATTERY STATUS REPORT - Every Saturday at 09:00
+  #-----------------------------------------------------------------------------
+  - id: battery_weekly_status_report
+    alias: 'Battery Monitor: Weekly Status Report'
+    description: 'Comprehensive weekly battery status report every Saturday at 09:00'
+    
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    
+    condition:
+      - condition: time
+        weekday:
+          - sat
+      - condition: state
+        entity_id: input_boolean.battery_weekly_report_enabled
+        state: 'on'
+    
+    action:
+      # Generate battery device list
+      - variables:
+          battery_devices: >
+            {% set ns = namespace(devices=[]) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(0) %}
+                {% set status = 'Good' %}
+                {% if battery_level < states('input_number.battery_critical_threshold') | float %}
+                  {% set status = 'CRITICAL' %}
+                {% elif battery_level < states('input_number.battery_low_threshold') | float %}
+                  {% set status = 'Low' %}
+                {% elif battery_level < states('input_number.battery_warning_threshold') | float %}
+                  {% set status = 'Warning' %}
+                {% endif %}
+                {% set ns.devices = ns.devices + [{
+                  'name': state.name | replace(' Battery', ''),
+                  'battery': battery_level | round(1),
+                  'status': status,
+                  'entity_id': state.entity_id
+                }] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.devices | sort(attribute='battery') }}
+      
+      # Send Telegram Report with Table
+      - service: telegram_bot.send_message
+        data:
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
+          message: |
+            📊 *WEEKLY BATTERY STATUS REPORT*
+            
+            📅 *Report Date:* {{ now().strftime('%A, %d %B %Y') }}
+            ⏰ *Time:* 09:00
+            
+            📈 *Overall Statistics:*
+            🔋 Total Devices: {{ states('sensor.battery_devices_total_count') }}
+            💚 Health Score: {{ states('sensor.battery_system_health_score') }}% ({{ state_attr('sensor.battery_system_health_score', 'rating') }})
+            🟡 Low Battery: {{ states('sensor.battery_devices_low_count') }}
+            🔴 Critical: {{ states('sensor.battery_devices_critical_count') }}
+            
+            📋 *BATTERY STATUS TABLE:*
+            ```
+            ╔══════════════════════════╦═════════╦══════════╗
+            ║ Device                   ║ Battery ║ Status   ║
+            ╠══════════════════════════╬═════════╬══════════╣
+            {% for device in battery_devices %}
+            ║ {{ "%-24s" | format(device.name[:24]) }} ║ {{ "%6s%%" | format(device.battery) }} ║ {{ "%-8s" | format(device.status) }} ║
+            {% endfor %}
+            ╚══════════════════════════╩═════════╩══════════╝
+            ```
+            
+            {% if states('sensor.battery_devices_critical_count') | int > 0 %}
+            🔴 *CRITICAL DEVICES - IMMEDIATE ACTION:*
+            {% for device in state_attr('sensor.battery_devices_critical_count', 'devices') %}
+            • {{ device.name }}: {{ device.battery }}%
+            {% endfor %}
+            {% endif %}
+            
+            {% if states('sensor.battery_devices_low_count') | int > 0 %}
+            🟡 *LOW BATTERY DEVICES - ACTION NEEDED:*
+            {% for device in state_attr('sensor.battery_devices_low_count', 'devices') %}
+            • {{ device.name }}: {{ device.battery }}%
+            {% endfor %}
+            {% endif %}
+            
+            🎯 *Next Replacement:*
+            {{ states('sensor.battery_next_replacement_needed') }} ({{ state_attr('sensor.battery_next_replacement_needed', 'battery_level') }}%)
+            
+            💡 *Recommendations:*
+            • Replace critical batteries immediately
+            • Order batteries for low devices
+            • Keep spare batteries on hand
+            
+            🏠 System: 192.168.1.30:8123
+          parse_mode: markdown
+      
+      # Send Email Report with HTML Table
+      - service: notify.email_notification
+        data:
+          title: '📊 Weekly Battery Status Report - {{ now().strftime("%d %B %Y") }}'
+          message: >
+            WEEKLY BATTERY STATUS REPORT
+            
+            Report Date: {{ now().strftime('%A, %d %B %Y') }}
+            Report Time: 09:00
+            
+            ================================================================================
+            OVERALL BATTERY SYSTEM HEALTH
+            ================================================================================
+            
+            Total Battery Devices: {{ states('sensor.battery_devices_total_count') }}
+            System Health Score: {{ states('sensor.battery_system_health_score') }}% ({{ state_attr('sensor.battery_system_health_score', 'rating') }})
+            Low Battery Devices: {{ states('sensor.battery_devices_low_count') }}
+            Critical Battery Devices: {{ states('sensor.battery_devices_critical_count') }}
+            
+            ================================================================================
+            DETAILED BATTERY STATUS TABLE
+            ================================================================================
+            
+            {% set ns = namespace(devices=[]) %}
+            {% for state in states.sensor 
+               | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery') %}
+              {% if state.state not in ['unknown', 'unavailable', 'none'] %}
+                {% set battery_level = state.state | float(0) %}
+                {% set status = 'Good' %}
+                {% if battery_level < states('input_number.battery_critical_threshold') | float %}
+                  {% set status = 'CRITICAL' %}
+                {% elif battery_level < states('input_number.battery_low_threshold') | float %}
+                  {% set status = 'Low' %}
+                {% elif battery_level < states('input_number.battery_warning_threshold') | float %}
+                  {% set status = 'Warning' %}
+                {% endif %}
+                {% set ns.devices = ns.devices + [{
+                  'name': state.name | replace(' Battery', ''),
+                  'battery': battery_level | round(1),
+                  'status': status,
+                  'last_updated': state.last_updated.strftime('%Y-%m-%d %H:%M')
+                }] %}
+              {% endif %}
+            {% endfor %}
+            {% for device in ns.devices | sort(attribute='battery') %}
+            {{ "%-40s" | format(device.name) }} | {{ "%6s%%" | format(device.battery) }} | {{ "%-10s" | format(device.status) }} | {{ device.last_updated }}
+            {% endfor %}
+            
+            ================================================================================
+            {% if states('sensor.battery_devices_critical_count') | int > 0 %}
+            
+            CRITICAL BATTERY DEVICES - IMMEDIATE ACTION REQUIRED
+            ================================================================================
+            
+            The following devices have critically low batteries and require IMMEDIATE replacement:
+            
+            {% for device in state_attr('sensor.battery_devices_critical_count', 'devices') %}
+            - {{ device.name }}: {{ device.battery }}% (Last updated: {{ device.last_updated }})
+            {% endfor %}
+            
+            ACTION: Replace these batteries TODAY to prevent device failure.
+            
+            ================================================================================
+            {% endif %}
+            
+            {% if states('sensor.battery_devices_low_count') | int > 0 %}
+            
+            LOW BATTERY DEVICES - ACTION NEEDED SOON
+            ================================================================================
+            
+            The following devices have low batteries and should be replaced soon:
+            
+            {% for device in state_attr('sensor.battery_devices_low_count', 'devices') %}
+            - {{ device.name }}: {{ device.battery }}% (Last updated: {{ device.last_updated }})
+            {% endfor %}
+            
+            ACTION: Order replacement batteries and plan for installation within the next week.
+            
+            ================================================================================
+            {% endif %}
+            
+            NEXT REPLACEMENT PRIORITY
+            ================================================================================
+            
+            Device: {{ states('sensor.battery_next_replacement_needed') }}
+            Battery Level: {{ state_attr('sensor.battery_next_replacement_needed', 'battery_level') }}%
+            
+            This device has the lowest battery level and should be your next replacement priority.
+            
+            ================================================================================
+            RECOMMENDATIONS
+            ================================================================================
+            
+            1. Replace all critical batteries immediately (< {{ states('input_number.battery_critical_threshold') }}%)
+            2. Order replacement batteries for low devices (< {{ states('input_number.battery_low_threshold') }}%)
+            3. Keep spare batteries on hand for common device types
+            4. Check battery levels monthly for devices not reporting regularly
+            5. Consider setting up automated battery ordering based on this report
+            
+            ================================================================================
+            THRESHOLD SETTINGS
+            ================================================================================
+            
+            Critical Level: {{ states('input_number.battery_critical_threshold') }}%
+            Low Level: {{ states('input_number.battery_low_threshold') }}%
+            Warning Level: {{ states('input_number.battery_warning_threshold') }}%
+            
+            You can adjust these thresholds in Home Assistant at:
+            Settings > Devices & Services > Helpers
+            
+            ================================================================================
+            
+            This is an automated weekly report sent every Saturday at 09:00.
+            
+            Home Assistant: http://192.168.1.30:8123
+            Generated: {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
+      
+      # Log Weekly Report
+      - service: system_log.write
+        data:
+          message: "Weekly battery report sent: {{ states('sensor.battery_devices_total_count') }} devices, {{ states('sensor.battery_devices_critical_count') }} critical"
+          level: info
+    
+    mode: single
+
+  #-----------------------------------------------------------------------------
+  # BATTERY REPLACEMENT REMINDER - Daily Check at 09:00
+  #-----------------------------------------------------------------------------
+  - id: battery_daily_critical_reminder
+    alias: 'Battery Monitor: Daily Critical Battery Reminder'
+    description: 'Daily reminder if any batteries are critical (every day at 09:00)'
+    
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    
+    condition:
+      - condition: state
+        entity_id: input_boolean.battery_alerts_enabled
+        state: 'on'
+      - condition: numeric_state
+        entity_id: sensor.battery_devices_critical_count
+        above: 0
+    
+    action:
+      # Send Daily Telegram Reminder
+      - service: telegram_bot.send_message
+        data:
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
+          message: |
+            ⚠️ *DAILY BATTERY REMINDER*
+            
+            🔴 *Critical Batteries Need Attention*
+            
+            You have {{ states('sensor.battery_devices_critical_count') }} device(s) with critical battery levels:
+            
+            {% for device in state_attr('sensor.battery_devices_critical_count', 'devices') %}
+            • {{ device.name }}: {{ device.battery }}% 🔴
+            {% endfor %}
+            
+            ⚡ *Action Required Today:*
+            Replace these batteries to avoid device failure
+            
+            📊 System Health: {{ states('sensor.battery_system_health_score') }}%
+            
+            🏠 System: 192.168.1.30:8123
+            📅 {{ now().strftime('%A, %d %B %Y') }}
+          parse_mode: markdown
+      
+      # Log Reminder
+      - service: system_log.write
+        data:
+          message: "Daily critical battery reminder: {{ states('sensor.battery_devices_critical_count') }} devices need attention"
+          level: warning
+    
+    mode: single
+
+#===============================================================================
+# END OF BATTERY MONITORING SYSTEM
+#===============================================================================
