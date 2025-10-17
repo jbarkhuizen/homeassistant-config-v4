@@ -1,0 +1,15 @@
+#===============================================================================
+#Additional Sensors added
+#===============================================================================
+
+#Reddit Sensor
+sensor:
+  - platform: reddit
+    username: !secret reddit_username
+    password: !secret reddit_password
+    client_id: !secret reddit_client_id
+    client_secret: !secret reddit_client_secret
+    subreddits:
+      - news
+      - worldnews
+#-------------------------------------------------------------------------------

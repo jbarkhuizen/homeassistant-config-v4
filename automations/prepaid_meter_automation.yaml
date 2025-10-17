@@ -30,7 +30,8 @@ automation:
       # Send Telegram Daily Report
       - service: telegram_bot.send_message
         data:
-          target: !secret telegram_chat_id
+#          target: !secret telegram_chat_id
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             ⚡ *PREPAID METER DAILY STATUS*
             
@@ -87,7 +88,8 @@ automation:
       # Send Telegram Warning
       - service: telegram_bot.send_message
         data:
-          target: !secret telegram_chat_id
+#          target: !secret telegram_chat_id
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             🟡 *PREPAID METER WARNING*
             
@@ -148,7 +150,8 @@ automation:
       # Send Telegram Critical Alert
       - service: telegram_bot.send_message
         data:
-          target: !secret telegram_chat_id
+#          target: !secret telegram_chat_id
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             🟠 *PREPAID METER CRITICAL ALERT*
             
@@ -235,7 +238,8 @@ automation:
       # Send URGENT Telegram Alert
       - service: telegram_bot.send_message
         data:
-          target: !secret telegram_chat_id
+#          target: !secret telegram_chat_id
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             🔴 *EMERGENCY: LOAD SHEDDING ACTIVATED*
             
@@ -376,7 +380,8 @@ automation:
       # Send Recovery Notification
       - service: telegram_bot.send_message
         data:
-          target: !secret telegram_chat_id
+#          target: !secret telegram_chat_id
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             ✅ *PREPAID METER RECHARGED*
             
@@ -445,7 +450,8 @@ automation:
       # Send Confirmation
       - service: telegram_bot.send_message
         data:
-          target: !secret telegram_chat_id
+#          target: !secret telegram_chat_id
+          config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             💳 *PREPAID METER RECHARGE CONFIRMED*
             

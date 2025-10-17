@@ -1,0 +1,113 @@
+#===============================================================================
+# Input Helpers Package
+# File: packages/input_helpers.yaml
+# Updated: 2025-09-12
+# Purpose: All input helpers organized in one package
+#===============================================================================
+
+# Input number helpers
+input_number:
+  battery_low_threshold:
+    name: "Battery Low Threshold"
+    min: 10
+    max: 50
+    step: 5
+    initial: 20
+    unit_of_measurement: "%"
+    icon: mdi:battery-alert
+
+  high_power_threshold:
+    name: "High Power Usage Threshold"
+    min: 1000
+    max: 10000
+    step: 100
+    initial: 5000
+    unit_of_measurement: "W"
+    icon: mdi:lightning-bolt
+    
+  # Additional useful helpers for your energy monitoring
+  solar_generation_target:
+    name: "Daily Solar Generation Target"
+    min: 10
+    max: 100
+    step: 5
+    initial: 40
+    unit_of_measurement: "kWh"
+    icon: mdi:solar-power
+    
+  battery_charge_target:
+    name: "Battery Charge Target"
+    min: 50
+    max: 100
+    step: 5
+    initial: 90
+    unit_of_measurement: "%"
+    icon: mdi:battery-charging
+
+# Input select helpers
+input_select:
+  notification_priority:
+    name: "Notification Priority Level"
+    options:
+      - "Low"
+      - "Normal" 
+      - "High"
+      - "Critical"
+    initial: "Normal"
+    icon: mdi:priority-high
+    
+  energy_mode:
+    name: "Energy Management Mode"
+    options:
+      - "Automatic"
+      - "Battery Priority"
+      - "Grid Priority"
+      - "Solar Priority"
+    initial: "Automatic"
+    icon: mdi:lightning-bolt-circle
+    
+  automation_mode:
+    name: "Automation Mode"
+    options:
+      - "Normal"
+      - "Eco"
+      - "Performance" 
+      - "Maintenance"
+    initial: "Normal"
+    icon: mdi:robot
+
+# Input boolean helpers
+input_boolean:
+  maintenance_mode:
+    name: "Maintenance Mode"
+    initial: false
+    icon: mdi:wrench
+    
+  energy_saving_mode:
+    name: "Energy Saving Mode"
+    initial: false
+    icon: mdi:leaf
+    
+  notification_quiet_hours:
+    name: "Notification Quiet Hours"
+    initial: false
+    icon: mdi:sleep
+
+# Counter helpers for tracking
+counter:
+  daily_automations_triggered:
+    name: "Daily Automations Triggered"
+    icon: mdi:counter
+    restore: false
+
+  system_restarts:
+    name: "System Restarts"
+    icon: mdi:restart
+    restore: true
+    
+  daily_energy_cycles:
+    name: "Daily Energy Cycles"
+    icon: mdi:battery-sync
+    restore: false
+
+#===============================================================================

@@ -299,6 +299,7 @@
           report: {{ (now() + timedelta(days=1)).strftime('%Y-%m-%d at 09:00') }}\n"
     - service: telegram_bot.send_message
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "\U0001F3E0 Daily Summary"
         message:
           "Good morning! Here's your smart home summary:\n\n⚡ Energy: {{ states('sensor.average_battery_soc')
@@ -632,6 +633,7 @@
           sequence:
             - service: telegram_bot.send_message # Replace with your actual device name
               data:
+                config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
                 title: "⚠️ Google Drive Backup Health Alert"
                 message: >
                   Google Drive backup health issue detected!
@@ -659,6 +661,7 @@
   action:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🚨 CRITICAL: Google Drive Backup Failure"
         message: >
           CRITICAL ALERT: Google Drive backup has failed!
@@ -787,6 +790,7 @@
 
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🧹 Monthly Google Drive Maintenance"
         message: >
           Monthly Google Drive maintenance completed!
@@ -817,6 +821,7 @@
 
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🚨 Pre-Update Backup Created"
         message: >
           Emergency backup created before {{ trigger.entity_id.split('.')[1] }} update.
@@ -858,6 +863,7 @@
 
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🌐 Connectivity Restored - Backup Created"
         message: >
           Network connectivity restored. 

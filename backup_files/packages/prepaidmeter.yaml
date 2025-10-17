@@ -1,0 +1,55 @@
+#================================================================================
+# Prepaid Meter Integration
+# added on 26 Sept 2025
+# https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/Prepaid_electricity_meter.md
+#===============================================================================
+template:
+  - sensor:
+      - name: "Prepaid units left"
+        unit_of_measurement: "kWh"
+        state: >
+          {% set units = states('input_number.prepaid_meter_units') | float(1) %}
+          {% set currentTotal = (states('sensor.deyeinvertermaster_summary_total_grid_import_buy') | float(6)) * 1000.0 %}
+          {% set totalWhenRecharged = states('input_number.prepaid_meter_inverter_total_units') | float(2)  %}
+          {% set totalUsed = currentTotal - totalWhenRecharged  %}
+          {{ (units - totalUsed ) | round(2)}}
+
+input_number:
+  prepaid_meter_units:
+    name: Prepaid meter Recharge Units
+    min: 0.01
+    max: 10000.01
+    step: 1
+    mode: box
+
+  prepaid_meter_inverter_total_units:
+    name: Prepaid meter Inverter Reading
+    min: 0.01
+    max: 1000000.01
+    mode: box
+#===============================================================================    
+# Prepaid Input Helpers
+  prepaid_units_to_add:
+    name: Units to Add
+    initial: 0
+    min: 0
+    max: 2000
+    step: 1
+    unit_of_measurement: kWh
+
+#---------------------------------------------------------------------
+  monthly_prepaid_units:
+    name: "Monthly Prepaid Units"
+    min: 0
+    max: 1000
+    step: 1
+    unit_of_measurement: kWh
+    mode: box
+    icon: mdi:flash   
+    
+#---------------------------------------------------------------------    
+
+input_button:
+  confirm_units_purchase:
+    name: Add Eskom Units
+#---------------------------------------------------------------------

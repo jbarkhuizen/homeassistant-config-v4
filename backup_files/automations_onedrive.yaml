@@ -12,6 +12,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "☁️ OneDrive Daily Report"
         message: >
           Storage: {{ states('sensor.onedrive_used_storage') }}GB / {{ states('sensor.onedrive_total_available_storage') }}GB 
@@ -38,6 +39,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "⚠️ OneDrive Storage Warning"
         message: >
           OneDrive storage is {{ ((states('sensor.onedrive_used_storage')|float / states('sensor.onedrive_total_available_storage')|float) * 100)|round(1) }}% full!
@@ -66,6 +68,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔴 OneDrive Connection Issue"
         message: >
           OneDrive connection issue detected!
@@ -96,6 +99,7 @@
         minutes: 1
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 OneDrive Weekly Report"
         message: >
           Weekly OneDrive Analysis:
@@ -123,6 +127,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📈 OneDrive Monthly Report"
         message: >
           Monthly OneDrive Analysis:
@@ -152,6 +157,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "OneDrive Daily Report"
         message: >
           Storage: {{ states('sensor.onedrive_used_storage') }}GB / {{ states('sensor.onedrive_total_available_storage') }}GB 
@@ -178,6 +184,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "⚠️ OneDrive Storage Warning"
         message: >
           OneDrive storage is {{ states('sensor.onedrive_storage_percentage') }}% full!
@@ -206,6 +213,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔴 OneDrive Connection Issue"
         message: >
           OneDrive connection issue detected!
@@ -236,6 +244,7 @@
         minutes: 2
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🧹 OneDrive Weekly Check"
         message: >
           Weekly OneDrive health check completed.
@@ -258,6 +267,7 @@
   action:
     - service: telegram_bot.send_message  # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 OneDrive Monthly Report"
         message: >
           Monthly OneDrive Analysis:

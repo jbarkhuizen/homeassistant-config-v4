@@ -21,7 +21,8 @@
   action:
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         parse_mode: markdown
         message: >-
           ☀️ *DAILY SOLAR PRODUCTION REPORT*
@@ -111,7 +112,8 @@
   action:
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         parse_mode: markdown
         message: >-
           📊 *WEEKLY SOLAR SUMMARY*
@@ -161,7 +163,8 @@
   action:
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         parse_mode: markdown
         message: >-
           🎉 *EXCEPTIONAL SOLAR DAY!*
@@ -211,7 +214,8 @@
   action:
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         parse_mode: markdown
         message: >-
           ⚠️ *LOW SOLAR PRODUCTION*
@@ -268,7 +272,8 @@
   action:
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         parse_mode: markdown
         message: >-
           ⚠️ *PV STRING IMBALANCE*
@@ -320,7 +325,8 @@
   action:
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         parse_mode: markdown
         message: >-
           📊 *MONTHLY SOLAR REPORT*

@@ -1,0 +1,79 @@
+# PACKAGE: sensor_audit.yaml
+
+template:
+  - sensor:
+
+      ### ✅ Full Inventory of Active Sensors
+      - name: "Sensor Inventory"
+        unique_id: sensor_inventory
+        state: "{{ states.sensor | length }}"
+        attributes:
+          sensor_entities: >
+            {{ states.sensor | map(attribute='entity_id') | list }}
+
+      ### 📈 Sensor Audit: InfluxDB Markdown
+      - name: "Sensor Audit InfluxDB Markdown"
+        unique_id: sensor_audit_influxdb_markdown
+        state: >
+          {% set expected = [
+            'sensor.energy_daily',
+            'sensor.electricity_daily_cost',
+            'sensor.total_monthly_cost',
+            'sensor.electricity_weekly_budget_used',
+            'sensor.electricity_monthly_budget_remaining'
+          ] %}
+          {% set actual = states.sensor | map(attribute='entity_id') | list %}
+          {% set missing = expected | reject('in', actual) | list %}
+          {% set present = expected | select('in', actual) | list %}
+
+          (
+            "**InfluxDB Audit**\n"
+            ~ "- Expected: " ~ expected | length ~ "\n"
+            ~ "- Present: " ~ present | length ~ "\n"
+            ~ "- Missing: " ~ missing | length ~ "\n\n"
+            ~ missing | map('regex_replace', '^', '❌ ') | join('\n')
+          )
+
+      ### 🖼️ Sensor Audit: Dashboard Markdown
+      - name: "Sensor Audit Dashboard Markdown"
+        unique_id: sensor_audit_dashboard_markdown
+        state: >
+          {% set expected = [
+            'sensor.total_monthly_energy',
+            'sensor.electricity_daily_budget_used',
+            'sensor.salon_daily_cost',
+            'sensor.pool_pump_energy_daily'
+          ] %}
+          {% set actual = states.sensor | map(attribute='entity_id') | list %}
+          {% set missing = expected | reject('in', actual) | list %}
+          {% set present = expected | select('in', actual) | list %}
+
+          (
+            "**Dashboard Audit**\n"
+            ~ "- Expected: " ~ expected | length ~ "\n"
+            ~ "- Present: " ~ present | length ~ "\n"
+            ~ "- Missing: " ~ missing | length ~ "\n\n"
+            ~ missing | map('regex_replace', '^', '❌ ') | join('\n')
+          )
+
+      ### 📊 Sensor Audit: Grafana Markdown
+      - name: "Sensor Audit Grafana Markdown"
+        unique_id: sensor_audit_grafana_markdown
+        state: >
+          {% set expected = [
+            'sensor.electricity_weekly_cost',
+            'sensor.total_monthly_energy',
+            'sensor.energy_weekly',
+            'sensor.plugs_2_weekly_cost'
+          ] %}
+          {% set actual = states.sensor | map(attribute='entity_id') | list %}
+          {% set missing = expected | reject('in', actual) | list %}
+          {% set present = expected | select('in', actual) | list %}
+
+          (
+            "**Grafana Audit**\n"
+            ~ "- Expected: " ~ expected | length ~ "\n"
+            ~ "- Present: " ~ present | length ~ "\n"
+            ~ "- Missing: " ~ missing | length ~ "\n\n"
+            ~ missing | map('regex_replace', '^', '❌ ') | join('\n')
+          )

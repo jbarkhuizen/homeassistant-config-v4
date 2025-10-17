@@ -8,6 +8,7 @@ onedrive_diagnostic_check:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔍 OneDrive Diagnostic Report"
         message: >
           CORE ENTITIES STATUS:
@@ -29,6 +30,7 @@ create_onedrive_backup:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔄 Backup Starting"
         message: "Creating Home Assistant backup..."
     - service: backup.create
@@ -39,6 +41,7 @@ create_onedrive_backup:
         minutes: 5 # Wait for backup to complete
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "✅ Backup Complete"
         message: >
           Home Assistant backup created successfully!
@@ -53,6 +56,7 @@ force_onedrive_sync:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔄 Force Sync Started"
         message: >
           Forcing OneDrive sync...
@@ -63,6 +67,7 @@ force_onedrive_sync:
         minutes: 2
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "✅ Sync Process Complete"
         message: >
           OneDrive sync process completed.
@@ -75,13 +80,15 @@ onedrive_health_check:
   description: "Perform comprehensive OneDrive health check"
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
-      data:
+      data:config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
+
         title: "🔍 Health Check Running"
         message: "Performing OneDrive health check..."
     - delay:
         seconds: 10
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 OneDrive Health Report"
         message: >
           HEALTH CHECK RESULTS:
@@ -107,6 +114,7 @@ onedrive_health_check:
 #  sequence:
 #    - service: telegram_bot.send_message
 #      data:
+#        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4 
 #        title: "🔧 Telegram Test"
 #        message: |
 #          Telegram test at {{ now().strftime('%H:%M:%S') }}
@@ -122,6 +130,7 @@ onedrive_health_check:
 #  sequence:
 #    - service: telegram_bot.send_message
 #      data:
+#         config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4 
 #        title: "📊 System Status"
 #        message: |
 #          🏠 Home Assistant Status Report
@@ -179,6 +188,7 @@ create_google_drive_backup:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔄 Google Drive Backup Starting"
         message: "Creating full Home Assistant backup to Google Drive..."
         data:
@@ -197,6 +207,7 @@ create_google_drive_backup:
     # Send completion notification
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "✅ Google Drive Backup Complete"
         message: >
           Manual backup created successfully!
@@ -236,6 +247,7 @@ google_drive_backup_health_check:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔍 Google Drive Health Check"
         message: "Running comprehensive backup health check..."
 
@@ -246,6 +258,7 @@ google_drive_backup_health_check:
     # Send detailed health report
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 Google Drive Health Report"
         message: >
           BACKUP STATUS:
@@ -274,6 +287,7 @@ force_google_drive_sync:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🔄 Force Google Drive Sync"
         message: >
           Forcing Google Drive synchronization...
@@ -287,6 +301,7 @@ force_google_drive_sync:
 
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "✅ Google Drive Sync Complete"
         message: >
           Google Drive sync completed.
@@ -300,6 +315,7 @@ cleanup_google_drive_backups:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🧹 Cleaning Up Old Backups"
         message: "Starting cleanup of old Google Drive backups..."
 
@@ -313,6 +329,7 @@ cleanup_google_drive_backups:
 
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "✅ Cleanup Complete"
         message: >
           Old backup cleanup completed.
@@ -326,6 +343,7 @@ emergency_google_drive_backup:
   sequence:
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "🚨 Emergency Backup Starting"
         message: "Creating emergency backup before system changes..."
         data:
@@ -341,6 +359,7 @@ emergency_google_drive_backup:
 
     - service: telegram_bot.send_message # Replace with your actual device name
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "✅ Emergency Backup Complete"
         message: >
           Emergency backup created and uploaded to Google Drive.

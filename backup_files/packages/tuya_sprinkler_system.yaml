@@ -1,0 +1,952 @@
+#===============================================================================
+# Tuya Smart Sprinkler Controller Package - 8 Zone System
+# File: packages/tuya_sprinkler_system.yaml
+# Updated: 2025-09-26
+# Purpose: Complete sprinkler system with monitoring, scheduling, and automation
+# Device: Smart Sprinkler Controller (8 Zones)
+# Entities: switch.smart_sprinkler_controller_switch_1 through switch_8
+#===============================================================================
+
+# Input Helpers for Sprinkler Management
+input_number:
+  # Watering duration for each zone (minutes)
+  sprinkler_zone_1_duration:
+    name: "Zone 1 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 15
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_2_duration:
+    name: "Zone 2 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 20
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_3_duration:
+    name: "Zone 3 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 10
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_4_duration:
+    name: "Zone 4 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 25
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_5_duration:
+    name: "Zone 5 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 18
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_6_duration:
+    name: "Zone 6 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 12
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_7_duration:
+    name: "Zone 7 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 22
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  sprinkler_zone_8_duration:
+    name: "Zone 8 Watering Duration"
+    min: 1
+    max: 60
+    step: 1
+    initial: 16
+    unit_of_measurement: "min"
+    icon: mdi:timer
+
+  # Soil moisture thresholds
+  soil_moisture_threshold:
+    name: "Soil Moisture Threshold"
+    min: 20
+    max: 80
+    step: 5
+    initial: 40
+    unit_of_measurement: "%"
+    icon: mdi:water-percent
+
+input_select:
+  # Sprinkler system modes
+  sprinkler_system_mode:
+    name: "Sprinkler System Mode"
+    options:
+      - "Automatic"
+      - "Manual"
+      - "Eco Mode"
+      - "Maintenance"
+      - "Off"
+    initial: "Automatic"
+    icon: mdi:water
+
+  # Current active zone display
+  sprinkler_current_zone:
+    name: "Current Active Zone"
+    options:
+      - "None"
+      - "Zone 1 - Front Lawn"
+      - "Zone 2 - Back Garden"
+      - "Zone 3 - Flower Beds"
+      - "Zone 4 - Vegetable Garden"
+      - "Zone 5 - Side Yard"
+      - "Zone 6 - Herb Garden"
+      - "Zone 7 - Tree Area"
+      - "Zone 8 - Pathway"
+    initial: "None"
+    icon: mdi:map-marker
+
+  # Zone programming for sequenced watering
+  sprinkler_zone_sequence:
+    name: "Zone Watering Sequence"
+    options:
+      - "1,2,3,4,5,6,7,8"
+      - "1,3,5,7,2,4,6,8"
+      - "Odd zones first"
+      - "Even zones first"
+      - "Custom"
+    initial: "1,2,3,4,5,6,7,8"
+    icon: mdi:sort-numeric-variant
+
+input_boolean:
+  # Master sprinkler system control
+  sprinkler_system_enabled:
+    name: "Sprinkler System Enabled"
+    initial: true
+    icon: mdi:water
+
+  # Individual zone enable/disable (8 zones)
+  sprinkler_zone_1_enabled:
+    name: "Zone 1 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_2_enabled:
+    name: "Zone 2 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_3_enabled:
+    name: "Zone 3 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_4_enabled:
+    name: "Zone 4 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_5_enabled:
+    name: "Zone 5 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_6_enabled:
+    name: "Zone 6 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_7_enabled:
+    name: "Zone 7 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  sprinkler_zone_8_enabled:
+    name: "Zone 8 Enabled"
+    initial: true
+    icon: mdi:sprinkler
+
+  # Rain delay
+  sprinkler_rain_delay:
+    name: "Rain Delay Active"
+    initial: false
+    icon: mdi:weather-rainy
+
+  # Manual override
+  sprinkler_manual_override:
+    name: "Manual Override Active"
+    initial: false
+    icon: mdi:account-wrench
+
+  # System status indicators
+  sprinkler_controller_online:
+    name: "Controller Online"
+    initial: true
+    icon: mdi:wifi
+
+# Automation section
+automation:
+  # Daily Morning Sprinkler Check at 09:00
+  - id: sprinkler_daily_morning_check
+    alias: 'Sprinkler: Daily Morning System Check at 09:00'
+    description: 'Check sprinkler system status and weather conditions at 09:00'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.maintenance_mode
+        state: "off"
+    action:
+      # Update controller status based on availability
+      - service: input_boolean.turn_{{ 'on' if not is_state('switch.smart_sprinkler_controller_switch_1', 'unavailable') else 'off' }}
+        target:
+          entity_id: input_boolean.sprinkler_controller_online
+      
+      # Update all sprinkler zone entities
+      - service: homeassistant.update_entity
+        target:
+          entity_id:
+            - switch.smart_sprinkler_controller_switch_1
+            - switch.smart_sprinkler_controller_switch_2
+            - switch.smart_sprinkler_controller_switch_3
+            - switch.smart_sprinkler_controller_switch_4
+            - switch.smart_sprinkler_controller_switch_5
+            - switch.smart_sprinkler_controller_switch_6
+            - switch.smart_sprinkler_controller_switch_7
+            - switch.smart_sprinkler_controller_switch_8
+            - weather.home  # Update to your weather entity if different
+      
+      # Check for rain in forecast (update weather entity as needed)
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: >
+                  {% set rain_forecast = state_attr('weather.home', 'forecast') %}
+                  {{ rain_forecast and rain_forecast[0].precipitation | float(0) > 2 }}
+            sequence:
+              - service: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.sprinkler_rain_delay
+              - service: notify.persistent_notification
+                data:
+                  title: "🌧️ Sprinkler Rain Delay"
+                  message: >
+                    Rain delay activated - significant precipitation expected today. 
+                    Automatic watering suspended.
+                  notification_id: sprinkler_rain_delay
+        default:
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.sprinkler_rain_delay
+      
+      # System status report
+      - service: notify.persistent_notification
+        data:
+          title: "💧 Daily Sprinkler Status (8 Zones)"
+          message: >
+            Sprinkler System Status at 09:00:
+            
+            **System:** {{ states('input_select.sprinkler_system_mode') }}
+            **Controller:** {{ 'Online' if is_state('input_boolean.sprinkler_controller_online', 'on') else 'Offline' }}
+            **Rain Delay:** {{ 'Active' if is_state('input_boolean.sprinkler_rain_delay', 'on') else 'Inactive' }}
+            **Current Zone:** {{ states('input_select.sprinkler_current_zone') }}
+            
+            **Zone Status:**
+            • Zone 1: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_1_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_1') }})
+            • Zone 2: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_2_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_2') }})
+            • Zone 3: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_3_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_3') }})
+            • Zone 4: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_4_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_4') }})
+            • Zone 5: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_5_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_5') }})
+            • Zone 6: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_6_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_6') }})
+            • Zone 7: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_7_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_7') }})
+            • Zone 8: {{ 'Enabled' if is_state('input_boolean.sprinkler_zone_8_enabled', 'on') else 'Disabled' }} ({{ states('switch.smart_sprinkler_controller_switch_8') }})
+            
+            **Soil Moisture Threshold:** {{ states('input_number.soil_moisture_threshold') }}%
+          notification_id: daily_sprinkler_status
+
+  # Morning Watering Schedule (06:00)
+  - id: sprinkler_morning_automatic_watering
+    alias: 'Sprinkler: Morning Automatic Watering'
+    description: 'Start morning watering cycle if conditions are met'
+    trigger:
+      - platform: time
+        at: "06:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.sprinkler_system_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.sprinkler_rain_delay
+        state: "off"
+      - condition: state
+        entity_id: input_select.sprinkler_system_mode
+        state: "Automatic"
+      - condition: state
+        entity_id: input_boolean.sprinkler_controller_online
+        state: "on"
+    action:
+      - service: script.sprinkler_start_watering_cycle
+        data: {}
+
+  # Evening Watering Schedule (18:00)
+  - id: sprinkler_evening_automatic_watering
+    alias: 'Sprinkler: Evening Automatic Watering'
+    description: 'Start evening watering cycle if needed'
+    trigger:
+      - platform: time
+        at: "18:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.sprinkler_system_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.sprinkler_rain_delay
+        state: "off"
+      - condition: state
+        entity_id: input_select.sprinkler_system_mode
+        state: "Automatic"
+      - condition: sun
+        before: sunset
+      - condition: state
+        entity_id: input_boolean.sprinkler_controller_online
+        state: "on"
+    action:
+      - service: script.sprinkler_start_watering_cycle
+        data: {}
+
+  # Rain Detection - Stop Watering
+  - id: sprinkler_rain_detection_stop
+    alias: 'Sprinkler: Stop on Rain Detection'
+    description: 'Stop watering immediately when rain is detected'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.rain_detected
+        to: "on"
+    condition:
+      - condition: template
+        value_template: "{{ not is_state('input_select.sprinkler_current_zone', 'None') }}"
+    action:
+      - service: script.sprinkler_stop_all_zones
+        data: {}
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.sprinkler_rain_delay
+      - service: notify.persistent_notification
+        data:
+          title: "🌧️ Rain Detected"
+          message: "All sprinkler zones stopped due to rain detection. Rain delay activated."
+          notification_id: rain_detection_stop
+
+  # Weekly System Maintenance Check (Sundays at 09:00)
+  - id: sprinkler_weekly_maintenance_check
+    alias: 'Sprinkler: Weekly Maintenance Check'
+    description: 'Weekly system health check and maintenance reminder'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: time
+        weekday:
+          - sun
+    action:
+      - service: script.sprinkler_system_diagnostics
+        data: {}
+      - service: notify.persistent_notification
+        data:
+          title: "🔧 Weekly 8-Zone Sprinkler Maintenance"
+          message: >
+            Weekly sprinkler system check completed:
+            
+            **This Week's Summary:**
+            • Total watering cycles: {{ states('counter.weekly_watering_cycles') }}
+            • Total runtime: {{ states('sensor.weekly_sprinkler_runtime') }} minutes
+            • Rain delays: {{ states('counter.weekly_rain_delays') }}
+            
+            **8-Zone System Status:**
+            • Zones 1-4: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_1', 'unavailable') else 'Check Connection' }}
+            • Zones 5-8: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_5', 'unavailable') else 'Check Connection' }}
+            
+            **Maintenance Reminders:**
+            • Check all 8 sprinkler heads for clogs
+            • Inspect zone pipes for leaks
+            • Clean controller sensors
+            • Test each zone manually
+            • Check water pressure across all zones
+            
+            **System Health:** {{ 'Good' if is_state('binary_sensor.sprinkler_system_healthy', 'on') else 'Needs Attention' }}
+          notification_id: weekly_sprinkler_maintenance
+
+# Scripts for Sprinkler Control
+script:
+  # Start complete watering cycle (all 8 zones)
+  sprinkler_start_watering_cycle:
+    alias: "Start 8-Zone Sprinkler Watering Cycle"
+    sequence:
+      # Zone 1
+      - service: input_select.select_option
+        data:
+          option: "Zone 1 - Front Lawn"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_1_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_1
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_1_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_1
+      
+      # Zone 2
+      - service: input_select.select_option
+        data:
+          option: "Zone 2 - Back Garden"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_2_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_2
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_2_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_2
+      
+      # Zone 3
+      - service: input_select.select_option
+        data:
+          option: "Zone 3 - Flower Beds"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_3_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_3
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_3_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_3
+      
+      # Zone 4
+      - service: input_select.select_option
+        data:
+          option: "Zone 4 - Vegetable Garden"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_4_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_4
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_4_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_4
+      
+      # Zone 5
+      - service: input_select.select_option
+        data:
+          option: "Zone 5 - Side Yard"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_5_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_5
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_5_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_5
+      
+      # Zone 6
+      - service: input_select.select_option
+        data:
+          option: "Zone 6 - Herb Garden"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_6_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_6
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_6_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_6
+      
+      # Zone 7
+      - service: input_select.select_option
+        data:
+          option: "Zone 7 - Tree Area"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_7_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_7
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_7_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_7
+      
+      # Zone 8
+      - service: input_select.select_option
+        data:
+          option: "Zone 8 - Pathway"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - condition: state
+        entity_id: input_boolean.sprinkler_zone_8_enabled
+        state: "on"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_8
+      - delay:
+          minutes: "{{ states('input_number.sprinkler_zone_8_duration') | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.smart_sprinkler_controller_switch_8
+      
+      # Complete cycle
+      - service: input_select.select_option
+        data:
+          option: "None"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+      - service: counter.increment
+        target:
+          entity_id: counter.daily_watering_cycles
+
+  # Stop all zones immediately
+  sprinkler_stop_all_zones:
+    alias: "Stop All 8 Sprinkler Zones"
+    sequence:
+      - service: switch.turn_off
+        target:
+          entity_id:
+            - switch.smart_sprinkler_controller_switch_1
+            - switch.smart_sprinkler_controller_switch_2
+            - switch.smart_sprinkler_controller_switch_3
+            - switch.smart_sprinkler_controller_switch_4
+            - switch.smart_sprinkler_controller_switch_5
+            - switch.smart_sprinkler_controller_switch_6
+            - switch.smart_sprinkler_controller_switch_7
+            - switch.smart_sprinkler_controller_switch_8
+      - service: input_select.select_option
+        data:
+          option: "None"
+        target:
+          entity_id: input_select.sprinkler_current_zone
+
+  # Manual zone control
+  sprinkler_run_zone_manual:
+    alias: "Run Specific Zone (Manual)"
+    fields:
+      zone:
+        description: "Zone number (1-8)"
+        example: "1"
+      duration:
+        description: "Duration in minutes"
+        example: "15"
+    sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.sprinkler_manual_override
+      - service: switch.turn_on
+        target:
+          entity_id: "switch.smart_sprinkler_controller_switch_{{ zone }}"
+      - delay:
+          minutes: "{{ duration | int }}"
+      - service: switch.turn_off
+        target:
+          entity_id: "switch.smart_sprinkler_controller_switch_{{ zone }}"
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.sprinkler_manual_override
+
+  # System diagnostics
+  sprinkler_system_diagnostics:
+    alias: "8-Zone Sprinkler System Diagnostics"
+    sequence:
+      - service: system_log.write
+        data:
+          message: "Running 8-zone sprinkler system diagnostics"
+          level: info
+      - service: homeassistant.update_entity
+        target:
+          entity_id:
+            - switch.smart_sprinkler_controller_switch_1
+            - switch.smart_sprinkler_controller_switch_2
+            - switch.smart_sprinkler_controller_switch_3
+            - switch.smart_sprinkler_controller_switch_4
+            - switch.smart_sprinkler_controller_switch_5
+            - switch.smart_sprinkler_controller_switch_6
+            - switch.smart_sprinkler_controller_switch_7
+            - switch.smart_sprinkler_controller_switch_8
+      - delay:
+          seconds: 5
+      - service: notify.persistent_notification
+        data:
+          title: "🔍 8-Zone Sprinkler Diagnostics"
+          message: >
+            System diagnostics completed:
+            
+            **Zone Connectivity:**
+            • Zone 1: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_1', 'unavailable') else 'Offline' }}
+            • Zone 2: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_2', 'unavailable') else 'Offline' }}
+            • Zone 3: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_3', 'unavailable') else 'Offline' }}
+            • Zone 4: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_4', 'unavailable') else 'Offline' }}
+            • Zone 5: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_5', 'unavailable') else 'Offline' }}
+            • Zone 6: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_6', 'unavailable') else 'Offline' }}
+            • Zone 7: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_7', 'unavailable') else 'Offline' }}
+            • Zone 8: {{ 'Online' if not is_state('switch.smart_sprinkler_controller_switch_8', 'unavailable') else 'Offline' }}
+            
+            **System Status:**
+            • Controller: {{ 'Connected' if is_state('input_boolean.sprinkler_controller_online', 'on') else 'Disconnected' }}
+            • Weather data: {{ 'Available' if not is_state('weather.home', 'unknown') else 'Unavailable' }}
+            • Operating mode: {{ states('input_select.sprinkler_system_mode') }}
+          notification_id: sprinkler_diagnostics
+
+# Template Sensors for Monitoring
+template:
+  - sensor:
+      # Total daily water usage estimate across all 8 zones
+      - name: "Daily Water Usage (8 Zones)"
+        unique_id: daily_water_usage_8_zones
+        unit_of_measurement: "L"
+        state: >
+          {% set cycles = states('counter.daily_watering_cycles') | int(0) %}
+          {% set total_duration = 
+            (states('input_number.sprinkler_zone_1_duration') | int) +
+            (states('input_number.sprinkler_zone_2_duration') | int) +
+            (states('input_number.sprinkler_zone_3_duration') | int) +
+            (states('input_number.sprinkler_zone_4_duration') | int) +
+            (states('input_number.sprinkler_zone_5_duration') | int) +
+            (states('input_number.sprinkler_zone_6_duration') | int) +
+            (states('input_number.sprinkler_zone_7_duration') | int) +
+            (states('input_number.sprinkler_zone_8_duration') | int) %}
+          {% set flow_rate = 10 %}  {# Adjust based on your sprinkler flow rate (L/min) #}
+          {{ (cycles * total_duration * flow_rate) | round(0) }}
+        icon: mdi:water-pump
+
+      # Count of active zones
+      - name: "Active Sprinkler Zones"
+        unique_id: active_sprinkler_zones
+        state: >
+          {% set zones = [
+            'switch.smart_sprinkler_controller_switch_1',
+            'switch.smart_sprinkler_controller_switch_2',
+            'switch.smart_sprinkler_controller_switch_3',
+            'switch.smart_sprinkler_controller_switch_4',
+            'switch.smart_sprinkler_controller_switch_5',
+            'switch.smart_sprinkler_controller_switch_6',
+            'switch.smart_sprinkler_controller_switch_7',
+            'switch.smart_sprinkler_controller_switch_8'
+          ] %}
+          {{ zones | select('is_state', 'on') | list | count }}
+        icon: mdi:counter
+
+      # Next scheduled watering time
+      - name: "Next Watering Time"
+        unique_id: next_watering_time_8_zones
+        state: >
+          {% if is_state('input_boolean.sprinkler_rain_delay', 'on') %}
+            Rain Delay Active
+          {% elif is_state('input_select.sprinkler_system_mode', 'Off') %}
+            System Disabled
+          {% elif not is_state('input_boolean.sprinkler_controller_online', 'on') %}
+            Controller Offline
+          {% else %}
+            {% set now = now() %}
+            {% set morning = now.replace(hour=6, minute=0, second=0, microsecond=0) %}
+            {% set evening = now.replace(hour=18, minute=0, second=0, microsecond=0) %}
+            {% if now < morning %}
+              Tomorrow at 06:00
+            {% elif now < evening %}
+              Today at 18:00
+            {% else %}
+              Tomorrow at 06:00
+            {% endif %}
+          {% endif %}
+        icon: mdi:clock-time-four
+
+      # Total cycle time for all enabled zones
+      - name: "Total Cycle Time"
+        unique_id: total_cycle_time_8_zones
+        unit_of_measurement: "min"
+        state: >
+          {% set total = 0 %}
+          {% if is_state('input_boolean.sprinkler_zone_1_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_1_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_2_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_2_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_3_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_3_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_4_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_4_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_5_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_5_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_6_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_6_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_7_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_7_duration') | int %}
+          {% endif %}
+          {% if is_state('input_boolean.sprinkler_zone_8_enabled', 'on') %}
+            {% set total = total + states('input_number.sprinkler_zone_8_duration') | int %}
+          {% endif %}
+          {{ total }}
+        icon: mdi:timer
+
+# Binary Sensors for System Health
+binary_sensor:
+  - platform: template
+    sensors:
+      sprinkler_system_healthy:
+        friendly_name: "8-Zone Sprinkler System Healthy"
+        device_class: connectivity
+        value_template: >
+          {% set zones_online = [
+            not is_state('switch.smart_sprinkler_controller_switch_1', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_2', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_3', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_4', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_5', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_6', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_7', 'unavailable'),
+            not is_state('switch.smart_sprinkler_controller_switch_8', 'unavailable')
+          ] %}
+          {% set system_enabled = is_state('input_boolean.sprinkler_system_enabled', 'on') %}
+          {% set all_zones_online = zones_online | select('equalto', true) | list | length >= 6 %}
+          {{ all_zones_online and system_enabled }}
+
+      rain_detected:
+        friendly_name: "Rain Detected"
+        device_class: moisture
+        value_template: >
+          {% set current_conditions = state_attr('weather.home', 'condition') %}
+          {{ current_conditions in ['rainy', 'pouring', 'lightning-rainy'] }}
+        icon_template: >
+          {% if is_state('binary_sensor.rain_detected', 'on') %}
+            mdi:weather-rainy
+          {% else %}
+            mdi:weather-sunny
+          {% endif %}
+
+      sprinkler_cycle_running:
+        friendly_name: "Sprinkler Cycle Running"
+        device_class: running
+        value_template: >
+          {% set zones = [
+            'switch.smart_sprinkler_controller_switch_1',
+            'switch.smart_sprinkler_controller_switch_2',
+            'switch.smart_sprinkler_controller_switch_3',
+            'switch.smart_sprinkler_controller_switch_4',
+            'switch.smart_sprinkler_controller_switch_5',
+            'switch.smart_sprinkler_controller_switch_6',
+            'switch.smart_sprinkler_controller_switch_7',
+            'switch.smart_sprinkler_controller_switch_8'
+          ] %}
+          {{ zones | select('is_state', 'on') | list | count > 0 }}
+
+# Counters for Tracking
+counter:
+  daily_watering_cycles:
+    name: "Daily Watering Cycles"
+    icon: mdi:counter
+    restore: false
+
+  weekly_watering_cycles:
+    name: "Weekly Watering Cycles"
+    icon: mdi:counter
+    restore: false
+
+  weekly_rain_delays:
+    name: "Weekly Rain Delays"
+    icon: mdi:counter
+    restore: false
+
+  zone_1_daily_runs:
+    name: "Zone 1 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_2_daily_runs:
+    name: "Zone 2 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_3_daily_runs:
+    name: "Zone 3 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_4_daily_runs:
+    name: "Zone 4 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_5_daily_runs:
+    name: "Zone 5 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_6_daily_runs:
+    name: "Zone 6 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_7_daily_runs:
+    name: "Zone 7 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+  zone_8_daily_runs:
+    name: "Zone 8 Daily Runs"
+    icon: mdi:counter
+    restore: false
+
+# Additional automations for enhanced functionality
+automation:
+  # Reset daily counters at midnight
+  - id: reset_daily_sprinkler_counters
+    alias: 'Sprinkler: Reset Daily Counters'
+    description: 'Reset all daily counters at midnight'
+    trigger:
+      - platform: time
+        at: "00:00:00"
+    action:
+      - service: counter.reset
+        target:
+          entity_id:
+            - counter.daily_watering_cycles
+            - counter.zone_1_daily_runs
+            - counter.zone_2_daily_runs
+            - counter.zone_3_daily_runs
+            - counter.zone_4_daily_runs
+            - counter.zone_5_daily_runs
+            - counter.zone_6_daily_runs
+            - counter.zone_7_daily_runs
+            - counter.zone_8_daily_runs
+
+  # Monitor individual zone activity
+  - id: track_zone_activity
+    alias: 'Sprinkler: Track Zone Activity'
+    description: 'Track when individual zones are activated'
+    trigger:
+      - platform: state
+        entity_id:
+          - switch.smart_sprinkler_controller_switch_1
+          - switch.smart_sprinkler_controller_switch_2
+          - switch.smart_sprinkler_controller_switch_3
+          - switch.smart_sprinkler_controller_switch_4
+          - switch.smart_sprinkler_controller_switch_5
+          - switch.smart_sprinkler_controller_switch_6
+          - switch.smart_sprinkler_controller_switch_7
+          - switch.smart_sprinkler_controller_switch_8
+        to: "on"
+    action:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id: 
+            sequence:
+              - service: counter.increment
+                target:
+                  entity_id: >
+                    {% if trigger.entity_id == 'switch.smart_sprinkler_controller_switch_1' %}
+                      counter.zone_1_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_2' %}
+                      counter.zone_2_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_3' %}
+                      counter.zone_3_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_4' %}
+                      counter.zone_4_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_5' %}
+                      counter.zone_5_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_6' %}
+                      counter.zone_6_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_7' %}
+                      counter.zone_7_daily_runs
+                    {% elif trigger.entity_id == 'switch.smart_sprinkler_controller_switch_8' %}
+                      counter.zone_8_daily_runs
+                    {% endif %}
+
+  # Emergency stop if multiple zones accidentally run simultaneously  
+  - id: sprinkler_emergency_multiple_zones
+    alias: 'Sprinkler: Emergency Stop Multiple Zones'
+    description: 'Stop all zones if more than one is running simultaneously'
+    trigger:
+      - platform: template
+        value_template: >
+          {% set active_zones = [
+            'switch.smart_sprinkler_controller_switch_1',
+            'switch.smart_sprinkler_controller_switch_2',
+            'switch.smart_sprinkler_controller_switch_3',
+            'switch.smart_sprinkler_controller_switch_4',
+            'switch.smart_sprinkler_controller_switch_5',
+            'switch.smart_sprinkler_controller_switch_6',
+            'switch.smart_sprinkler_controller_switch_7',
+            'switch.smart_sprinkler_controller_switch_8'
+          ] | select('is_state', 'on') | list | count %}
+          {{ active_zones > 1 }}
+    condition:
+      - condition: state
+        entity_id: input_boolean.sprinkler_manual_override
+        state: "off"
+    action:
+      - service: script.sprinkler_stop_all_zones
+        data: {}
+      - service: notify.persistent_notification
+        data:
+          title: "⚠️ Sprinkler Emergency Stop"
+          message: >
+            Multiple zones detected running simultaneously. 
+            All zones stopped for safety. Check system operation.
+          notification_id: sprinkler_emergency_stop
+      - service: system_log.write
+        data:
+          message: "Emergency stop: Multiple sprinkler zones running simultaneously"
+          level: warning
+
+#===============================================================================

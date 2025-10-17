@@ -92,7 +92,8 @@
     # Step 5: Send Telegram confirmation (CORRECTED SERVICE)
     - service: telegram_bot.send_message
       data:
-        target: !secret telegram_chat_id
+#        target: !secret telegram_chat_id
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 Daily Report Sent"
         message: |
           Daily system report completed at {{ now().strftime('%H:%M:%S') }}

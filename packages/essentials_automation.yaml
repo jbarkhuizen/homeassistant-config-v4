@@ -261,6 +261,7 @@ automation:
           sequence:
             - service: telegram_bot.send_message
               data:
+                config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
                 target: !secret telegram_chat_id
                 title: "⚠️ Battery Health Check"
                 message: |

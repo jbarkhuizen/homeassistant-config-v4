@@ -1,0 +1,484 @@
+#===============================================================================
+# Tshwane Municipality Electricity Monitoring Package
+# File: packages/tshwane_electricity_monitoring.yaml
+# Created: 2025-09-28
+# Purpose: Comprehensive electricity cost tracking, tariff monitoring, and automation
+# Author: Home Assistant Enthusiast Setup
+# 
+# Features:
+# - Real-time tariff band tracking
+# - Monthly cost calculations
+# - Grid usage optimization alerts
+# - Daily 09:00 cost analysis reports
+# - Integration with existing inverter setup
+#===============================================================================
+
+# Input helpers for tariff configuration
+input_number:
+  # Tshwane tariff rates (cents/kWh) - Updated July 2025
+  tariff_band_1_rate:
+    name: "Tariff Band 1 Rate (1-100kWh)"
+    min: 200
+    max: 500
+    step: 0.01
+    initial: 297.90
+    unit_of_measurement: "c/kWh"
+    icon: mdi:cash
+    
+  tariff_band_2_rate:
+    name: "Tariff Band 2 Rate (101-400kWh)"
+    min: 200
+    max: 500
+    step: 0.01
+    initial: 348.64
+    unit_of_measurement: "c/kWh"
+    icon: mdi:cash
+    
+  tariff_band_3_rate:
+    name: "Tariff Band 3 Rate (401-650kWh)"
+    min: 200
+    max: 500
+    step: 0.01
+    initial: 379.84
+    unit_of_measurement: "c/kWh"
+    icon: mdi:cash
+    
+  tariff_band_4_rate:
+    name: "Tariff Band 4 Rate (>650kWh)"
+    min: 200
+    max: 500
+    step: 0.01
+    initial: 409.48
+    unit_of_measurement: "c/kWh"
+    icon: mdi:cash
+    
+  monthly_target_usage:
+    name: "Monthly Grid Usage Target"
+    min: 0
+    max: 1000
+    step: 10
+    initial: 300
+    unit_of_measurement: "kWh"
+    icon: mdi:target
+    
+  monthly_budget_limit:
+    name: "Monthly Electricity Budget"
+    min: 500
+    max: 5000
+    step: 50
+    initial: 1500
+    unit_of_measurement: "R"
+    icon: mdi:currency-zar
+
+# Input select for monitoring periods
+input_select:
+  cost_alert_level:
+    name: "Cost Alert Level"
+    options:
+      - "Conservative (75%)"
+      - "Normal (85%)"
+      - "Relaxed (95%)"
+    initial: "Normal (85%)"
+    icon: mdi:alert
+
+# Utility meter for monthly tracking
+utility_meter:
+  monthly_grid_consumption:
+    source: sensor.deyeinvertermaster_summary_total_grid_import_buy
+    cycle: monthly
+    
+  monthly_grid_cost:
+    source: sensor.daily_electricity_cost
+    cycle: monthly
+
+# Template sensors for tariff calculations
+template:
+  - sensor:
+      # Current tariff band based on monthly usage
+      - name: "Current Electricity Tariff Band"
+        unique_id: current_electricity_tariff_band
+        state: >
+          {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+          {% if usage <= 100 %}
+            1
+          {% elif usage <= 400 %}
+            2
+          {% elif usage <= 650 %}
+            3
+          {% else %}
+            4
+          {% endif %}
+        icon: >
+          {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+          {% if usage <= 100 %}
+            mdi:numeric-1-circle
+          {% elif usage <= 400 %}
+            mdi:numeric-2-circle
+          {% elif usage <= 650 %}
+            mdi:numeric-3-circle
+          {% else %}
+            mdi:numeric-4-circle
+          {% endif %}
+        attributes:
+          band_description: >
+            {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+            {% if usage <= 100 %}
+              "Band 1: 1-100kWh (R{{ states('input_number.tariff_band_1_rate') | float | round(2) }}/kWh)"
+            {% elif usage <= 400 %}
+              "Band 2: 101-400kWh (R{{ states('input_number.tariff_band_2_rate') | float | round(2) }}/kWh)"
+            {% elif usage <= 650 %}
+              "Band 3: 401-650kWh (R{{ states('input_number.tariff_band_3_rate') | float | round(2) }}/kWh)"
+            {% else %}
+              "Band 4: >650kWh (R{{ states('input_number.tariff_band_4_rate') | float | round(2) }}/kWh)"
+            {% endif %}
+          usage_this_month: "{{ states('sensor.monthly_grid_consumption') | float(0) | round(1) }} kWh"
+          next_band_threshold: >
+            {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+            {% if usage <= 100 %}
+              {{ 100 - usage | round(1) }} kWh to Band 2
+            {% elif usage <= 400 %}
+              {{ 400 - usage | round(1) }} kWh to Band 3
+            {% elif usage <= 650 %}
+              {{ 650 - usage | round(1) }} kWh to Band 4
+            {% else %}
+              Maximum band reached
+            {% endif %}
+
+      # Current rate per kWh based on usage
+      - name: "Current Electricity Rate"
+        unique_id: current_electricity_rate
+        unit_of_measurement: "c/kWh"
+        state: >
+          {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+          {% if usage <= 100 %}
+            {{ states('input_number.tariff_band_1_rate') | float }}
+          {% elif usage <= 400 %}
+            {{ states('input_number.tariff_band_2_rate') | float }}
+          {% elif usage <= 650 %}
+            {{ states('input_number.tariff_band_3_rate') | float }}
+          {% else %}
+            {{ states('input_number.tariff_band_4_rate') | float }}
+          {% endif %}
+        icon: mdi:currency-zar
+
+      # Estimated monthly cost based on current usage
+      - name: "Estimated Monthly Electricity Cost"
+        unique_id: estimated_monthly_electricity_cost
+        unit_of_measurement: "R"
+        state: >
+          {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+          {% set band1_rate = states('input_number.tariff_band_1_rate') | float %}
+          {% set band2_rate = states('input_number.tariff_band_2_rate') | float %}
+          {% set band3_rate = states('input_number.tariff_band_3_rate') | float %}
+          {% set band4_rate = states('input_number.tariff_band_4_rate') | float %}
+          {% set cost = 0 %}
+          
+          {% if usage <= 100 %}
+            {% set cost = usage * (band1_rate / 100) %}
+          {% elif usage <= 400 %}
+            {% set cost = (100 * (band1_rate / 100)) + ((usage - 100) * (band2_rate / 100)) %}
+          {% elif usage <= 650 %}
+            {% set cost = (100 * (band1_rate / 100)) + (300 * (band2_rate / 100)) + ((usage - 400) * (band3_rate / 100)) %}
+          {% else %}
+            {% set cost = (100 * (band1_rate / 100)) + (300 * (band2_rate / 100)) + (250 * (band3_rate / 100)) + ((usage - 650) * (band4_rate / 100)) %}
+          {% endif %}
+          
+          {# Add 15% VAT #}
+          {{ (cost * 1.15) | round(2) }}
+        icon: mdi:calculator
+        attributes:
+          cost_breakdown: >
+            {% set usage = states('sensor.monthly_grid_consumption') | float(0) %}
+            {% set band1_rate = states('input_number.tariff_band_1_rate') | float %}
+            {% set band2_rate = states('input_number.tariff_band_2_rate') | float %}
+            {% set band3_rate = states('input_number.tariff_band_3_rate') | float %}
+            {% set band4_rate = states('input_number.tariff_band_4_rate') | float %}
+            
+            {% if usage <= 100 %}
+              Band 1: {{ usage | round(1) }}kWh @ {{ band1_rate }}c = R{{ ((usage * band1_rate / 100) * 1.15) | round(2) }}
+            {% elif usage <= 400 %}
+              Band 1: 100kWh @ {{ band1_rate }}c = R{{ ((100 * band1_rate / 100) * 1.15) | round(2) }}, Band 2: {{ (usage - 100) | round(1) }}kWh @ {{ band2_rate }}c = R{{ (((usage - 100) * band2_rate / 100) * 1.15) | round(2) }}
+            {% elif usage <= 650 %}
+              Band 1: 100kWh @ {{ band1_rate }}c, Band 2: 300kWh @ {{ band2_rate }}c, Band 3: {{ (usage - 400) | round(1) }}kWh @ {{ band3_rate }}c
+            {% else %}
+              Band 1: 100kWh, Band 2: 300kWh, Band 3: 250kWh, Band 4: {{ (usage - 650) | round(1) }}kWh @ {{ band4_rate }}c
+            {% endif %}
+
+      # Daily cost tracking
+      - name: "Daily Electricity Cost"
+        unique_id: daily_electricity_cost
+        unit_of_measurement: "R"
+        state: >
+          {% set daily_usage = states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0) %}
+          {% set current_rate = states('sensor.current_electricity_rate') | float(0) %}
+          {{ ((daily_usage * current_rate / 100) * 1.15) | round(2) }}
+        icon: mdi:currency-zar
+
+      # Grid dependency percentage
+      - name: "Grid Dependency Percentage"
+        unique_id: grid_dependency_percentage
+        unit_of_measurement: "%"
+        state: >
+          {% set grid_usage = states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0) %}
+          {% set total_consumption = states('sensor.deyeinvertermaster_summary_day_load') | float(0) %}
+          {% if total_consumption > 0 %}
+            {{ ((grid_usage / total_consumption) * 100) | round(1) }}
+          {% else %}
+            0
+          {% endif %}
+        icon: mdi:transmission-tower
+        attributes:
+          solar_contribution: >
+            {% set grid_usage = states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0) %}
+            {% set total_consumption = states('sensor.deyeinvertermaster_summary_day_load') | float(0) %}
+            {% if total_consumption > 0 %}
+              {{ (100 - ((grid_usage / total_consumption) * 100)) | round(1) }}%
+            {% else %}
+              100%
+            {% endif %}
+
+      # Monthly budget status
+      - name: "Monthly Budget Status"
+        unique_id: monthly_budget_status
+        unit_of_measurement: "%"
+        state: >
+          {% set estimated_cost = states('sensor.estimated_monthly_electricity_cost') | float(0) %}
+          {% set budget = states('input_number.monthly_budget_limit') | float(1) %}
+          {{ ((estimated_cost / budget) * 100) | round(1) }}
+        icon: >
+          {% set percentage = states('sensor.monthly_budget_status') | float(0) %}
+          {% if percentage <= 50 %}
+            mdi:emoticon-happy
+          {% elif percentage <= 75 %}
+            mdi:emoticon-neutral
+          {% elif percentage <= 90 %}
+            mdi:emoticon-sad
+          {% else %}
+            mdi:emoticon-dead
+          {% endif %}
+        attributes:
+          budget_remaining: >
+            {% set estimated_cost = states('sensor.estimated_monthly_electricity_cost') | float(0) %}
+            {% set budget = states('input_number.monthly_budget_limit') | float(1) %}
+            R{{ (budget - estimated_cost) | round(2) }}
+          status: >
+            {% set percentage = states('sensor.monthly_budget_status') | float(0) %}
+            {% if percentage <= 50 %}
+              Excellent
+            {% elif percentage <= 75 %}
+              Good
+            {% elif percentage <= 90 %}
+              Caution
+            {% else %}
+              Over Budget
+            {% endif %}
+
+# Binary sensors for alerts
+binary_sensor:
+  - platform: template
+    sensors:
+      high_tariff_band_alert:
+        friendly_name: "High Tariff Band Alert"
+        device_class: problem
+        value_template: >
+          {{ states('sensor.current_electricity_tariff_band') | int(0) >= 3 }}
+        icon_template: >
+          {% if is_state('binary_sensor.high_tariff_band_alert', 'on') %}
+            mdi:alert-circle
+          {% else %}
+            mdi:check-circle
+          {% endif %}
+
+      budget_warning_alert:
+        friendly_name: "Budget Warning Alert"
+        device_class: problem
+        value_template: >
+          {% set alert_level = states('input_select.cost_alert_level') %}
+          {% set percentage = states('sensor.monthly_budget_status') | float(0) %}
+          {% if alert_level == "Conservative (75%)" %}
+            {{ percentage >= 75 }}
+          {% elif alert_level == "Normal (85%)" %}
+            {{ percentage >= 85 }}
+          {% else %}
+            {{ percentage >= 95 }}
+          {% endif %}
+        icon_template: >
+          {% if is_state('binary_sensor.budget_warning_alert', 'on') %}
+            mdi:currency-zar-off
+          {% else %}
+            mdi:currency-zar
+          {% endif %}
+
+      grid_dependency_high:
+        friendly_name: "High Grid Dependency"
+        device_class: problem
+        value_template: >
+          {{ states('sensor.grid_dependency_percentage') | float(0) > 70 }}
+        icon_template: >
+          {% if is_state('binary_sensor.grid_dependency_high', 'on') %}
+            mdi:transmission-tower-off
+          {% else %}
+            mdi:transmission-tower
+          {% endif %}
+
+# Automations for electricity monitoring
+automation:
+  # Daily 09:00 Electricity Cost Report
+  - id: daily_electricity_cost_report
+    alias: 'Electricity: Daily Cost Analysis Report at 09:00'
+    description: 'Comprehensive daily electricity cost and usage analysis'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition: []
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "⚡ Daily Electricity Report"
+          message: >
+            **Daily Report (09:00):**
+            
+            **Yesterday's Usage:**
+            • Grid Import: {{ states('sensor.deyeinvertermaster_summary_day_grid_import_buy') }}kWh
+            • Cost: R{{ states('sensor.daily_electricity_cost') }}
+            • Grid Dependency: {{ states('sensor.grid_dependency_percentage') }}%
+            
+            **Monthly Progress:**
+            • Total Usage: {{ states('sensor.monthly_grid_consumption') }}kWh
+            • Current Band: {{ states('sensor.current_electricity_tariff_band') }} ({{ state_attr('sensor.current_electricity_tariff_band', 'band_description') }})
+            • Estimated Monthly Cost: R{{ states('sensor.estimated_monthly_electricity_cost') }}
+            • Budget Status: {{ states('sensor.monthly_budget_status') }}% ({{ state_attr('sensor.monthly_budget_status', 'status') }})
+            
+            **Recommendations:**
+            {% if states('sensor.current_electricity_tariff_band') | int(0) >= 3 %}
+            ⚠️ You're in a high tariff band. Consider maximizing solar usage.
+            {% endif %}
+            {% if states('sensor.grid_dependency_percentage') | float(0) > 50 %}
+            🔋 High grid dependency. Check battery optimization.
+            {% endif %}
+            {% if states('sensor.monthly_budget_status') | float(0) > 85 %}
+            💰 Approaching budget limit. Monitor usage carefully.
+            {% endif %}
+          notification_id: daily_electricity_report
+
+  # High tariff band alert
+  - id: high_tariff_band_notification
+    alias: 'Electricity: High Tariff Band Alert'
+    description: 'Alert when entering expensive tariff bands'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.high_tariff_band_alert
+        to: "on"
+    condition: []
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "⚠️ High Electricity Tariff Alert"
+          message: >
+            You've entered tariff band {{ states('sensor.current_electricity_tariff_band') }}.
+            
+            Current rate: R{{ states('sensor.current_electricity_rate') | float / 100 | round(2) }}/kWh
+            Monthly usage: {{ states('sensor.monthly_grid_consumption') }}kWh
+            
+            Consider:
+            • Maximizing solar generation
+            • Using battery power instead of grid
+            • Reducing non-essential loads
+            • Checking inverter settings
+          notification_id: high_tariff_alert
+
+  # Budget warning alert
+  - id: budget_warning_notification
+    alias: 'Electricity: Budget Warning Alert'
+    description: 'Alert when approaching monthly budget limit'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.budget_warning_alert
+        to: "on"
+    condition: []
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "💰 Electricity Budget Warning"
+          message: >
+            You're at {{ states('sensor.monthly_budget_status') }}% of your monthly electricity budget.
+            
+            Estimated monthly cost: R{{ states('sensor.estimated_monthly_electricity_cost') }}
+            Budget limit: R{{ states('input_number.monthly_budget_limit') }}
+            Remaining: {{ state_attr('sensor.monthly_budget_status', 'budget_remaining') }}
+            
+            Days left in month: {{ ((now().replace(month=now().month%12+1, day=1) - now()).days) }}
+            
+            Consider reducing grid usage to stay within budget.
+          notification_id: budget_warning
+
+  # Grid dependency alert
+  - id: high_grid_dependency_alert
+    alias: 'Electricity: High Grid Dependency Alert'
+    description: 'Alert when grid dependency is too high'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.grid_dependency_high
+        to: "on"
+    condition:
+      - condition: time
+        after: "09:00:00"
+        before: "17:00:00"  # Only during day hours when solar should be available
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "🔋 High Grid Dependency Alert"
+          message: >
+            Grid dependency is {{ states('sensor.grid_dependency_percentage') }}% during daylight hours.
+            
+            Current status:
+            • Solar Power: {{ states('sensor.deyeinvertermaster_pv_power') }}W
+            • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            • Load Power: {{ states('sensor.deyeinvertermaster_load_power') }}W
+            
+            Check:
+            • Solar panel performance
+            • Battery charge level
+            • Inverter mode settings
+            • System maintenance needs
+          notification_id: grid_dependency_alert
+
+  # Weekly cost optimization review (Mondays at 09:00)
+  - id: weekly_cost_optimization_review
+    alias: 'Electricity: Weekly Cost Optimization Review'
+    description: 'Weekly analysis and optimization suggestions'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: time
+        weekday:
+          - mon
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "📊 Weekly Electricity Cost Review"
+          message: >
+            **Weekly Optimization Review:**
+            
+            **This Month So Far:**
+            • Grid Usage: {{ states('sensor.monthly_grid_consumption') }}kWh
+            • Cost: R{{ states('sensor.estimated_monthly_electricity_cost') }}
+            • Average Daily: {{ (states('sensor.monthly_grid_consumption') | float / now().day) | round(1) }}kWh
+            
+            **Projected Month End:**
+            • Estimated Usage: {{ ((states('sensor.monthly_grid_consumption') | float / now().day) * ((now().replace(month=now().month%12+1, day=1) - now()).days + now().day)) | round(0) }}kWh
+            • Projected Cost: R{{ (((states('sensor.monthly_grid_consumption') | float / now().day) * ((now().replace(month=now().month%12+1, day=1) - now()).days + now().day)) * (states('sensor.current_electricity_rate') | float / 100) * 1.15) | round(2) }}
+            
+            **Optimization Tips:**
+            {% if states('sensor.grid_dependency_percentage') | float(0) > 40 %}
+            • Consider battery charge scheduling optimization
+            • Review load shifting opportunities
+            {% endif %}
+            • Target: <{{ states('input_number.monthly_target_usage') }}kWh per month
+            • Monitor tariff band transitions
+            
+            Check InfluxDB/Grafana for detailed analytics.
+          notification_id: weekly_cost_review
+
+#===============================================================================

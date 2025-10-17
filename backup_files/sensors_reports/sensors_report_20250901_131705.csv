@@ -1,0 +1,189 @@
+Entity ID,Friendly Name,State,Unit,Device Class,State Class,Icon,Last Updated,Last Changed,Domain,Integration,Restored,Supported Features
+sensor.file_editor_version,File editor Version,5.8.0,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.086759+00:00,2025-09-01T09:38:48.086759+00:00,sensor,N/A,False,N/A
+sensor.file_editor_newest_version,File editor Newest version,5.8.0,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.087339+00:00,2025-09-01T09:38:48.087339+00:00,sensor,N/A,False,N/A
+sensor.file_editor_cpu_percent,File editor CPU percent,0.02,%,N/A,measurement,N/A,2025-09-01T11:15:20.938046+00:00,2025-09-01T11:15:20.938046+00:00,sensor,N/A,False,N/A
+sensor.file_editor_memory_percent,File editor Memory percent,0.48,%,N/A,measurement,N/A,2025-09-01T11:15:20.938501+00:00,2025-09-01T11:15:20.938501+00:00,sensor,N/A,False,N/A
+sensor.advanced_ssh_web_terminal_version,Advanced SSH & Web Terminal Version,21.0.2,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.089389+00:00,2025-09-01T09:38:48.089389+00:00,sensor,N/A,False,N/A
+sensor.advanced_ssh_web_terminal_newest_version,Advanced SSH & Web Terminal Newest version,21.0.2,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.089834+00:00,2025-09-01T09:38:48.089834+00:00,sensor,N/A,False,N/A
+sensor.advanced_ssh_web_terminal_cpu_percent,Advanced SSH & Web Terminal CPU percent,unavailable,%,N/A,measurement,N/A,2025-09-01T09:38:48.090261+00:00,2025-09-01T09:38:48.090261+00:00,sensor,N/A,False,N/A
+sensor.advanced_ssh_web_terminal_memory_percent,Advanced SSH & Web Terminal Memory percent,unavailable,%,N/A,measurement,N/A,2025-09-01T09:38:48.090687+00:00,2025-09-01T09:38:48.090687+00:00,sensor,N/A,False,N/A
+sensor.studio_code_server_version,Studio Code Server Version,5.19.3,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.091149+00:00,2025-09-01T09:38:48.091149+00:00,sensor,N/A,False,N/A
+sensor.studio_code_server_newest_version,Studio Code Server Newest version,5.19.3,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.091585+00:00,2025-09-01T09:38:48.091585+00:00,sensor,N/A,False,N/A
+sensor.studio_code_server_cpu_percent,Studio Code Server CPU percent,0.91,%,N/A,measurement,N/A,2025-09-01T11:15:20.939281+00:00,2025-09-01T11:15:20.939281+00:00,sensor,N/A,False,N/A
+sensor.studio_code_server_memory_percent,Studio Code Server Memory percent,13.42,%,N/A,measurement,N/A,2025-09-01T11:15:20.939527+00:00,2025-09-01T11:15:20.939527+00:00,sensor,N/A,False,N/A
+sensor.terminal_ssh_version,Terminal & SSH Version,9.19.0,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.092846+00:00,2025-09-01T09:38:48.092846+00:00,sensor,N/A,False,N/A
+sensor.terminal_ssh_newest_version,Terminal & SSH Newest version,9.19.0,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.093238+00:00,2025-09-01T09:38:48.093238+00:00,sensor,N/A,False,N/A
+sensor.terminal_ssh_cpu_percent,Terminal & SSH CPU percent,0.0,%,N/A,measurement,N/A,2025-09-01T09:39:04.681175+00:00,2025-09-01T09:39:04.681175+00:00,sensor,N/A,False,N/A
+sensor.terminal_ssh_memory_percent,Terminal & SSH Memory percent,0.43,%,N/A,measurement,N/A,2025-09-01T11:15:20.940065+00:00,2025-09-01T11:15:20.940065+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_core_cpu_percent,Home Assistant Core CPU percent,1.87,%,N/A,measurement,N/A,2025-09-01T11:15:20.940334+00:00,2025-09-01T11:15:20.940334+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_core_memory_percent,Home Assistant Core Memory percent,4.65,%,N/A,measurement,N/A,2025-09-01T11:15:20.940608+00:00,2025-09-01T11:15:20.940608+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_supervisor_cpu_percent,Home Assistant Supervisor CPU percent,0.13,%,N/A,measurement,N/A,2025-09-01T11:15:20.940880+00:00,2025-09-01T11:15:20.940880+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_supervisor_memory_percent,Home Assistant Supervisor Memory percent,2.24,%,N/A,measurement,N/A,2025-09-01T11:15:20.941119+00:00,2025-09-01T11:15:20.941119+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_host_os_agent_version,Home Assistant Host OS Agent version,1.7.2,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.097334+00:00,2025-09-01T09:38:48.097334+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_host_apparmor_version,Home Assistant Host AppArmor version,3.1.7,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.097774+00:00,2025-09-01T09:38:48.097774+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_host_disk_total,Home Assistant Host Disk total,109.3,GB,data_size,N/A,N/A,2025-09-01T09:38:48.098347+00:00,2025-09-01T09:38:48.098347+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_host_disk_used,Home Assistant Host Disk used,7.5,GB,data_size,N/A,N/A,2025-09-01T09:38:48.098918+00:00,2025-09-01T09:38:48.098918+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_host_disk_free,Home Assistant Host Disk free,97.4,GB,data_size,N/A,N/A,2025-09-01T09:38:48.099420+00:00,2025-09-01T09:38:48.099420+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_operating_system_version,Home Assistant Operating System Version,16.1,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.100679+00:00,2025-09-01T09:38:48.100679+00:00,sensor,N/A,False,N/A
+sensor.home_assistant_operating_system_newest_version,Home Assistant Operating System Newest version,16.1,N/A,N/A,N/A,N/A,2025-09-01T09:38:48.101127+00:00,2025-09-01T09:38:48.101127+00:00,sensor,N/A,False,N/A
+sensor.backup_backup_manager_state,Backup Backup Manager state,idle,N/A,enum,N/A,N/A,2025-09-01T09:39:34.525340+00:00,2025-09-01T09:39:34.525340+00:00,sensor,N/A,False,N/A
+sensor.backup_next_scheduled_automatic_backup,Backup Next scheduled automatic backup,2025-09-02T07:30:00+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:50.545085+00:00,2025-09-01T09:38:50.545085+00:00,sensor,N/A,False,N/A
+sensor.backup_last_successful_automatic_backup,Backup Last successful automatic backup,2025-09-01T07:30:20+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:50.547078+00:00,2025-09-01T09:38:50.547078+00:00,sensor,N/A,False,N/A
+sensor.backup_last_attempted_automatic_backup,Backup Last attempted automatic backup,2025-09-01T07:30:00+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:50.548763+00:00,2025-09-01T09:38:50.548763+00:00,sensor,N/A,False,N/A
+sensor.onedrive_usage_percentage,OneDrive Usage Percentage,64.2,%,N/A,N/A,mdi:percent,2025-09-01T09:39:19.442307+00:00,2025-09-01T09:39:19.442307+00:00,sensor,N/A,False,N/A
+sensor.onedrive_status_simple,OneDrive Status Simple,normal,N/A,N/A,N/A,mdi:cloud,2025-09-01T09:39:19.444038+00:00,2025-09-01T09:39:19.444038+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_cpu_temperature_numeric,Johanba Server CPU Temperature Numeric,0,°C,N/A,N/A,N/A,2025-09-01T09:39:19.445123+00:00,2025-09-01T09:39:19.445123+00:00,sensor,N/A,False,N/A
+sensor.sun_next_dawn,Sun Next dawn,2025-09-02T03:54:53+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:55.092229+00:00,2025-09-01T09:38:55.092229+00:00,sensor,N/A,False,N/A
+sensor.sun_next_dusk,Sun Next dusk,2025-09-01T16:18:23+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:55.092961+00:00,2025-09-01T09:38:55.092961+00:00,sensor,N/A,False,N/A
+sensor.sun_next_midnight,Sun Next midnight,2025-09-01T22:06:40+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:55.093568+00:00,2025-09-01T09:38:55.093568+00:00,sensor,N/A,False,N/A
+sensor.sun_next_noon,Sun Next noon,2025-09-02T10:06:47+00:00,N/A,timestamp,N/A,N/A,2025-09-01T10:07:06.019442+00:00,2025-09-01T10:07:06.019442+00:00,sensor,N/A,False,N/A
+sensor.sun_next_rising,Sun Next rising,2025-09-02T04:18:27+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:55.094700+00:00,2025-09-01T09:38:55.094700+00:00,sensor,N/A,False,N/A
+sensor.sun_next_setting,Sun Next setting,2025-09-01T15:54:47+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:55.095268+00:00,2025-09-01T09:38:55.095268+00:00,sensor,N/A,False,N/A
+sensor.sun_solar_elevation,Sun Solar elevation,52.26,°,N/A,measurement,N/A,2025-09-01T11:15:06.045293+00:00,2025-09-01T11:15:06.045293+00:00,sensor,N/A,False,N/A
+sensor.sun_solar_azimuth,Sun Solar azimuth,331.73,°,N/A,measurement,N/A,2025-09-01T11:15:06.045485+00:00,2025-09-01T11:15:06.045485+00:00,sensor,N/A,False,N/A
+sensor.sun_solar_rising,Sun Solar rising,False,N/A,N/A,N/A,N/A,2025-09-01T10:07:06.020397+00:00,2025-09-01T10:07:06.020397+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_data_received_2,Archer_D2 Data received,unavailable,B,data_size,total_increasing,N/A,2025-09-01T11:16:36.016963+00:00,2025-09-01T11:16:36.016963+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_data_sent_2,Archer_D2 Data sent,unavailable,B,data_size,total_increasing,N/A,2025-09-01T11:16:36.017517+00:00,2025-09-01T11:16:36.017517+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packets_received_2,Archer_D2 Packets received,unavailable,packets,N/A,total_increasing,N/A,2025-09-01T11:16:36.017902+00:00,2025-09-01T11:16:36.017902+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packets_sent_2,Archer_D2 Packets sent,unavailable,packets,N/A,total_increasing,N/A,2025-09-01T11:16:36.018232+00:00,2025-09-01T11:16:36.018232+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_external_ip_2,Archer_D2 External IP,102.33.34.191,N/A,N/A,N/A,N/A,2025-09-01T09:39:36.389723+00:00,2025-09-01T09:39:36.389723+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_uptime_2,Archer_D2 Uptime,unavailable,s,duration,N/A,N/A,2025-09-01T11:16:36.018795+00:00,2025-09-01T11:16:36.018795+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_wan_status_2,Archer_D2 WAN status,Connected,N/A,N/A,N/A,N/A,2025-09-01T09:39:36.390815+00:00,2025-09-01T09:39:36.390815+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_number_of_port_mapping_entries_ipv4,Archer_D2 Number of port mapping entries (IPv4),6,N/A,N/A,N/A,N/A,2025-09-01T10:02:05.996043+00:00,2025-09-01T10:02:05.996043+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_download_speed_2,Archer_D2 Download speed,unavailable,KiB/s,data_rate,measurement,N/A,2025-09-01T11:16:36.019406+00:00,2025-09-01T11:16:36.019406+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_upload_speed_2,Archer_D2 Upload speed,unavailable,KiB/s,data_rate,measurement,N/A,2025-09-01T11:16:36.019796+00:00,2025-09-01T11:16:36.019796+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packet_download_speed_2,Archer_D2 Packet download speed,unavailable,packets/s,N/A,measurement,N/A,2025-09-01T11:16:36.020097+00:00,2025-09-01T11:16:36.020097+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packet_upload_speed_2,Archer_D2 Packet upload speed,unavailable,packets/s,N/A,measurement,N/A,2025-09-01T11:16:36.020390+00:00,2025-09-01T11:16:36.020390+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_data_received,Archer_D2 Data received,0,B,data_size,total_increasing,N/A,2025-09-01T11:14:02.755503+00:00,2025-09-01T11:14:02.755503+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_data_sent,Archer_D2 Data sent,629951074,B,data_size,total_increasing,N/A,2025-09-01T11:16:38.138404+00:00,2025-09-01T11:16:38.138404+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packets_received,Archer_D2 Packets received,0,packets,N/A,total_increasing,N/A,2025-09-01T11:14:02.757210+00:00,2025-09-01T11:14:02.757210+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packets_sent,Archer_D2 Packets sent,3652669,packets,N/A,total_increasing,N/A,2025-09-01T11:16:38.139708+00:00,2025-09-01T11:16:38.139708+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_external_ip,Archer_D2 External IP,0.0.0.0,N/A,N/A,N/A,N/A,2025-09-01T09:39:42.692479+00:00,2025-09-01T09:39:42.692479+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_uptime,Archer_D2 Uptime,377408,s,duration,N/A,N/A,2025-09-01T11:16:38.140659+00:00,2025-09-01T11:16:38.140659+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_wan_status,Archer_D2 WAN status,Connected,N/A,N/A,N/A,N/A,2025-09-01T09:39:42.694398+00:00,2025-09-01T09:39:42.694398+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_download_speed,Archer_D2 Download speed,0.0,KiB/s,data_rate,measurement,N/A,2025-09-01T11:14:54.717581+00:00,2025-09-01T11:14:54.717581+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_upload_speed,Archer_D2 Upload speed,2.35959122735848,KiB/s,data_rate,measurement,N/A,2025-09-01T11:16:38.142110+00:00,2025-09-01T11:16:38.142110+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packet_download_speed,Archer_D2 Packet download speed,0.0,packets/s,N/A,measurement,N/A,2025-09-01T11:14:54.719044+00:00,2025-09-01T11:14:54.719044+00:00,sensor,N/A,False,N/A
+sensor.archer_d2_packet_upload_speed,Archer_D2 Packet upload speed,10.9814778209889,packets/s,N/A,measurement,N/A,2025-09-01T11:16:38.143152+00:00,2025-09-01T11:16:38.143152+00:00,sensor,N/A,False,N/A
+sensor.hp_color_laserjet_mfp_m476nw_uptime,HP Color LaserJet MFP M476nw Uptime,2025-09-01T05:01:05+00:00,N/A,timestamp,N/A,N/A,2025-09-01T09:38:57.023663+00:00,2025-09-01T09:38:57.023663+00:00,sensor,N/A,False,N/A
+sensor.hp_color_laserjet_mfp_m476nw_black_cartridge_hp_cf380x,HP Color LaserJet MFP M476nw Black Cartridge HP CF380X,48,%,N/A,measurement,N/A,2025-09-01T09:38:57.024395+00:00,2025-09-01T09:38:57.024395+00:00,sensor,N/A,False,N/A
+sensor.hp_color_laserjet_mfp_m476nw_cyan_cartridge_hp_cf381a,HP Color LaserJet MFP M476nw Cyan Cartridge HP CF381A,21,%,N/A,measurement,N/A,2025-09-01T09:38:57.025026+00:00,2025-09-01T09:38:57.025026+00:00,sensor,N/A,False,N/A
+sensor.hp_color_laserjet_mfp_m476nw_magenta_cartridge_hp_cf383a,HP Color LaserJet MFP M476nw Magenta Cartridge HP CF383A,3,%,N/A,measurement,N/A,2025-09-01T09:38:57.025627+00:00,2025-09-01T09:38:57.025627+00:00,sensor,N/A,False,N/A
+sensor.hp_color_laserjet_mfp_m476nw_yellow_cartridge_hp_cf382a,HP Color LaserJet MFP M476nw Yellow Cartridge HP CF382A,21,%,N/A,measurement,N/A,2025-09-01T09:38:57.026168+00:00,2025-09-01T09:38:57.026168+00:00,sensor,N/A,False,N/A
+sensor.jbarkhuizen_automation_code_discussions,jbarkhuizen/Automation-Code Discussions,0,discussions,N/A,measurement,N/A,2025-09-01T09:38:57.592272+00:00,2025-09-01T09:38:57.592272+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_discussions,jbarkhuizen/homeassistant-config-V3 Discussions,unavailable,discussions,N/A,measurement,N/A,2025-09-01T11:08:56.760347+00:00,2025-09-01T11:08:56.760347+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_discussions,jbarkhuizen/homeassistant-config-V2 Discussions,0,discussions,N/A,measurement,N/A,2025-09-01T09:38:57.597105+00:00,2025-09-01T09:38:57.597105+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_stars,jbarkhuizen/Automation-Code Stars,0,stars,N/A,measurement,N/A,2025-09-01T09:38:57.599076+00:00,2025-09-01T09:38:57.599076+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_stars,jbarkhuizen/homeassistant-config-V3 Stars,unavailable,stars,N/A,measurement,N/A,2025-09-01T11:08:56.761013+00:00,2025-09-01T11:08:56.761013+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_stars,jbarkhuizen/homeassistant-config-V2 Stars,0,stars,N/A,measurement,N/A,2025-09-01T09:38:57.602990+00:00,2025-09-01T09:38:57.602990+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_watchers,jbarkhuizen/Automation-Code Watchers,0,watchers,N/A,measurement,N/A,2025-09-01T09:38:57.604943+00:00,2025-09-01T09:38:57.604943+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_watchers,jbarkhuizen/homeassistant-config-V3 Watchers,unavailable,watchers,N/A,measurement,N/A,2025-09-01T11:08:56.761376+00:00,2025-09-01T11:08:56.761376+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_watchers,jbarkhuizen/homeassistant-config-V2 Watchers,0,watchers,N/A,measurement,N/A,2025-09-01T09:38:57.608964+00:00,2025-09-01T09:38:57.608964+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_forks,jbarkhuizen/Automation-Code Forks,0,forks,N/A,measurement,N/A,2025-09-01T09:38:57.610792+00:00,2025-09-01T09:38:57.610792+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_forks,jbarkhuizen/homeassistant-config-V3 Forks,unavailable,forks,N/A,measurement,N/A,2025-09-01T11:08:56.761845+00:00,2025-09-01T11:08:56.761845+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_forks,jbarkhuizen/homeassistant-config-V2 Forks,0,forks,N/A,measurement,N/A,2025-09-01T09:38:57.614154+00:00,2025-09-01T09:38:57.614154+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_issues,jbarkhuizen/Automation-Code Issues,0,issues,N/A,measurement,N/A,2025-09-01T09:38:57.615842+00:00,2025-09-01T09:38:57.615842+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_issues,jbarkhuizen/homeassistant-config-V3 Issues,unavailable,issues,N/A,measurement,N/A,2025-09-01T11:08:56.762198+00:00,2025-09-01T11:08:56.762198+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_issues,jbarkhuizen/homeassistant-config-V2 Issues,0,issues,N/A,measurement,N/A,2025-09-01T09:38:57.619171+00:00,2025-09-01T09:38:57.619171+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_pull_requests,jbarkhuizen/Automation-Code Pull requests,0,pull requests,N/A,measurement,N/A,2025-09-01T09:38:57.621194+00:00,2025-09-01T09:38:57.621194+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_pull_requests,jbarkhuizen/homeassistant-config-V3 Pull requests,unavailable,pull requests,N/A,measurement,N/A,2025-09-01T11:08:56.762601+00:00,2025-09-01T11:08:56.762601+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_pull_requests,jbarkhuizen/homeassistant-config-V2 Pull requests,0,pull requests,N/A,measurement,N/A,2025-09-01T09:38:57.623847+00:00,2025-09-01T09:38:57.623847+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_latest_commit,jbarkhuizen/Automation-Code Latest commit,Initial Automations,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.625170+00:00,2025-09-01T09:38:57.625170+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_latest_commit,jbarkhuizen/homeassistant-config-V3 Latest commit,unavailable,N/A,N/A,N/A,N/A,2025-09-01T11:08:56.762954+00:00,2025-09-01T11:08:56.762954+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_latest_commit,jbarkhuizen/homeassistant-config-V2 Latest commit,Updated Sunsynk Integrations,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.627636+00:00,2025-09-01T09:38:57.627636+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_latest_discussion,jbarkhuizen/Automation-Code Latest discussion,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.628940+00:00,2025-09-01T09:38:57.628940+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_latest_discussion,jbarkhuizen/homeassistant-config-V3 Latest discussion,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.630077+00:00,2025-09-01T09:38:57.630077+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_latest_discussion,jbarkhuizen/homeassistant-config-V2 Latest discussion,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.631151+00:00,2025-09-01T09:38:57.631151+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_latest_release,jbarkhuizen/Automation-Code Latest release,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.632134+00:00,2025-09-01T09:38:57.632134+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_latest_release,jbarkhuizen/homeassistant-config-V3 Latest release,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.634216+00:00,2025-09-01T09:38:57.634216+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_latest_release,jbarkhuizen/homeassistant-config-V2 Latest release,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.635205+00:00,2025-09-01T09:38:57.635205+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_latest_issue,jbarkhuizen/Automation-Code Latest issue,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.636161+00:00,2025-09-01T09:38:57.636161+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_latest_issue,jbarkhuizen/homeassistant-config-V3 Latest issue,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.637079+00:00,2025-09-01T09:38:57.637079+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_latest_issue,jbarkhuizen/homeassistant-config-V2 Latest issue,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.638000+00:00,2025-09-01T09:38:57.638000+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_latest_pull_request,jbarkhuizen/Automation-Code Latest pull request,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.638866+00:00,2025-09-01T09:38:57.638866+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_latest_pull_request,jbarkhuizen/homeassistant-config-V3 Latest pull request,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.639738+00:00,2025-09-01T09:38:57.639738+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_latest_pull_request,jbarkhuizen/homeassistant-config-V2 Latest pull request,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.640585+00:00,2025-09-01T09:38:57.640585+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_automation_code_latest_tag,jbarkhuizen/Automation-Code Latest tag,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.641405+00:00,2025-09-01T09:38:57.641405+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v3_latest_tag,jbarkhuizen/homeassistant-config-V3 Latest tag,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.642319+00:00,2025-09-01T09:38:57.642319+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.jbarkhuizen_homeassistant_config_v2_latest_tag,jbarkhuizen/homeassistant-config-V2 Latest tag,unavailable,N/A,N/A,N/A,N/A,2025-09-01T09:38:57.643193+00:00,2025-09-01T09:38:57.643193+00:00,sensor,Data provided by the GitHub API,False,N/A
+sensor.hp_color_laserjet_mfp_m476nw,HP Color LaserJet MFP M476nw,idle,N/A,enum,N/A,N/A,2025-09-01T09:38:57.780316+00:00,2025-09-01T09:38:57.780316+00:00,sensor,N/A,False,N/A
+sensor.onedrive_total_available_storage,OneDrive Total available storage,1039.0,GiB,data_size,N/A,N/A,2025-09-01T09:39:00.801732+00:00,2025-09-01T09:39:00.801732+00:00,sensor,N/A,False,N/A
+sensor.onedrive_used_storage,OneDrive Used storage,669.900000000373,GiB,data_size,N/A,N/A,2025-09-01T10:39:13.852949+00:00,2025-09-01T10:39:13.852949+00:00,sensor,N/A,False,N/A
+sensor.onedrive_remaining_storage,OneDrive Remaining storage,369.099999999627,GiB,data_size,N/A,N/A,2025-09-01T10:39:13.853519+00:00,2025-09-01T10:39:13.853519+00:00,sensor,N/A,False,N/A
+sensor.onedrive_drive_state,OneDrive Drive state,normal,N/A,enum,N/A,N/A,2025-09-01T09:39:00.813003+00:00,2025-09-01T09:39:00.813003+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_status,Johanba-Server Status,good,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.339267+00:00,2025-09-01T09:39:19.339267+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_system_temperature,Johanba-Server System temperature,41,°C,temperature,measurement,N/A,2025-09-01T11:11:59.674152+00:00,2025-09-01T11:11:59.674152+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_uptime,Johanba-Server Uptime,2025-09-01T05:43:30+00:00,N/A,timestamp,N/A,N/A,2025-09-01T11:16:50.479336+00:00,2025-09-01T11:16:50.479336+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_cpu_temperature,Johanba-Server CPU temperature,unknown,°C,temperature,measurement,N/A,2025-09-01T09:39:19.347588+00:00,2025-09-01T09:39:19.347588+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_cpu_usage,Johanba-Server CPU usage,17.5,%,N/A,measurement,N/A,2025-09-01T11:16:50.480862+00:00,2025-09-01T11:16:50.480862+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_memory_size,Johanba-Server Memory size,0.24375,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.352850+00:00,2025-09-01T09:39:19.352850+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_memory_available,Johanba-Server Memory available,0.1251953125,GiB,data_size,measurement,N/A,2025-09-01T11:16:50.482090+00:00,2025-09-01T11:16:50.482090+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_memory_used,Johanba-Server Memory used,0.1185546875,GiB,data_size,measurement,N/A,2025-09-01T11:16:50.482930+00:00,2025-09-01T11:16:50.482930+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_memory_usage,Johanba-Server Memory usage,48.6378205128205,%,N/A,measurement,N/A,2025-09-01T11:16:50.483727+00:00,2025-09-01T11:16:50.483727+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth0_link,Johanba-Server eth0 link,Up,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.373266+00:00,2025-09-01T09:39:19.373266+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth0_upload,Johanba-Server eth0 upload,0.001816,Mbit/s,data_rate,measurement,N/A,2025-09-01T11:16:50.484807+00:00,2025-09-01T11:16:50.484807+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth0_download,Johanba-Server eth0 download,0.000868,Mbit/s,data_rate,measurement,N/A,2025-09-01T11:16:50.485606+00:00,2025-09-01T11:16:50.485606+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth0_packet_errors,Johanba-Server eth0 packet errors,0,N/A,N/A,measurement,N/A,2025-09-01T09:39:19.380408+00:00,2025-09-01T09:39:19.380408+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth0_maximum_speed,Johanba-Server eth0 maximum speed,1000,Mbit/s,data_rate,measurement,N/A,2025-09-01T09:39:19.382589+00:00,2025-09-01T09:39:19.382589+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth1_link,Johanba-Server eth1 link,Up,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.384260+00:00,2025-09-01T09:39:19.384260+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth1_upload,Johanba-Server eth1 upload,0.001933,Mbit/s,data_rate,measurement,N/A,2025-09-01T11:16:50.492857+00:00,2025-09-01T11:16:50.492857+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth1_download,Johanba-Server eth1 download,0.00277,Mbit/s,data_rate,measurement,N/A,2025-09-01T11:16:50.493726+00:00,2025-09-01T11:16:50.493726+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth1_packet_errors,Johanba-Server eth1 packet errors,0,N/A,N/A,measurement,N/A,2025-09-01T09:39:19.389722+00:00,2025-09-01T09:39:19.389722+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_eth1_maximum_speed,Johanba-Server eth1 maximum speed,1000,Mbit/s,data_rate,measurement,N/A,2025-09-01T09:39:19.391582+00:00,2025-09-01T09:39:19.391582+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_1_status,Johanba-Server Drive 1 status,OK,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.393270+00:00,2025-09-01T09:39:19.393270+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_1_temperature,Johanba-Server Drive 1 temperature,41,°C,temperature,measurement,N/A,2025-09-01T10:10:33.197739+00:00,2025-09-01T10:10:33.197739+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_2_status,Johanba-Server Drive 2 status,OK,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.396326+00:00,2025-09-01T09:39:19.396326+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_2_temperature,Johanba-Server Drive 2 temperature,42,°C,temperature,measurement,N/A,2025-09-01T10:06:55.593517+00:00,2025-09-01T10:06:55.593517+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_3_status,Johanba-Server Drive 3 status,OK,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.398956+00:00,2025-09-01T09:39:19.398956+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_3_temperature,Johanba-Server Drive 3 temperature,42,°C,temperature,measurement,N/A,2025-09-01T09:48:51.591065+00:00,2025-09-01T09:48:51.591065+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_4_status,Johanba-Server Drive 4 status,OK,N/A,N/A,N/A,N/A,2025-09-01T09:39:19.401585+00:00,2025-09-01T09:39:19.401585+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_drive_4_temperature,Johanba-Server Drive 4 temperature,41,°C,temperature,measurement,N/A,2025-09-01T09:54:48.531264+00:00,2025-09-01T09:54:48.531264+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_size,Johanba-Server Volume size,3666.08282852173,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.404380+00:00,2025-09-01T09:39:19.404380+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_used_space_volume_1,Johanba-Server Used space (Volume 1),318.662197113037,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.405764+00:00,2025-09-01T09:39:19.405764+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_free_space_volume_1,Johanba-Server Free space (Volume 1),3347.42063140869,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.407018+00:00,2025-09-01T09:39:19.407018+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_used_volume_1,Johanba-Server Volume used (Volume 1),8.69217123611828,%,N/A,measurement,N/A,2025-09-01T09:39:19.408159+00:00,2025-09-01T09:39:19.408159+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_size_2,Johanba-Server Volume size,3709.73077774048,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.409341+00:00,2025-09-01T09:39:19.409341+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_used_space_volume_2,Johanba-Server Used space (Volume 2),28.4889640808105,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.410733+00:00,2025-09-01T09:39:19.410733+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_free_space_volume_2,Johanba-Server Free space (Volume 2),3681.24181365967,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.411897+00:00,2025-09-01T09:39:19.411897+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_used_volume_2,Johanba-Server Volume used (Volume 2),0.767952333677502,%,N/A,measurement,N/A,2025-09-01T09:39:19.412949+00:00,2025-09-01T09:39:19.412949+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_size_3,Johanba-Server Volume size,3709.73077774048,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.414082+00:00,2025-09-01T09:39:19.414082+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_used_space_volume_3,Johanba-Server Used space (Volume 3),1606.45974349976,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.415204+00:00,2025-09-01T09:39:19.415204+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_free_space_volume_3,Johanba-Server Free space (Volume 3),2103.27103424072,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.416311+00:00,2025-09-01T09:39:19.416311+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_used_volume_3,Johanba-Server Volume used (Volume 3),43.3039441336015,%,N/A,measurement,N/A,2025-09-01T09:39:19.417321+00:00,2025-09-01T09:39:19.417321+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_size_4,Johanba-Server Volume size,3709.73077774048,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.418374+00:00,2025-09-01T09:39:19.418374+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_used_space_volume_4,Johanba-Server Used space (Volume 4),2823.97161483765,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.419458+00:00,2025-09-01T09:39:19.419458+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_free_space_volume_4,Johanba-Server Free space (Volume 4),885.759162902832,GiB,data_size,measurement,N/A,2025-09-01T09:39:19.420482+00:00,2025-09-01T09:39:19.420482+00:00,sensor,N/A,False,N/A
+sensor.johanba_server_volume_used_volume_4,Johanba-Server Volume used (Volume 4),76.1233573008139,%,N/A,measurement,N/A,2025-09-01T09:39:19.421448+00:00,2025-09-01T09:39:19.421448+00:00,sensor,N/A,False,N/A
+sensor.onedrive_storage_percentage,OneDrive Storage Percentage,unavailable,%,N/A,measurement,mdi:percent,2025-09-01T09:39:19.427390+00:00,2025-09-01T09:39:19.427390+00:00,sensor,N/A,True,0
+sensor.onedrive_storage_remaining,OneDrive Storage Remaining,unavailable,GB,data_size,measurement,mdi:harddisk-remove,2025-09-01T09:39:19.427785+00:00,2025-09-01T09:39:19.427785+00:00,sensor,N/A,True,0
+sensor.onedrive_storage_status,OneDrive Storage Status,unavailable,N/A,N/A,N/A,mdi:information,2025-09-01T09:39:19.427961+00:00,2025-09-01T09:39:19.427961+00:00,sensor,N/A,True,0
+sensor.onedrive_days_until_full,OneDrive Days Until Full,unavailable,days,N/A,N/A,mdi:calendar-clock,2025-09-01T09:39:19.428110+00:00,2025-09-01T09:39:19.428110+00:00,sensor,N/A,True,0
+sensor.daily_energy_production,Daily Energy Production,unavailable,kWh,energy,total_increasing,mdi:solar-power,2025-09-01T09:39:19.428261+00:00,2025-09-01T09:39:19.428261+00:00,sensor,N/A,True,0
+sensor.total_power_output,Total Power Output,unavailable,W,power,measurement,mdi:flash,2025-09-01T09:39:19.428402+00:00,2025-09-01T09:39:19.428402+00:00,sensor,N/A,True,0
+sensor.solar_efficiency,Solar Efficiency,unavailable,%,N/A,measurement,mdi:gauge,2025-09-01T09:39:19.428574+00:00,2025-09-01T09:39:19.428574+00:00,sensor,N/A,True,0
+sensor.home_assistant_uptime,Home Assistant Uptime,unavailable,N/A,N/A,N/A,mdi:clock,2025-09-01T09:39:19.428711+00:00,2025-09-01T09:39:19.428711+00:00,sensor,N/A,True,0
+sensor.system_health_status,System Health Status,unavailable,N/A,N/A,N/A,mdi:heart-pulse,2025-09-01T09:39:19.428844+00:00,2025-09-01T09:39:19.428844+00:00,sensor,N/A,True,0
+sensor.time_period,Time Period,unavailable,N/A,N/A,N/A,mdi:clock,2025-09-01T09:39:19.430828+00:00,2025-09-01T09:39:19.430828+00:00,sensor,N/A,True,0
+sensor.days_until_weekend,Days Until Weekend,unavailable,days,N/A,N/A,mdi:calendar-weekend,2025-09-01T09:39:19.430962+00:00,2025-09-01T09:39:19.430962+00:00,sensor,N/A,True,0
+sensor.current_season,Current Season,unavailable,N/A,N/A,N/A,mdi:weather-partly-cloudy,2025-09-01T09:39:19.431106+00:00,2025-09-01T09:39:19.431106+00:00,sensor,N/A,True,0
+sensor.onedrive_days_until_full_simple,OneDrive Days Until Full Simple,unavailable,days,N/A,N/A,mdi:calendar-clock,2025-09-01T09:39:19.432405+00:00,2025-09-01T09:39:19.432405+00:00,sensor,N/A,True,0
+binary_sensor.file_editor_running,File editor Running,on,N/A,running,N/A,N/A,2025-09-01T09:38:48.079043+00:00,2025-09-01T09:38:48.079043+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.advanced_ssh_web_terminal_running,Advanced SSH & Web Terminal Running,off,N/A,running,N/A,N/A,2025-09-01T09:38:48.079652+00:00,2025-09-01T09:38:48.079652+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.studio_code_server_running,Studio Code Server Running,on,N/A,running,N/A,N/A,2025-09-01T09:38:48.080079+00:00,2025-09-01T09:38:48.080079+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.terminal_ssh_running,Terminal & SSH Running,on,N/A,running,N/A,N/A,2025-09-01T09:38:48.080409+00:00,2025-09-01T09:38:48.080409+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.remote_ui,Remote UI,off,N/A,connectivity,N/A,N/A,2025-09-01T09:39:01.772700+00:00,2025-09-01T09:39:01.772700+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.onedrive_storage_alert_simple,OneDrive Storage Alert Simple,off,N/A,N/A,N/A,mdi:alert,2025-09-01T09:39:19.445833+00:00,2025-09-01T09:39:19.445833+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.onedrive_health_simple,OneDrive Health Simple,on,N/A,N/A,N/A,mdi:cloud-check,2025-09-01T09:39:19.446370+00:00,2025-09-01T09:39:19.446370+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.sun_solar_rising,Sun Solar rising,off,N/A,N/A,N/A,N/A,2025-09-01T10:07:06.018101+00:00,2025-09-01T10:07:06.018101+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.archer_d2_wan_status_2,Archer_D2 WAN status,on,N/A,connectivity,N/A,N/A,2025-09-01T09:39:36.379339+00:00,2025-09-01T09:39:36.379339+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.archer_d2_wan_status,Archer_D2 WAN status,on,N/A,connectivity,N/A,N/A,2025-09-01T09:39:42.672419+00:00,2025-09-01T09:39:42.672419+00:00,binary_sensor,N/A,False,N/A
+binary_sensor.onedrive_storage_warning,OneDrive Storage Warning,unavailable,N/A,problem,N/A,mdi:alert,2025-09-01T09:39:19.428979+00:00,2025-09-01T09:39:19.428979+00:00,binary_sensor,N/A,True,0
+binary_sensor.onedrive_health,OneDrive Health,unavailable,N/A,connectivity,N/A,mdi:cloud-check,2025-09-01T09:39:19.429119+00:00,2025-09-01T09:39:19.429119+00:00,binary_sensor,N/A,True,0
+binary_sensor.solar_production_active,Solar Production Active,unavailable,N/A,power,N/A,mdi:solar-power,2025-09-01T09:39:19.430282+00:00,2025-09-01T09:39:19.430282+00:00,binary_sensor,N/A,True,0
+binary_sensor.system_health_alert,System Health Alert,unavailable,N/A,problem,N/A,mdi:alert-circle,2025-09-01T09:39:19.430420+00:00,2025-09-01T09:39:19.430420+00:00,binary_sensor,N/A,True,0
+binary_sensor.high_production_day,High Production Day,unavailable,N/A,power,N/A,mdi:weather-sunny,2025-09-01T09:39:19.430682+00:00,2025-09-01T09:39:19.430682+00:00,binary_sensor,N/A,True,0
+binary_sensor.onedrive_storage_critical_alert,OneDrive Storage Critical Alert,unavailable,N/A,problem,N/A,mdi:alert-circle,2025-09-01T09:39:19.431510+00:00,2025-09-01T09:39:19.431510+00:00,binary_sensor,N/A,True,0
+binary_sensor.onedrive_overall_health,OneDrive Overall Health,unavailable,N/A,connectivity,N/A,mdi:cloud-check-variant,2025-09-01T09:39:19.431887+00:00,2025-09-01T09:39:19.431887+00:00,binary_sensor,N/A,True,0
+binary_sensor.onedrive_backup_needed,OneDrive Backup Needed,unavailable,N/A,problem,N/A,mdi:backup-restore,2025-09-01T09:39:19.432019+00:00,2025-09-01T09:39:19.432019+00:00,binary_sensor,N/A,True,0
+binary_sensor.onedrive_storage_warning_calculated,OneDrive Storage Warning Calculated,unavailable,N/A,problem,N/A,mdi:alert,2025-09-01T09:39:19.432147+00:00,2025-09-01T09:39:19.432147+00:00,binary_sensor,N/A,True,0
+binary_sensor.onedrive_health_calculated,OneDrive Health Calculated,unavailable,N/A,connectivity,N/A,mdi:cloud-check,2025-09-01T09:39:19.432275+00:00,2025-09-01T09:39:19.432275+00:00,binary_sensor,N/A,True,0

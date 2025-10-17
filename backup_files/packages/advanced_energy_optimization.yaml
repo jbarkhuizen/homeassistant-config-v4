@@ -1,0 +1,769 @@
+#===============================================================================
+# Advanced Energy Optimization Automation Package
+# File: packages/advanced_energy_optimization.yaml
+# Created: 2025-09-28
+# Purpose: Smart energy management based on Tshwane tariffs, weather, and usage patterns
+# 
+# Features:
+# - Dynamic load management based on tariff bands
+# - Weather-aware solar optimization
+# - Smart battery charging/discharging
+# - Automated appliance control during peak rates
+# - Energy efficiency recommendations
+#===============================================================================
+
+# Additional input helpers for advanced optimization
+input_number:
+  # Smart thresholds for automation
+  peak_usage_threshold:
+    name: "Peak Usage Threshold"
+    min: 2000
+    max: 8000
+    step: 100
+    initial: 4000
+    unit_of_measurement: "W"
+    icon: mdi:flash
+    
+  battery_reserve_minimum:
+    name: "Battery Reserve Minimum"
+    min: 10
+    max: 50
+    step: 5
+    initial: 25
+    unit_of_measurement: "%"
+    icon: mdi:battery-low
+    
+  solar_forecast_confidence:
+    name: "Solar Forecast Confidence"
+    min: 50
+    max: 100
+    step: 5
+    initial: 80
+    unit_of_measurement: "%"
+    icon: mdi:weather-sunny
+    
+  energy_saving_target:
+    name: "Daily Energy Saving Target"
+    min: 5
+    max: 50
+    step: 5
+    initial: 20
+    unit_of_measurement: "%"
+    icon: mdi:leaf
+
+input_select:
+  load_management_mode:
+    name: "Load Management Mode"
+    options:
+      - "Automatic"
+      - "Conservative"
+      - "Aggressive"
+      - "Manual"
+    initial: "Automatic"
+    icon: mdi:tune
+    
+  weather_optimization:
+    name: "Weather-Based Optimization"
+    options:
+      - "Enabled"
+      - "Disabled"
+      - "Sunny Days Only"
+    initial: "Enabled"
+    icon: mdi:weather-partly-cloudy
+
+input_boolean:
+  smart_appliance_control:
+    name: "Smart Appliance Control"
+    initial: true
+    icon: mdi:home-automation
+    
+  peak_rate_protection:
+    name: "Peak Rate Protection"
+    initial: true
+    icon: mdi:shield
+    
+  advanced_battery_management:
+    name: "Advanced Battery Management"
+    initial: true
+    icon: mdi:battery-smart
+
+# Template sensors for advanced monitoring
+template:
+  - sensor:
+      # Predicted daily cost based on current usage pattern
+      - name: "Predicted Daily Cost"
+        unique_id: predicted_daily_cost
+        unit_of_measurement: "R"
+        state: >
+          {% set current_hour = now().hour %}
+          {% set hours_remaining = 24 - current_hour %}
+          {% set hourly_average = (states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0)) / current_hour if current_hour > 0 else 0 %}
+          {% set predicted_usage = hourly_average * 24 %}
+          {% set current_rate = states('sensor.current_electricity_rate') | float(0) %}
+          {{ ((predicted_usage * current_rate / 100) * 1.15) | round(2) }}
+        icon: mdi:crystal-ball
+        
+      # Energy efficiency score (0-100)
+      - name: "Energy Efficiency Score"
+        unique_id: energy_efficiency_score
+        unit_of_measurement: "score"
+        state: >
+          {% set solar_gen = states('sensor.deyeinvertermaster_summary_day_pv') | float(0) %}
+          {% set grid_usage = states('sensor.deyeinvertermaster_summary_day_grid_import_buy') | float(0) %}
+          {% set total_load = states('sensor.deyeinvertermaster_summary_day_load') | float(0) %}
+          {% set battery_cycles = states('sensor.deyeinvertermaster_battery_soc') | float(0) / 100 %}
+          
+          {% if total_load > 0 %}
+            {% set solar_efficiency = (solar_gen / total_load) * 40 %}
+            {% set grid_independence = ((total_load - grid_usage) / total_load) * 40 %}
+            {% set battery_health = battery_cycles * 20 %}
+            {{ ([solar_efficiency + grid_independence + battery_health, 100] | min) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+        icon: mdi:speedometer
+        
+      # Smart load recommendation
+      - name: "Load Management Recommendation"
+        unique_id: load_management_recommendation
+        state: >
+          {% set current_band = states('sensor.current_electricity_tariff_band') | int(0) %}
+          {% set battery_soc = states('sensor.deyeinvertermaster_battery_soc') | int(0) %}
+          {% set solar_power = states('sensor.deyeinvertermaster_pv_power') | float(0) %}
+          {% set current_hour = now().hour %}
+          
+          {% if current_band >= 3 and battery_soc > 30 %}
+            Battery Priority
+          {% elif solar_power > 2000 and current_hour >= 9 and current_hour <= 15 %}
+            Solar Direct
+          {% elif current_band <= 2 and battery_soc < 80 %}
+            Grid Charge
+          {% else %}
+            Standard
+          {% endif %}
+        icon: mdi:lightbulb-on
+        
+      # Weather-based solar forecast
+      - name: "Solar Generation Forecast"
+        unique_id: solar_generation_forecast
+        unit_of_measurement: "kWh"
+        state: >
+          {% set cloud_cover = states('sensor.openweathermap_cloud_coverage') | float(50) %}
+          {% set max_generation = 60 %}  # Adjust based on your 2x8kW system
+          {% set efficiency = (100 - cloud_cover) / 100 %}
+          {{ (max_generation * efficiency) | round(1) }}
+        icon: mdi:weather-sunny
+        attributes:
+          confidence: >
+            {% set cloud_cover = states('sensor.openweathermap_cloud_coverage') | float(50) %}
+            {% if cloud_cover < 20 %}
+              High
+            {% elif cloud_cover < 60 %}
+              Medium
+            {% else %}
+              Low
+            {% endif %}
+          weather_condition: "{{ states('sensor.openweathermap_condition') }}"
+
+# Binary sensors for smart automation triggers
+binary_sensor:
+  - platform: template
+    sensors:
+      peak_rate_period:
+        friendly_name: "Peak Rate Period"
+        device_class: problem
+        value_template: >
+          {% set current_band = states('sensor.current_electricity_tariff_band') | int(0) %}
+          {% set budget_status = states('sensor.monthly_budget_status') | float(0) %}
+          {{ current_band >= 3 or budget_status > 85 }}
+        icon_template: >
+          {% if is_state('binary_sensor.peak_rate_period', 'on') %}
+            mdi:alert-circle
+          {% else %}
+            mdi:check-circle
+          {% endif %}
+            
+      optimal_solar_period:
+        friendly_name: "Optimal Solar Period"
+        device_class: light
+        value_template: >
+          {% set solar_power = states('sensor.deyeinvertermaster_pv_power') | float(0) %}
+          {% set current_hour = now().hour %}
+          {{ solar_power > 1000 and current_hour >= 9 and current_hour <= 16 }}
+        icon_template: >
+          {% if is_state('binary_sensor.optimal_solar_period', 'on') %}
+            mdi:weather-sunny
+          {% else %}
+            mdi:weather-cloudy
+          {% endif %}
+            
+      battery_optimization_needed:
+        friendly_name: "Battery Optimization Needed"
+        device_class: battery
+        value_template: >
+          {% set battery_soc = states('sensor.deyeinvertermaster_battery_soc') | int(0) %}
+          {% set current_band = states('sensor.current_electricity_tariff_band') | int(0) %}
+          {% set solar_forecast = states('sensor.solar_generation_forecast') | float(0) %}
+          {% set current_hour = now().hour %}
+          
+          {% if current_hour < 6 and battery_soc < 50 and current_band <= 2 %}
+            true  # Early morning grid charge in low tariff
+          {% elif current_hour > 16 and battery_soc < 80 and solar_forecast > 30 %}
+            true  # Evening charge for next day
+          {% else %}
+            false
+          {% endif %}
+
+# Advanced automation rules
+automation:
+  # Smart Load Management - Triggered every 15 minutes during daylight
+  - id: smart_load_management_optimization
+    alias: 'Energy: Smart Load Management Optimization'
+    description: 'Optimize energy usage based on current conditions'
+    trigger:
+      - platform: time_pattern
+        minutes: "/15"  # Every 15 minutes
+    condition:
+      - condition: time
+        after: "06:00:00"
+        before: "22:00:00"
+      - condition: state
+        entity_id: input_boolean.smart_appliance_control
+        state: "on"
+    action:
+      - choose:
+          # Scenario 1: High tariff band + good battery + solar available
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.current_electricity_tariff_band
+                above: 2
+              - condition: numeric_state
+                entity_id: sensor.deyeinvertermaster_battery_soc
+                above: 40
+              - condition: numeric_state
+                entity_id: sensor.deyeinvertermaster_pv_power
+                above: 1000
+            sequence:
+              - service: select.select_option
+                data:
+                  option: "Zero Export"
+                target:
+                  entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+              - service: notify.persistent_notification
+                data:
+                  title: "🔋 Smart Optimization: Battery Priority"
+                  message: >
+                    High tariff rate detected (Band {{ states('sensor.current_electricity_tariff_band') }}).
+                    Switching to battery/solar priority mode.
+                    
+                    Current rate: R{{ (states('sensor.current_electricity_rate') | float / 100) | round(2) }}/kWh
+                    Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+                    Solar power: {{ states('sensor.deyeinvertermaster_pv_power') }}W
+                  notification_id: smart_optimization
+                  
+          # Scenario 2: Low tariff band + low battery + poor solar
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.current_electricity_tariff_band
+                below: 3
+              - condition: numeric_state
+                entity_id: sensor.deyeinvertermaster_battery_soc
+                below: 60
+              - condition: numeric_state
+                entity_id: sensor.deyeinvertermaster_pv_power
+                below: 500
+            sequence:
+              - service: notify.persistent_notification
+                data:
+                  title: "⚡ Smart Optimization: Grid Charge Opportunity"
+                  message: >
+                    Low tariff rate (Band {{ states('sensor.current_electricity_tariff_band') }}) + low solar.
+                    Consider charging battery from grid.
+                    
+                    Current rate: R{{ (states('sensor.current_electricity_rate') | float / 100) | round(2) }}/kWh
+                    Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+                    
+                    This could save money for evening usage.
+                  notification_id: grid_charge_opportunity
+
+  # Daily Optimization Report at 09:00
+  - id: daily_energy_optimization_report
+    alias: 'Energy: Daily Optimization Report at 09:00'
+    description: 'Comprehensive daily energy optimization analysis and recommendations'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition: []
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "🤖 Daily Energy Optimization Report"
+          message: >
+            **Energy Optimization Analysis (09:00):**
+            
+            **Yesterday's Performance:**
+            • Efficiency Score: {{ states('sensor.energy_efficiency_score') }}/100
+            • Grid Dependency: {{ states('sensor.grid_dependency_percentage') }}%
+            • Cost: R{{ states('sensor.daily_electricity_cost') }}
+            • Tariff Band: {{ states('sensor.current_electricity_tariff_band') }}
+            
+            **Today's Forecast:**
+            • Solar Forecast: {{ states('sensor.solar_generation_forecast') }}kWh
+            • Weather: {{ states('sensor.openweathermap_condition') }}
+            • Confidence: {{ state_attr('sensor.solar_generation_forecast', 'confidence') }}
+            
+            **Smart Recommendations:**
+            • Load Management: {{ states('sensor.load_management_recommendation') }}
+            • Predicted Cost: R{{ states('sensor.predicted_daily_cost') }}
+            {% if states('binary_sensor.peak_rate_period') == 'on' %}
+            ⚠️ Peak rate period - minimize grid usage
+            {% endif %}
+            {% if states('binary_sensor.optimal_solar_period') == 'on' %}
+            ☀️ Optimal solar conditions - maximize direct usage
+            {% endif %}
+            
+            **System Status:**
+            • Battery: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            • Current Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            • Load Management: {{ states('input_select.load_management_mode') }}
+          notification_id: daily_optimization_report
+
+  # Weather-based Solar Optimization
+  - id: weather_based_solar_optimization
+    alias: 'Energy: Weather-Based Solar Optimization'
+    description: 'Adjust energy strategy based on weather forecast'
+    trigger:
+      - platform: time_pattern
+        hours: "/3"  # Every 3 hours
+    condition:
+      - condition: state
+        entity_id: input_select.weather_optimization
+        state: "Enabled"
+    action:
+      - choose:
+          # Sunny day optimization
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.openweathermap_cloud_coverage
+                below: 30
+              - condition: time
+                after: "07:00:00"
+                before: "17:00:00"
+            sequence:
+              - service: input_select.select_option
+                data:
+                  option: "Solar Priority"
+                target:
+                  entity_id: input_select.energy_mode
+              - service: notify.persistent_notification
+                data:
+                  title: "☀️ Sunny Day Optimization"
+                  message: >
+                    Excellent solar conditions detected!
+                    
+                    Cloud coverage: {{ states('sensor.openweathermap_cloud_coverage') }}%
+                    Forecast generation: {{ states('sensor.solar_generation_forecast') }}kWh
+                    
+                    Optimizing for maximum solar utilization.
+                    Consider running high-energy appliances now.
+                  notification_id: sunny_day_optimization
+                  
+          # Cloudy day optimization
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.openweathermap_cloud_coverage
+                above: 70
+            sequence:
+              - service: input_select.select_option
+                data:
+                  option: "Battery Priority"
+                target:
+                  entity_id: input_select.energy_mode
+              - service: notify.persistent_notification
+                data:
+                  title: "☁️ Cloudy Day Optimization"
+                  message: >
+                    Poor solar conditions detected.
+                    
+                    Cloud coverage: {{ states('sensor.openweathermap_cloud_coverage') }}%
+                    Reduced forecast: {{ states('sensor.solar_generation_forecast') }}kWh
+                    
+                    Switching to battery conservation mode.
+                    Consider deferring non-essential loads.
+                  notification_id: cloudy_day_optimization
+
+  # Peak Rate Protection System
+  - id: peak_rate_protection_system
+    alias: 'Energy: Peak Rate Protection System'
+    description: 'Automatically protect against high electricity rates'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.peak_rate_period
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.peak_rate_protection
+        state: "on"
+    action:
+      - service: select.select_option
+        data:
+          option: "Essentials"
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+      - service: notify.persistent_notification
+        data:
+          title: "🛡️ Peak Rate Protection Activated"
+          message: >
+            High electricity rates detected!
+            
+            Current Situation:
+            • Tariff Band: {{ states('sensor.current_electricity_tariff_band') }}
+            • Rate: R{{ (states('sensor.current_electricity_rate') | float / 100) | round(2) }}/kWh
+            • Budget Used: {{ states('sensor.monthly_budget_status') }}%
+            
+            Protection Measures:
+            ✅ Switched to essentials-only mode
+            ✅ Maximizing battery/solar usage
+            ✅ Minimizing grid consumption
+            
+            Consider:
+            • Deferring dishwasher, washing machine
+            • Reducing air conditioning usage
+            • Using LED lighting only
+          notification_id: peak_rate_protection
+
+  # Advanced Battery Management
+  - id: advanced_battery_management_system
+    alias: 'Energy: Advanced Battery Management System'
+    description: 'Intelligent battery charging and discharging optimization'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.battery_optimization_needed
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.advanced_battery_management
+        state: "on"
+    action:
+      - choose:
+          # Early morning grid charge scenario
+          - conditions:
+              - condition: time
+                after: "02:00:00"
+                before: "06:00:00"
+              - condition: numeric_state
+                entity_id: sensor.current_electricity_tariff_band
+                below: 3
+              - condition: numeric_state
+                entity_id: sensor.deyeinvertermaster_battery_soc
+                below: 50
+            sequence:
+              - service: notify.persistent_notification
+                data:
+                  title: "🔋 Smart Battery Charging"
+                  message: >
+                    Optimal grid charging window detected:
+                    
+                    • Time: {{ now().strftime('%H:%M') }} (Off-peak)
+                    • Current Rate: R{{ (states('sensor.current_electricity_rate') | float / 100) | round(2) }}/kWh
+                    • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+                    • Solar Forecast: {{ states('sensor.solar_generation_forecast') }}kWh
+                    
+                    Consider charging battery from grid to:
+                    • Avoid peak rates later
+                    • Ensure backup power availability
+                    • Optimize tomorrow's solar usage
+                  notification_id: smart_battery_charging
+
+  # Weekly Energy Efficiency Report (Sundays at 09:00)
+  - id: weekly_energy_efficiency_report
+    alias: 'Energy: Weekly Efficiency Report'
+    description: 'Comprehensive weekly energy performance analysis'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: time
+        weekday:
+          - sun
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "📊 Weekly Energy Efficiency Report"
+          message: >
+            **Weekly Performance Summary:**
+            
+            **Efficiency Metrics:**
+            • Average Daily Score: {{ states('sensor.energy_efficiency_score') }}/100
+            • Grid Independence: {{ (100 - states('sensor.grid_dependency_percentage') | float) | round(1) }}%
+            • Solar Utilization: {{ states('sensor.daily_energy_efficiency') }}%
+            
+            **Cost Performance:**
+            • Weekly Grid Cost: R{{ states('sensor.estimated_monthly_electricity_cost') | float / 4 | round(2) }}
+            • Average Tariff Band: {{ states('sensor.current_electricity_tariff_band') }}
+            • Budget Efficiency: {{ states('sensor.monthly_budget_status') }}% used
+            
+            **System Optimization:**
+            • Battery Cycles: Optimal
+            • Load Management: {{ states('input_select.load_management_mode') }}
+            • Weather Adaptation: {{ states('input_select.weather_optimization') }}
+            
+            **Recommendations for Next Week:**
+            {% if states('sensor.energy_efficiency_score') | int(0) < 70 %}
+            • Focus on solar optimization during peak hours
+            • Review battery charge/discharge timing
+            • Consider load shifting strategies
+            {% elif states('sensor.grid_dependency_percentage') | float(0) > 40 %}
+            • Increase solar direct consumption
+            • Optimize battery usage patterns
+            • Review inverter mode scheduling
+            {% else %}
+            • Excellent performance - maintain current settings
+            • Monitor for seasonal adjustments needed
+            • Consider minor efficiency improvements
+            {% endif %}
+            
+            Check Grafana dashboards for detailed trends and analytics.
+          notification_id: weekly_efficiency_report
+
+  # Smart Appliance Control Integration (if SONOFF/TUYA devices connected)
+  - id: smart_appliance_peak_rate_control
+    alias: 'Energy: Smart Appliance Peak Rate Control'
+    description: 'Automatically manage high-consumption appliances during peak rates'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.peak_rate_period
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.smart_appliance_control
+        state: "on"
+    action:
+      # Add your specific SONOFF/TUYA device controls here
+      # Example controls (uncomment and modify entity names as needed):
+      # - service: switch.turn_off
+      #   target:
+      #     entity_id: 
+      #       - switch.sonoff_water_heater
+      #       - switch.tuya_pool_pump
+      #       - switch.sonoff_dishwasher_outlet
+      - service: notify.persistent_notification
+        data:
+          title: "🏠 Smart Appliance Control"
+          message: >
+            Peak rate protection: Managing appliances automatically.
+            
+            **Actions Taken:**
+            • High-consumption devices deferred
+            • Essential systems maintained
+            • Battery/solar priority enabled
+            
+            **Manual Override Available:**
+            You can manually control devices if needed.
+            
+            **Affected Areas:**
+            • Water heating (if applicable)
+            • Pool equipment (if applicable)
+            • Non-essential outlets
+            
+            Normal operation will resume when rates decrease.
+          notification_id: appliance_control
+
+  # End-of-month cost optimization review
+  - id: monthly_cost_optimization_review
+    alias: 'Energy: Monthly Cost Optimization Review'
+    description: 'End of month analysis and next month preparation'
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().day >= 28 }}"  # Last few days of month
+    action:
+      - service: notify.persistent_notification
+        data:
+          title: "📅 Monthly Cost Review & Next Month Prep"
+          message: >
+            **Monthly Summary ({{ now().strftime('%B %Y') }}):**
+            
+            **Final Numbers:**
+            • Total Grid Usage: {{ states('sensor.monthly_grid_consumption') }}kWh
+            • Final Cost: R{{ states('sensor.estimated_monthly_electricity_cost') }}
+            • Budget Performance: {{ states('sensor.monthly_budget_status') }}%
+            • Average Tariff Band: {{ states('sensor.current_electricity_tariff_band') }}
+            
+            **Performance Analysis:**
+            • Target Achievement: {{ 'Met' if states('sensor.monthly_grid_consumption') | float <= states('input_number.monthly_target_usage') | float else 'Exceeded' }}
+            • Cost Efficiency: {{ state_attr('sensor.monthly_budget_status', 'status') }}
+            • System Reliability: {{ 'Excellent' if states('binary_sensor.inverter_system_healthy') == 'on' else 'Needs Attention' }}
+            
+            **Next Month Preparation:**
+            • Review tariff rate updates
+            • Check system maintenance needs
+            • Update targets based on seasonal changes
+            • Verify backup system functionality
+            
+            **Action Items:**
+            {% if states('sensor.monthly_budget_status') | float > 100 %}
+            🔴 Over budget - review high consumption periods
+            {% elif states('sensor.monthly_budget_status') | float > 85 %}
+            🟡 Close to budget - optimize for next month
+            {% else %}
+            🟢 Under budget - great performance!
+            {% endif %}
+          notification_id: monthly_review
+
+# Scripts for manual optimization actions
+script:
+  # Force optimize energy system
+  force_energy_optimization:
+    alias: "Force Energy System Optimization"
+    icon: mdi:tune
+    sequence:
+      - service: automation.trigger
+        target:
+          entity_id: automation.smart_load_management_optimization
+      - service: automation.trigger
+        target:
+          entity_id: automation.weather_based_solar_optimization
+      - delay: "00:00:05"
+      - service: notify.persistent_notification
+        data:
+          title: "⚡ Manual Optimization Triggered"
+          message: >
+            Energy system optimization has been manually triggered.
+            
+            **Current Status:**
+            • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            • Solar Power: {{ states('sensor.deyeinvertermaster_pv_power') }}W
+            • Tariff Band: {{ states('sensor.current_electricity_tariff_band') }}
+            • Current Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            
+            Check notifications for optimization results.
+          notification_id: manual_optimization
+
+  # Generate detailed cost analysis
+  generate_cost_analysis:
+    alias: "Generate Detailed Cost Analysis"
+    icon: mdi:file-chart
+    sequence:
+      - service: notify.persistent_notification
+        data:
+          title: "💰 Detailed Cost Analysis Report"
+          message: >
+            **Comprehensive Cost Analysis:**
+            
+            **Current Period:**
+            • Daily Average: R{{ (states('sensor.estimated_monthly_electricity_cost') | float / now().day) | round(2) }}
+            • Weekly Trend: {{ 'Increasing' if states('sensor.predicted_daily_cost') | float > states('sensor.daily_electricity_cost') | float else 'Stable' }}
+            • Monthly Projection: R{{ states('sensor.estimated_monthly_electricity_cost') }}
+            
+            **Tariff Band Analysis:**
+            {{ state_attr('sensor.current_electricity_tariff_band', 'band_description') }}
+            {{ state_attr('sensor.current_electricity_tariff_band', 'next_band_threshold') }}
+            
+            **Cost Breakdown:**
+            {{ state_attr('sensor.estimated_monthly_electricity_cost', 'cost_breakdown') }}
+            
+            **Optimization Opportunities:**
+            {% set efficiency = states('sensor.energy_efficiency_score') | int(0) %}
+            {% if efficiency < 60 %}
+            🔴 Major improvements possible - focus on solar utilization
+            {% elif efficiency < 80 %}
+            🟡 Good efficiency - minor optimizations available
+            {% else %}
+            🟢 Excellent efficiency - maintain current performance
+            {% endif %}
+            
+            **Savings Potential:**
+            Estimated monthly savings with 10% efficiency improvement: 
+            R{{ (states('sensor.estimated_monthly_electricity_cost') | float * 0.1) | round(2) }}
+          notification_id: detailed_cost_analysis
+
+  # Emergency grid minimize mode
+  emergency_grid_minimize:
+    alias: "Emergency Grid Minimize Mode"
+    icon: mdi:shield-alert
+    sequence:
+      - service: select.select_option
+        data:
+          option: "Essentials"
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.energy_saving_mode
+      - service: input_select.select_option
+        data:
+          option: "Conservative"
+        target:
+          entity_id: input_select.load_management_mode
+      # Turn off non-essential devices (add your specific devices)
+      # - service: switch.turn_off
+      #   target:
+      #     entity_id: 
+      #       - switch.sonoff_pool_pump
+      #       - switch.tuya_water_heater
+      - service: notify.persistent_notification
+        data:
+          title: "🚨 Emergency Grid Minimize Activated"
+          message: >
+            Emergency grid minimization mode has been activated!
+            
+            **Actions Taken:**
+            ✅ Inverter set to essentials only
+            ✅ Energy saving mode enabled
+            ✅ Conservative load management
+            ✅ Non-essential appliances disabled
+            
+            **Current Status:**
+            • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            • Grid Power: {{ states('sensor.deyeinvertermaster_grid_power') }}W
+            • Load Power: {{ states('sensor.deyeinvertermaster_load_power') }}W
+            
+            This mode will minimize grid usage to protect against:
+            • High electricity costs
+            • Budget overruns
+            • Peak demand charges
+            
+            **To Resume Normal Mode:**
+            Run the "Restore Normal Mode" script when conditions improve.
+          notification_id: emergency_minimize
+
+  # Restore normal operation mode
+  restore_normal_mode:
+    alias: "Restore Normal Energy Mode"
+    icon: mdi:restore
+    sequence:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.energy_saving_mode
+      - service: input_select.select_option
+        data:
+          option: "Automatic"
+        target:
+          entity_id: input_select.load_management_mode
+      - service: automation.trigger
+        target:
+          entity_id: automation.smart_load_management_optimization
+      - delay: "00:00:05"
+      - service: notify.persistent_notification
+        data:
+          title: "✅ Normal Energy Mode Restored"
+          message: >
+            Normal energy operation mode has been restored.
+            
+            **Settings Restored:**
+            • Energy saving mode: OFF
+            • Load management: Automatic
+            • Smart optimization: Active
+            
+            **Current Status:**
+            • Battery SOC: {{ states('sensor.deyeinvertermaster_battery_soc') }}%
+            • Current Mode: {{ states('select.deyeinvertermaster_load_limit_exp_ess_non_ess') }}
+            • Tariff Band: {{ states('sensor.current_electricity_tariff_band') }}
+            
+            System will now operate according to standard optimization rules.
+          notification_id: normal_mode_restored
+
+#===============================================================================

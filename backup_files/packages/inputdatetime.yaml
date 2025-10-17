@@ -1,0 +1,57 @@
+input_datetime:
+  bedroom_battery_last_changed:
+    name: Bedroom Battery Changed
+    has_date: true
+    has_time: false
+  braai_afdak_battery_last_changed:
+    name: Braai Afdak Battery Changed
+    has_date: true
+    has_time: false
+  power_room_battery_last_changed:
+    name: Power Room Battery Changed
+    has_date: true
+    has_time: false
+  study_battery_last_changed:
+    name: Study Battery Changed
+    has_date: true
+    has_time: false
+  tv_room_battery_last_changed:
+    name: TV Room Battery Changed
+    has_date: true
+    has_time: false
+  gang_motion_battery_last_changed:
+    name: Gang Motion Battery Changed
+    has_date: true
+    has_time: false
+  front_door_battery_last_changed:
+    name: Front Door Battery Changed
+    has_date: true
+    has_time: false
+  salon_back_door_battery_last_changed:
+    name: Salon Back Door Battery Changed
+    has_date: true
+    has_time: false
+  salon_front_door_battery_last_changed:
+    name: Salon Front Door Battery Changed
+    has_date: true
+    has_time: false
+  braai_door_battery_last_changed:
+    name: Braai Door Battery Changed
+    has_date: true
+    has_time: false
+  test_door_battery_last_changed:
+    name: Test Door Battery Changed
+    has_date: true
+    has_time: false
+  garage_mid_door_battery_last_changed:
+    name: Garage Mid Door Battery Changed
+    has_date: true
+    has_time: false
+  water_tank_battery_last_changed:
+    name: Water Tank Battery Changed
+    has_date: true
+    has_time: false
+  study_window_battery_last_changed:
+    name: Study Window Battery Changed
+    has_date: true
+    has_time: false

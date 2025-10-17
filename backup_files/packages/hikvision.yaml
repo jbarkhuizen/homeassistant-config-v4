@@ -1,0 +1,12 @@
+binary_sensor:
+  - platform: hikvision
+    host: 192.168.1.144
+    username: admin
+    password: Linandi00   
+    name: DVR Inside
+  - platform: hikvision
+    host: 192.168.1.151
+    username: admin
+    password: Linandi00  
+    name: Dvr Outside
+    

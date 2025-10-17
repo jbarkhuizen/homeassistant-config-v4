@@ -1,0 +1,186 @@
+# packages/network_devices.yaml
+# Fresh Network Device Discovery Package
+# Clean implementation with minimal dependencies
+
+# Network device discovery using nmap
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.1.1/24
+    home_interval: 10
+    scan_options: " --privileged -sn "
+    new_device_defaults:
+      track_new_devices: true
+
+# Basic network sensors
+sensor:
+  # Count active devices
+  - platform: command_line
+    name: "Network Active Devices"
+    command: 'nmap -sn 192.168.1.0/24 2>/dev/null | grep "Nmap scan report" | wc -l'
+    scan_interval: 300
+    unit_of_measurement: "devices"
+
+  # List network devices
+  - platform: command_line
+    name: "Network Device List"
+    command: >
+      nmap -sn 192.168.1.0/24 2>/dev/null | 
+      grep "Nmap scan report" | 
+      sed 's/Nmap scan report for //' | 
+      head -20
+    scan_interval: 300
+
+# Template sensors to process device information
+template:
+  - sensor:
+      - name: "Network Devices Table"
+        unique_id: network_devices_table
+        state: "{{ states('sensor.network_active_devices') }}"
+        attributes:
+          last_scan: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+          devices: >
+            {% set devices = [] %}
+            
+            {# Add Home Assistant #}
+            {% set ha_device = {
+              'name': 'Home Assistant Server',
+              'ip': '192.168.1.30',
+              'status': 'Online',
+              'type': 'Server',
+              'vendor': 'Home Assistant',
+              'mac': 'Unknown',
+              'ports': '8123',
+              'services': 'HA, InfluxDB, Grafana',
+              'last_seen': now().strftime('%Y-%m-%d %H:%M')
+            } %}
+            {{ devices.append(ha_device) }}
+            
+            {# Add Router #}
+            {% set router_device = {
+              'name': 'Nokia Beacon 2 Router',
+              'ip': '192.168.1.1', 
+              'status': 'Online' if is_state('binary_sensor.nokia_router_online', 'on') else 'Offline',
+              'type': 'Router',
+              'vendor': 'Nokia',
+              'mac': 'Unknown',
+              'ports': '80, 443',
+              'services': 'HTTP, HTTPS, DHCP, DNS',
+              'last_seen': now().strftime('%Y-%m-%d %H:%M')
+            } %}
+            {{ devices.append(router_device) }}
+            
+            {# Add discovered device tracker entities #}
+            {% for entity in states.device_tracker %}
+              {% if entity.attributes.source_type == 'router' and entity.attributes.ip %}
+                {% set device = {
+                  'name': entity.attributes.friendly_name or entity.name,
+                  'ip': entity.attributes.ip,
+                  'status': 'Online' if entity.state == 'home' else 'Away',
+                  'type': 'Mobile' if 'iphone' in entity.name.lower() else
+                          'Computer' if 'laptop' in entity.name.lower() else
+                          'Smart Device' if 'sonoff' in entity.name.lower() or 'tuya' in entity.name.lower() else
+                          'Unknown Device',
+                  'vendor': entity.attributes.vendor or 'Unknown',
+                  'mac': entity.attributes.mac or 'Unknown',
+                  'ports': 'Unknown',
+                  'services': 'Unknown',
+                  'last_seen': entity.last_changed.strftime('%Y-%m-%d %H:%M') if entity.last_changed else 'Unknown'
+                } %}
+                {{ devices.append(device) }}
+              {% endif %}
+            {% endfor %}
+            
+            {{ devices | sort(attribute='ip') }}
+
+      - name: "Network Summary"
+        unique_id: network_summary
+        state: "{{ state_attr('sensor.network_devices_table', 'devices') | length }}"
+        attributes:
+          total_devices: "{{ state_attr('sensor.network_devices_table', 'devices') | length }}"
+          online_devices: >
+            {% set devices = state_attr('sensor.network_devices_table', 'devices') or [] %}
+            {{ devices | selectattr('status', 'equalto', 'Online') | list | length }}
+          router_status: "{{ 'Online' if is_state('binary_sensor.nokia_router_online', 'on') else 'Offline' }}"
+          internet_status: "{{ 'Connected' if is_state('binary_sensor.internet_connected', 'on') else 'Disconnected' }}"
+          last_update: "{{ state_attr('sensor.network_devices_table', 'last_scan') }}"
+
+# Binary sensors for status
+binary_sensor:
+  - platform: template
+    sensors:
+      network_monitoring_active:
+        friendly_name: "Network Monitoring Active"
+        value_template: >
+          {{ (as_timestamp(now()) - as_timestamp(states.sensor.network_devices_table.last_changed)) < 600 }}
+        device_class: connectivity
+
+# Input helpers for controls
+input_boolean:
+  network_auto_scan:
+    name: "Auto Network Scan"
+    initial: true
+    icon: mdi:refresh-auto
+
+  show_offline_network_devices:
+    name: "Show Offline Devices"
+    initial: true
+    icon: mdi:eye-off
+
+# Automation for regular scanning
+automation:
+  - id: network_auto_scan
+    alias: "Network Auto Scan"
+    trigger:
+      - platform: time_pattern
+        minutes: "/5"
+    condition:
+      - condition: state
+        entity_id: input_boolean.network_auto_scan
+        state: 'on'
+    action:
+      - service: homeassistant.update_entity
+        target:
+          entity_id: 
+            - sensor.network_active_devices
+            - sensor.network_devices_table
+
+  - id: network_device_change
+    alias: "Network Device Change Alert"
+    trigger:
+      - platform: state
+        entity_id: sensor.network_active_devices
+    condition:
+      - condition: template
+        value_template: "{{ trigger.from_state is not none }}"
+    action:
+      - service: persistent_notification.create
+        data:
+          title: "Network Device Change"
+          message: "Device count changed: {{ trigger.from_state.state }} → {{ trigger.to_state.state }} at {{ now().strftime('%H:%M:%S') }}"
+
+# Scripts for manual operations
+script:
+  scan_network_now:
+    alias: "Scan Network Now"
+    sequence:
+      - service: homeassistant.update_entity
+        target:
+          entity_id:
+            - sensor.network_active_devices
+            - sensor.network_device_list
+            - sensor.network_devices_table
+      - service: persistent_notification.create
+        data:
+          title: "Network Scan Complete"
+          message: "Network scan completed. Found {{ states('sensor.network_active_devices') }} devices at {{ now().strftime('%H:%M:%S') }}"
+
+  export_network_devices:
+    alias: "Export Network Device List"
+    sequence:
+      - service: persistent_notification.create
+        data:
+          title: "Network Device Export"
+          message: |
+            Network device list exported at {{ now().strftime('%Y-%m-%d %H:%M') }}.
+            Found {{ state_attr('sensor.network_devices_table', 'devices') | length }} total devices.
+            Check the sensor attributes for detailed device information.

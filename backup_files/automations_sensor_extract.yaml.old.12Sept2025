@@ -12,6 +12,7 @@
         seconds: 30
     - service: telegram_bot.send_message
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 Sensor Report Generated"
         message: >
           Daily sensor extraction completed!
@@ -94,6 +95,7 @@
     # Step 4: Send Telegram confirmation  
     - service: telegram_bot.send_message
       data:
+        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         title: "📊 Daily Sensor Report Sent"
         message: |
           Daily sensor report generated and emailed at {{ now().strftime('%H:%M:%S') }}
