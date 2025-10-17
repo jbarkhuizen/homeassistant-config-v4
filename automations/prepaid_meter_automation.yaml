@@ -7,12 +7,13 @@
 #===============================================================================
 
 automation:
+  
   #-----------------------------------------------------------------------------
   # DAILY PREPAID METER STATUS CHECK - 09:00
   #-----------------------------------------------------------------------------
   - id: prepaid_meter_daily_status
     alias: 'Prepaid Meter: Daily Status Report at 09:00'
-    description: 'Daily prepaid meter status report at 09:00'
+    description: 'Daily prepaid meter status report via Telegram and Email'
     
     trigger:
       - platform: time
@@ -21,16 +22,15 @@ automation:
     condition: []
     
     action:
-      # Calculate days remaining based on average daily usage
+      # Calculate days remaining
       - variables:
           units_left: "{{ states('sensor.prepaid_units_left') | float(0) }}"
           daily_average: "{{ states('sensor.deyeinvertermaster_summary_daily_grid_import_buy') | float(1) }}"
           days_remaining: "{{ (units_left / daily_average) | round(1) if daily_average > 0 else 0 }}"
-          
-      # Send Telegram Daily Report
+      
+      # Send Telegram Report
       - service: telegram_bot.send_message
         data:
-#          target: !secret telegram_chat_id
           config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             ⚡ *PREPAID METER DAILY STATUS*
@@ -50,18 +50,105 @@ automation:
             {% if units_left < states('input_number.prepaid_meter_critical_threshold') | float %}
             ⚠️ *ACTION REQUIRED* - Balance is critically low!
             {% elif units_left < states('input_number.prepaid_meter_warning_threshold') | float %}
-            💡 Consider recharging soon
+            ⚠️ Consider recharging soon
             {% else %}
             ✅ Balance is healthy
             {% endif %}
             
-            📅 {{ now().strftime('%A, %d %B %Y at %H:%M') }}
+            📅 {{ now().strftime('%A, %d %B %Y') }}
           parse_mode: markdown
       
-      # Log to system
+      # Send Email Report
+      - service: notify.email_notification
+        data:
+          title: >-
+            Prepaid Meter Daily Status - {{ now().strftime('%Y-%m-%d') }}
+          message: >-
+            PREPAID ELECTRICITY METER DAILY STATUS
+
+            Date: {{ now().strftime('%A, %d %B %Y') }}
+
+            ================================================================================
+
+            CURRENT BALANCE
+
+            Units Remaining: {{ states('sensor.prepaid_units_left') }} kWh
+
+
+            USAGE STATISTICS
+
+            Yesterday's Usage: {{ states('sensor.deyeinvertermaster_summary_daily_grid_import_buy') }} kWh
+
+            {% set units_left = states('sensor.prepaid_units_left') | float(0) %}
+            {% set daily_average = states('sensor.deyeinvertermaster_summary_daily_grid_import_buy') | float(1) %}
+            {% set days_remaining = (units_left / daily_average) | round(1) if daily_average > 0 else 0 %}
+            Estimated Days Remaining: ~{{ days_remaining }} days
+
+            Average Daily Usage: {{ daily_average | round(2) }} kWh
+
+
+            ALERT THRESHOLDS
+
+            Warning Level: {{ states('input_number.prepaid_meter_warning_threshold') }} kWh
+
+            Critical Level: {{ states('input_number.prepaid_meter_critical_threshold') }} kWh
+
+            Emergency Level: {{ states('input_number.prepaid_meter_emergency_threshold') }} kWh
+
+
+            STATUS ASSESSMENT
+
+            {% if units_left < states('input_number.prepaid_meter_emergency_threshold') | float %}
+            Status: EMERGENCY - Immediate recharge required!
+
+            WARNING: You are at emergency levels. Power interruption imminent.
+
+            ACTION: Recharge your meter IMMEDIATELY.
+            {% elif units_left < states('input_number.prepaid_meter_critical_threshold') | float %}
+            Status: CRITICAL - Recharge urgently needed
+
+            Your balance is critically low. Please recharge as soon as possible to avoid power interruption.
+
+            ACTION: Recharge your meter today.
+            {% elif units_left < states('input_number.prepaid_meter_warning_threshold') | float %}
+            Status: WARNING - Consider recharging soon
+
+            Your balance is getting low. Plan to recharge in the next day or two.
+
+            ACTION: Schedule a recharge within 24-48 hours.
+            {% else %}
+            Status: HEALTHY - Balance is sufficient
+
+            Your prepaid meter balance is healthy. No immediate action required.
+            {% endif %}
+
+
+            RECHARGE RECOMMENDATIONS
+
+            {% if units_left < states('input_number.prepaid_meter_critical_threshold') | float %}
+            Recommended Recharge: URGENT - Do not delay
+
+            Suggested Amount: At least {{ states('input_number.prepaid_meter_warning_threshold') }} kWh to restore to safe levels
+            {% elif units_left < states('input_number.prepaid_meter_warning_threshold') | float %}
+            Recommended Recharge: Within 24-48 hours
+
+            Suggested Amount: {{ (states('input_number.prepaid_meter_warning_threshold') | float(0) - units_left) | round(0) }} kWh to reach warning threshold
+            {% else %}
+            Next Recharge: Monitor daily, recharge when approaching {{ states('input_number.prepaid_meter_warning_threshold') }} kWh
+            {% endif %}
+
+
+            ================================================================================
+
+            Monitor your prepaid meter balance daily to avoid power interruptions.
+
+            System: http://192.168.1.30:8123
+      
+      # Log the status
       - service: system_log.write
         data:
-          message: "Prepaid Meter Daily Status: {{ states('sensor.prepaid_units_left') }} kWh remaining"
+          message: >-
+            Prepaid meter daily status: {{ states('sensor.prepaid_units_left') }} kWh remaining
           level: info
     
     mode: single
@@ -88,7 +175,6 @@ automation:
       # Send Telegram Warning
       - service: telegram_bot.send_message
         data:
-#          target: !secret telegram_chat_id
           config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             🟡 *PREPAID METER WARNING*
@@ -150,7 +236,6 @@ automation:
       # Send Telegram Critical Alert
       - service: telegram_bot.send_message
         data:
-#          target: !secret telegram_chat_id
           config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             🟠 *PREPAID METER CRITICAL ALERT*
@@ -238,7 +323,6 @@ automation:
       # Send URGENT Telegram Alert
       - service: telegram_bot.send_message
         data:
-#          target: !secret telegram_chat_id
           config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             🔴 *EMERGENCY: LOAD SHEDDING ACTIVATED*
@@ -380,7 +464,6 @@ automation:
       # Send Recovery Notification
       - service: telegram_bot.send_message
         data:
-#          target: !secret telegram_chat_id
           config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             ✅ *PREPAID METER RECHARGED*
@@ -450,7 +533,6 @@ automation:
       # Send Confirmation
       - service: telegram_bot.send_message
         data:
-#          target: !secret telegram_chat_id
           config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
           message: |
             💳 *PREPAID METER RECHARGE CONFIRMED*

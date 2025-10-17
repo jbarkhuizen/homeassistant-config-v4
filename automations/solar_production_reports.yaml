@@ -98,7 +98,7 @@
 #-----------------------------------------------------------------------------
 - id: weekly_solar_production_summary
   alias: 'Solar: Weekly Summary'
-  description: 'Weekly solar production statistics'
+  description: 'Weekly solar production statistics via Telegram and Email'
   
   trigger:
     - platform: time
@@ -110,11 +110,10 @@
         - mon
   
   action:
+    # Send Telegram Report
     - service: telegram_bot.send_message
       data:
-#        target: !secret telegram_chat_id
         config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
-        parse_mode: markdown
         message: >-
           📊 *WEEKLY SOLAR SUMMARY*
 
@@ -139,6 +138,59 @@
 
 
           Have a great week!
+        parse_mode: markdown
+    
+    # Send Email Report
+    - service: notify.email_notification
+      data:
+        title: >-
+          Weekly Solar Production Summary - {{ now().strftime('%d %B %Y') }}
+        message: >-
+          WEEKLY SOLAR PRODUCTION SUMMARY
+
+          Week Ending: {{ now().strftime('%A, %d %B %Y') }}
+
+          ================================================================================
+
+          PRODUCTION TOTALS
+
+          PV1 Production: {{ states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) | round(1) }} kWh
+
+          PV2 Production: {{ states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) | round(1) }} kWh
+
+          Combined Total: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) | round(1) }} kWh
+
+
+          DAILY AVERAGES
+
+          Average PV1: {{ (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) / 7) | round(2) }} kWh/day
+
+          Average PV2: {{ (states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0) / 7) | round(2) }} kWh/day
+
+          Average Total: {{ ((states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) / 7) | round(2) }} kWh/day
+
+
+          TARGET COMPARISON
+
+          Daily Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh/day
+
+          Weekly Target: {{ states('input_number.solar_generation_target') | float(25) * 7 }} kWh
+          {% set weekly_actual = (states('sensor.deyeinvertermaster_summary_total_pv1_fix') | float(0) + states('sensor.deyeinvertermaster_summary_total_pv2_fix') | float(0)) %}
+          {% set weekly_target = states('input_number.solar_generation_target') | float(25) * 7 %}
+          Weekly Achievement: {{ (weekly_actual / weekly_target * 100) | round(1) if weekly_target > 0 else 0 }}%
+
+
+          ================================================================================
+
+          Have a productive week ahead!
+
+          System: http://192.168.1.30:8123
+    
+    # Log the report
+    - service: system_log.write
+      data:
+        message: "Weekly solar summary sent at {{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+        level: info
     
         mode: single
 
@@ -147,7 +199,7 @@
 #-----------------------------------------------------------------------------
 - id: solar_high_production_celebration
   alias: 'Solar: High Production Day'
-  description: 'Celebrate high production days'
+  description: 'Celebrate high production days via Telegram and Email'
   
   trigger:
     - platform: time
@@ -161,11 +213,10 @@
         {{ total >= (target * 1.2) }}
   
   action:
+    # Send Telegram Celebration
     - service: telegram_bot.send_message
       data:
-#        target: !secret telegram_chat_id
         config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
-        parse_mode: markdown
         message: >-
           🎉 *EXCEPTIONAL SOLAR DAY!*
 
@@ -190,15 +241,71 @@
 
 
           Keep it up!
+        parse_mode: markdown
+    
+    # Send Email Celebration
+    - service: notify.email_notification
+      data:
+        title: >-
+          🎉 Exceptional Solar Production Day - {{ now().strftime('%Y-%m-%d') }}
+        message: >-
+          EXCEPTIONAL SOLAR PRODUCTION DAY!
+
+          Date: {{ now().strftime('%A, %d %B %Y') }}
+
+          ================================================================================
+
+          OUTSTANDING PERFORMANCE TODAY!
+
+          Your solar system exceeded expectations and achieved exceptional production levels.
+
+
+          TODAY'S PRODUCTION
+
+          PV1 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
+
+          PV2 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
+
+          Total Production: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
+
+
+          PERFORMANCE ANALYSIS
+
+          Daily Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh
+
+          Target Achievement: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) / states('input_number.solar_generation_target') | float(25) * 100) | round(1) }}%
+
+          Exceeded Target By: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) - states('input_number.solar_generation_target') | float(25)) | round(2) }} kWh
+
+
+          ESTIMATED VALUE
+
+          Today's Production Value: ZAR {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) * 2.50) | round(2) }}
+
+
+          ================================================================================
+
+          Congratulations on this exceptional solar production day!
+
+          Keep up the excellent work!
+
+          System: http://192.168.1.30:8123
+    
+    # Log the celebration
+    - service: system_log.write
+      data:
+        message: >-
+          High production day! Total: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
+        level: info
     
         mode: single
 
-#-----------------------------------------------------------------------------
+        #-----------------------------------------------------------------------------
 # LOW PRODUCTION ALERT
 #-----------------------------------------------------------------------------
 - id: solar_low_production_alert
   alias: 'Solar: Low Production Alert'
-  description: 'Alert on low production days'
+  description: 'Alert on low production days via Telegram and Email'
   
   trigger:
     - platform: time
@@ -212,11 +319,10 @@
         {{ total < (target * 0.5) }}
   
   action:
+    # Send Telegram Alert
     - service: telegram_bot.send_message
       data:
-#        target: !secret telegram_chat_id
         config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
-        parse_mode: markdown
         message: >-
           ⚠️ *LOW SOLAR PRODUCTION*
 
@@ -240,12 +346,75 @@
           • Achieved: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) / states('input_number.solar_generation_target') | float(25) * 100) | round(1) }}%
 
 
-          *WEATHER*
-
-          Cloud Coverage: {{ states('sensor.cloud_coverage') }}%
-
-
           Check system tomorrow.
+        parse_mode: markdown
+    
+    # Send Email Alert
+    - service: notify.email_notification
+      data:
+        title: >-
+          ⚠️ Low Solar Production Alert - {{ now().strftime('%Y-%m-%d') }}
+        message: >-
+          LOW SOLAR PRODUCTION ALERT
+
+          Date: {{ now().strftime('%A, %d %B %Y') }}
+
+          ================================================================================
+
+          WARNING: Solar production is significantly below normal levels today.
+
+
+          TODAY'S PRODUCTION
+
+          PV1 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
+
+          PV2 Production: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
+
+          Total Production: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
+
+
+          EXPECTED vs ACTUAL
+
+          Daily Target: {{ states('input_number.solar_generation_target') | float(25) }} kWh
+
+          Target Achievement: {{ ((states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) / states('input_number.solar_generation_target') | float(25) * 100) | round(1) }}%
+
+          Shortfall: {{ (states('input_number.solar_generation_target') | float(25) - (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0))) | round(2) }} kWh
+
+
+          POSSIBLE CAUSES
+
+          - Heavy cloud coverage or rain
+          - Panel shading or obstructions
+          - Dust or debris on panels
+          - System fault or inverter issue
+          - Seasonal variation (winter months)
+
+
+          RECOMMENDED ACTIONS
+
+          1. Check weather conditions - was it overcast or rainy?
+          2. Visually inspect solar panels for dirt or obstructions
+          3. Verify inverter is operating normally
+          4. Check for any error messages on inverter display
+          5. Monitor tomorrow's production
+          6. If issue persists for 3+ days, contact installer
+
+
+          ================================================================================
+
+          This alert triggers when production falls below 50% of daily target.
+
+          Monitor the system and check again tomorrow.
+
+          System: http://192.168.1.30:8123
+    
+    # Log the alert
+    - service: system_log.write
+      data:
+        message: >-
+          Low production alert: {{ (states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) + states('sensor.deyeinvertermaster_summary_day_pv2') | float(0)) | round(2) }} kWh
+        level: warning
     
         mode: single
 
@@ -254,7 +423,7 @@
 #-----------------------------------------------------------------------------
 - id: solar_pv_string_imbalance
   alias: 'Solar: String Imbalance'
-  description: 'Alert on PV string imbalance'
+  description: 'Alert on PV string imbalance via Telegram and Email'
   
   trigger:
     - platform: time
@@ -270,11 +439,10 @@
         {{ (diff / avg * 100) > 20 and pv1 > 1 and pv2 > 1 }}
   
   action:
+    # Send Telegram Alert
     - service: telegram_bot.send_message
       data:
-#        target: !secret telegram_chat_id
         config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
-        parse_mode: markdown
         message: >-
           ⚠️ *PV STRING IMBALANCE*
 
@@ -304,6 +472,114 @@
 
 
           Monitor for several days.
+        parse_mode: markdown
+    
+    # Send Email Alert
+    - service: notify.email_notification
+      data:
+        title: >-
+          ⚠️ PV String Imbalance Detected - {{ now().strftime('%Y-%m-%d') }}
+        message: >-
+          PV STRING IMBALANCE ALERT
+
+          Date: {{ now().strftime('%A, %d %B %Y') }}
+
+          ================================================================================
+
+          WARNING: Significant production difference detected between PV strings.
+
+
+          STRING PRODUCTION TODAY
+
+          PV String 1: {{ states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) | round(2) }} kWh
+
+          PV String 2: {{ states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) | round(2) }} kWh
+
+
+          IMBALANCE ANALYSIS
+
+          {% set pv1 = states('sensor.deyeinvertermaster_summary_day_pv1') | float(0) %}
+          {% set pv2 = states('sensor.deyeinvertermaster_summary_day_pv2') | float(0) %}
+          {% set diff = (pv1 - pv2) | abs %}
+          {% set avg = (pv1 + pv2) / 2 %}
+          {% set variance = (diff / avg * 100) | round(1) if avg > 0 else 0 %}
+          Production Difference: {{ diff | round(2) }} kWh
+
+          Variance Percentage: {{ variance }}%
+
+          {% if pv1 > pv2 %}
+          Higher Producer: PV String 1 ({{ ((pv1 - pv2) / pv2 * 100) | round(1) }}% more than PV2)
+          {% else %}
+          Higher Producer: PV String 2 ({{ ((pv2 - pv1) / pv1 * 100) | round(1) }}% more than PV1)
+          {% endif %}
+
+
+          POSSIBLE CAUSES
+
+          1. SHADING ISSUES
+             - Partial shading on one string during the day
+             - Tree growth or new obstructions
+             - Building shadows at certain times
+
+          2. PANEL CONDITION
+             - Dust, dirt, or debris on panels in one string
+             - Bird droppings or leaves
+             - Snow or ice accumulation (if applicable)
+
+          3. TECHNICAL ISSUES
+             - Loose or corroded connections in one string
+             - Faulty panel in one string
+             - MPPT tracking issue
+             - Wiring resistance problems
+
+          4. INSTALLATION FACTORS
+             - Different panel orientations
+             - Uneven panel angles
+             - String configuration differences
+
+
+          RECOMMENDED ACTIONS
+
+          IMMEDIATE CHECKS:
+          1. Visually inspect both PV strings for obvious issues
+          2. Check for shading patterns throughout the day
+          3. Look for dirt, dust, or debris on panels
+          4. Verify all connections are secure
+
+          SHORT TERM MONITORING:
+          5. Monitor production for next 2-3 days
+          6. Compare morning vs afternoon production patterns
+          7. Check if imbalance is consistent or varies
+
+          IF ISSUE PERSISTS:
+          8. Clean all panels thoroughly
+          9. Inspect wiring and connections closely
+          10. Check inverter display for error codes
+          11. Contact solar installer for assessment
+
+
+          WHEN TO CALL INSTALLER
+
+          - Imbalance persists for more than 3 consecutive days
+          - Variance increases over time
+          - One string shows no production
+          - Inverter displays error messages
+
+
+          ================================================================================
+
+          This alert triggers when string production differs by more than 20%.
+
+          Monitor the system and investigate potential causes.
+
+          System: http://192.168.1.30:8123
+    
+    # Log the alert
+    - service: system_log.write
+      data:
+        message: >-
+          PV string imbalance detected: PV1={{ states('sensor.deyeinvertermaster_summary_day_pv1') }} kWh, PV2={{ states('sensor.deyeinvertermaster_summary_day_pv2') }} kWh
+        level: warning
     
         mode: single
 

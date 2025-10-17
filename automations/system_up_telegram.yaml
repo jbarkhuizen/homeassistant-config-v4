@@ -1,7 +1,12 @@
-# Morning Test Telegram Message - Simple Version
+#===============================================================================
+# SYSTEM UP TELEGRAM & EMAIL NOTIFICATION
+# File: automations/system_up_telegram.yaml
+# Description: Daily system check at 08:00 via Telegram and Email
+#===============================================================================
+
 - id: 'morning_test_telegram_system_check'
-  alias: 'Morning Test Telegram - System Check'
-  description: 'Sends a test Telegram message every morning at 08:00 to verify the system is operational'
+  alias: 'Morning Test Telegram & Email - System Check'
+  description: 'Sends system check via Telegram and Email every morning at 08:00'
   
   trigger:
     - platform: time
@@ -10,9 +15,9 @@
   condition: []
   
   action:
+    # Send Telegram Message
     - service: telegram_bot.send_message
       data:
-#        target: !secret telegram_chat_id
         config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
         message: |
           🏠 *HOME ASSISTANT DAILY CHECK*
@@ -28,35 +33,39 @@
           
           _Automated daily system verification message_
         parse_mode: markdown
-  
-  mode: single
-
-- id: test_telegram_simple
-  alias: 'Test: Simple Telegram Message'
-  description: 'Test telegram with simple template'
-  
-  trigger:
-    - platform: time
-      at: "09:16:00"  # Different time for testing
-  
-  action:
-    - service: telegram_bot.send_message
+    
+    # Send Email Message
+    - service: notify.email_notification
       data:
-#        target: !secret telegram_chat_id
-        config_entry_id: 01K7PH2MD1SA9VXHCP39WVCJM4
-        parse_mode: markdown
+        title: >-
+          Home Assistant Daily System Check - {{ now().strftime('%Y-%m-%d') }}
         message: >-
-          🧪 *TEST MESSAGE*
-
+          HOME ASSISTANT DAILY SYSTEM CHECK
           
-          This is a test of the Telegram notification system.
-
+          Date: {{ now().strftime('%A, %d %B %Y') }}
+          Time: {{ now().strftime('%H:%M:%S') }}
           
-          **Time:** {{ now().strftime('%H:%M:%S') }}
-
-          **Date:** {{ now().strftime('%Y-%m-%d') }}
-
+          ================================================================================
           
-          ✅ If you see this, Telegram is working correctly!
+          SYSTEM STATUS: OPERATIONAL
+          
+          All automation services are running normally.
+          
+          System Details:
+          - Date: {{ now().strftime('%A, %d %B %Y') }}
+          - Time: {{ now().strftime('%H:%M:%S') }}
+          - IP Address: 192.168.1.30:8123
+          
+          ================================================================================
+          
+          This is an automated daily system verification message.
+          
+          System: http://192.168.1.30:8123
+    
+    # Log the check
+    - service: system_log.write
+      data:
+        message: "Daily system check completed at {{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+        level: info
   
   mode: single
