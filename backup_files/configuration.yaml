@@ -1,0 +1,275 @@
+#===============================================================================
+# Home Assistant Main Configuration - Restructured
+# File: configuration.yaml
+# Updated: 2025-09-12
+# Note: Optimized structure and organization
+#===============================================================================
+
+# Core Home Assistant configuration (at root level)
+homeassistant:
+  # Basic instance information
+  name: "Smart Home - Pierre van Ryneveld"
+  latitude: -25.84051
+  longitude: 28.24814
+  elevation: 1519
+  unit_system: metric
+  time_zone: Africa/Johannesburg
+  country: ZA
+  currency: ZAR
+  
+  # Network configuration for your static IP setup
+  internal_url: "http://192.168.1.30:8123"
+  external_url: "http://192.168.1.30:8123"  # Update if you have external access
+  
+  # File system access
+  allowlist_external_dirs:
+    - "/config/sensor_reports"
+    - "/config/scripts"
+    - "/tmp"
+  
+  # Packages configuration - Load all packages
+  packages: !include_dir_named packages
+
+# Load default integrations
+default_config:
+
+#-------------------------------------------------------------------------------
+# Frontend Configuration
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+
+#-------------------------------------------------------------------------------
+# Text to speech
+tts:
+  - platform: google_translate  
+    service_name: google_say
+
+#-------------------------------------------------------------------------------
+# File includes - organized structure
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+template: !include template.yaml
+group: !include groups.yaml
+
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Enable the recorder for long-term statistics (works with InfluxDB)
+# Recorder Configuration - Optimized for Performance and Storage
+recorder:
+  # Extended retention for better trend analysis (optimal for your 2x8kW setup)
+  purge_keep_days: 30
+  auto_purge: true
+  auto_repack: true
+  
+  # Optimized commit interval for better performance with InfluxDB
+  commit_interval: 5
+  
+  # Strategic domain inclusion - be selective
+  include:
+    domains:
+      - climate
+      - person
+      - device_tracker
+      - automation
+      - script
+      - light
+      - switch
+    entities:
+      # Include only critical sensors for your energy monitoring
+      - sensor.deyeinvertermaster_summary_battery_soc
+      - sensor.deyeinverterslave_summary_battery_soc
+      - sensor.deyeinvertermaster_today_energy_bought
+      - sensor.deyeinvertermaster_today_energy_sold
+      - sensor.deyeinvertermaster_today_load_consumption
+      - sensor.deyeinverterslave_today_energy_bought
+      - sensor.deyeinverterslave_today_energy_sold
+      - sensor.deyeinverterslave_today_load_consumption
+      - sensor.deyeinvertermaster_ac_output_active_power_r_total
+      - sensor.deyeinverterslave_ac_output_active_power_r_total
+
+  # Comprehensive exclusions for high-frequency, low-value entities  
+  exclude:
+    domains:
+      - updater
+      - sun
+    entities:
+      # Time and date sensors (change constantly, no historical value)
+      - sensor.date_time
+      - sensor.time
+      - sensor.date_time_utc
+      - sensor.date_time_iso
+      - sensor.time_date
+      - sensor.uptime
+      - sensor.time_utc
+      
+      # System sensors that change frequently
+      - sensor.last_boot
+      - sensor.processor_use
+      - sensor.processor_temperature
+      - sensor.memory_use_percent
+      - sensor.swap_use_percent
+      - sensor.load_1m
+      - sensor.load_5m 
+      - sensor.load_15m
+      
+      # Network monitoring sensors (if you have them)
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.speedtest_ping
+      
+      # Frequent automation state changes
+      - automation.daily_sensor_report_09h00_final
+      - automation.extract_sensors_daily
+      
+    # Wildcard patterns go in entity_globs (NOT entities)
+    entity_globs:
+      # Exclude all HACS and update sensors (frequent changes, low value)
+      - sensor.*_update_available
+      - sensor.hacs_*
+      - binary_sensor.hacs_*
+      
+      # Exclude weather API sensors that update frequently
+      - sensor.openweathermap_*
+      - sensor.weather_*
+      
+      # Exclude frequent changing device trackers from unknown devices
+      - device_tracker.unknown_*
+      
+      # Exclude frequent node-red status entities
+      - sensor.node_red_*
+      
+      # Exclude telegram notification history
+      - sensor.telegram_*
+
+#-------------------------------------------------------------------------------
+# Logger configuration for debugging
+# Logger Configuration - Performance Optimized
+logger:
+  # Default level - warnings and errors only for production
+  default: warning
+  
+  # Log file configuration for better performance
+  logs:
+    # Core Home Assistant components - minimal logging
+    homeassistant.core: warning
+    homeassistant.loader: error
+    homeassistant.setup: warning
+    homeassistant.config: warning
+    
+    # Integration-specific logging (optimized for your setup)
+    homeassistant.components.mqtt: warning       # Changed from info
+    homeassistant.components.tuya: warning       # Changed from info  
+    homeassistant.components.automation: warning # Changed from info
+    homeassistant.components.script: warning     # Changed from info
+    
+    # Custom components - selective logging
+    custom_components.alexa_media: warning
+    custom_components.localtuya: warning
+    custom_components.powercalc: error           # Often verbose
+    custom_components.solcast_solar: warning
+    custom_components.ha_visualiser: error      # Debug only when needed
+    custom_components.o365: warning
+    custom_components.sonoff: warning
+    
+    # Energy monitoring - your Deye/Sunsunk inverters
+    custom_components.deye: info                 # Keep info for energy debugging
+    custom_components.sunsunk: info              # Keep info for energy debugging
+    
+    # Network and connectivity
+    homeassistant.components.network: error
+    homeassistant.components.http: warning
+    homeassistant.components.websocket: error
+    
+    # Database and performance
+    homeassistant.components.recorder: warning
+    homeassistant.components.history: error
+    homeassistant.components.influxdb: warning
+    
+    # System components
+    homeassistant.components.system_health: error
+    homeassistant.components.updater: error
+    homeassistant.components.homeassistant: warning
+    
+    # Notification services
+    homeassistant.components.telegram: warning
+    homeassistant.components.notify: warning
+    
+    # Reduce noise from frequent updates
+    homeassistant.util.dt: error
+    homeassistant.util.yaml: error
+    homeassistant.helpers.entity: error
+    homeassistant.helpers.entity_registry: error
+    homeassistant.helpers.device_registry: error
+    
+    # Third-party library noise reduction
+    urllib3.connectionpool: error
+    requests.packages.urllib3.connectionpool: error
+    aiohttp.access: error
+    
+    # HACS noise reduction (if you have HACS)
+    custom_components.hacs: warning
+
+#-------------------------------------------------------------------------------
+# Shell Commands - Enhanced and Secure
+shell_command:
+  # Git operations
+  git_commit: '/config/scripts/git_commit.sh'
+  
+  # System operations
+  backup_config: >
+    cp -r /config /backup/ha-config-$(date +%Y%m%d_%H%M%S)
+  
+  check_system_status: >
+    echo "System check at $(date)" > /config/system_check.log
+  
+  # Sensor operations
+  extract_sensors: >
+    python3 /config/scripts/extract_sensors.py
+  
+  # Integration management (using secrets for security)
+  restart_deye_integration: >
+    curl -X POST -H "Authorization: Bearer !secret ha_long_lived_token" \
+    -H "Content-Type: application/json" \
+    http://192.168.1.30:8123/api/config/config_entries/reload
+  
+  restart_homeassistant: >
+    curl -X POST -H "Authorization: Bearer !secret ha_long_lived_token" \
+    -H "Content-Type: application/json" \
+    http://192.168.1.30:8123/api/services/homeassistant/restart
+    
+  # Log management
+  cleanup_logs: >
+    find /config -name "home-assistant.log*" -mtime +7 -delete && 
+    find /config -name "*.log" -size +10M -delete
+    
+  check_log_size: >
+    du -sh /config/home-assistant.log 2>/dev/null | cut -f1 > /config/log_size.txt || echo "0" > /config/log_size.txt
+
+#-------------------------------------------------------------------------------
+# HTTP Configuration - Secure and Optimized (Corrected)
+http:
+  # Core security settings
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.0/24
+    - 127.0.0.1
+    - ::1
+  
+  # CORS configuration for your static IP and local access
+  cors_allowed_origins:
+    - "https://192.168.1.30:8123"
+    - "http://192.168.1.30:8123"
+    - "http://localhost:8123"
+    - "http://127.0.0.1:8123"
+    - "https://my.home-assistant.io"  # For HA Cloud if using remote access
+  
+  # Security settings optimized for your setup
+  login_attempts_threshold: 5      # Reduced from 10 for better security
+  ip_ban_enabled: true
+  use_x_frame_options: false        # CRITICAL: Changed to true for security
+  
+  # SSL profile for better security
+  ssl_profile: modern

@@ -1,0 +1,444 @@
+#===============================================================================
+# Fixed Template Sensors - Complete template.yaml replacement
+# File: /config/template.yaml
+# Updated: 2025-09-28
+# Note: All template errors fixed with safe practices
+#===============================================================================
+
+# Trigger-based template sensors (safer for startup notifications)
+- trigger:
+    - platform: homeassistant
+      event: start
+  sensor:
+    - name: "Startup Notification Data"
+      unique_id: startup_notification_data
+      state: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+      attributes:
+        startup_message: >
+          Home Assistant Startup Notification
+          ====================================
+          
+          🕐 RESTART DETAILS:
+          • Startup Time: {{ now().strftime('%Y-%m-%d at %H:%M:%S') }}
+          • Server: 192.168.1.30:8123
+          • Previous Uptime: {{ relative_time(states('sensor.last_boot') | as_datetime) if states('sensor.last_boot') not in ['unavailable', 'unknown', 'none'] else 'Unknown' }}
+          
+          🖥️ SYSTEM STATUS:
+          • Home Assistant Core: {{ states('sensor.home_assistant_core_cpu_percent') | default('N/A') }}% CPU
+          • Supervisor: {{ states('sensor.home_assistant_supervisor_cpu_percent') | default('N/A') }}% CPU
+          • System Temperature: {{ states('sensor.johanba_server_system_temperature') | default('N/A') }}°C
+          • Memory Usage: {{ states('sensor.johanba_server_memory_usage') | default('N/A') }}%
+          • Server Status: {{ states('sensor.johanba_server_status') | default('N/A') | title }}
+          
+          📊 VERSION INFORMATION:
+          • HA OS Version: {{ states('sensor.home_assistant_operating_system_version') | default('N/A') }}
+          • Latest Available: {{ states('sensor.home_assistant_operating_system_newest_version') | default('N/A') }}
+          • Update Available: {{ 'Yes ⚠️' if states('sensor.home_assistant_operating_system_version') != states('sensor.home_assistant_operating_system_newest_version') else 'No ✅' }}
+          
+          🔌 ADDON STATUS:
+          • File Editor: {{ 'Running ✅' if is_state('binary_sensor.file_editor_running', 'on') else 'Stopped ❌' }}
+          • Code Server: {{ 'Running ✅' if is_state('binary_sensor.studio_code_server_running', 'on') else 'Stopped ❌' }}
+          • Terminal SSH: {{ 'Running ✅' if is_state('binary_sensor.terminal_ssh_running', 'on') else 'Stopped ❌' }}
+          
+          💾 STORAGE STATUS:
+          • HA Disk Used: {{ states('sensor.home_assistant_host_disk_used') | default('N/A') }}GB / {{ states('sensor.home_assistant_host_disk_total') | default('N/A') }}GB
+          • HA Disk Free: {{ states('sensor.home_assistant_host_disk_free') | default('N/A') }}GB
+          • OneDrive Usage: {{ states('sensor.onedrive_usage_percentage') | default('N/A') }}%
+          • OneDrive State: {{ states('sensor.onedrive_drive_state') | default('N/A') | title }}
+          
+          🌐 NETWORK STATUS:
+          • WAN Connection: {{ 'Connected ✅' if is_state('binary_sensor.archer_d2_wan_status', 'on') else 'Disconnected ❌' }}
+          • External IP: {{ states('sensor.archer_d2_external_ip_2') | default('N/A') }}
+          
+          📈 BACKUP STATUS:
+          • Last Backup: {{ states('sensor.backup_last_successful_automatic_backup') | default('N/A') }}
+          • Next Backup: {{ states('sensor.backup_next_scheduled_automatic_backup') | default('N/A') }}
+          • Backup Status: {{ states('sensor.backup_backup_manager_state') | default('N/A') | title }}
+          • Google Drive Status: {{ states('sensor.google_drive_backup_status') | default('Not Configured') }}
+          
+          🔍 POTENTIAL ISSUES DETECTED:
+          {% set issues = [] %}
+          {% if states('sensor.johanba_server_system_temperature') | float(0) > 60 %}
+            {% set issues = issues + ['High system temperature: ' + states('sensor.johanba_server_system_temperature') + '°C'] %}
+          {% endif %}
+          {% if states('sensor.johanba_server_memory_usage') | float(0) > 80 %}
+            {% set issues = issues + ['High memory usage: ' + states('sensor.johanba_server_memory_usage') + '%'] %}
+          {% endif %}
+          {% if not is_state('binary_sensor.archer_d2_wan_status', 'on') %}
+            {% set issues = issues + ['Network connection issue detected'] %}
+          {% endif %}
+          {% if states('sensor.home_assistant_operating_system_version') != states('sensor.home_assistant_operating_system_newest_version') %}
+            {% set issues = issues + ['Home Assistant OS update available'] %}
+          {% endif %}
+          {% if states('sensor.onedrive_usage_percentage') | float(0) > 85 %}
+            {% set issues = issues + ['OneDrive storage usage high: ' + states('sensor.onedrive_usage_percentage') + '%'] %}
+          {% endif %}
+          {% if issues | length > 0 %}
+            {% for issue in issues %}
+          • {{ issue }}
+            {% endfor %}
+          {% else %}
+          • No issues detected ✅
+          {% endif %}
+          
+          📧 This automated message confirms Home Assistant has restarted successfully.
+          All critical systems are being monitored.
+          
+          Dashboard: http://192.168.1.30:8123
+          
+          Best regards,
+          Home Assistant Startup Monitor
+
+# Main template sensors (using safe list concatenation instead of append)
+- sensor:
+    # Network Device Discovery (FIXED - no more append() usage)
+    - name: "Network Device Discovery"
+      unique_id: network_device_discovery
+      state: >
+        {% set device_list = [] %}
+        
+        {# Add Home Assistant Server #}
+        {% set ha_device = {
+          'name': 'Home Assistant Server',
+          'ip': '192.168.1.30',
+          'status': 'Online',
+          'type': 'Server',
+          'vendor': 'Home Assistant',
+          'mac': 'Unknown',
+          'ports': '8123',
+          'services': 'HA, InfluxDB, Grafana',
+          'last_seen': now().strftime('%Y-%m-%d %H:%M')
+        } %}
+        {% set device_list = device_list + [ha_device] %}
+        
+        {# Add Router #}
+        {% set router_device = {
+          'name': 'Nokia Beacon 2 Router',
+          'ip': '192.168.1.1',
+          'status': 'Online' if is_state('binary_sensor.nokia_router_online', 'on') else 'Offline',
+          'type': 'Router',
+          'vendor': 'Nokia',
+          'mac': 'Unknown',
+          'ports': '80, 443',
+          'services': 'HTTP, HTTPS, DHCP, DNS',
+          'last_seen': now().strftime('%Y-%m-%d %H:%M')
+        } %}
+        {% set device_list = device_list + [router_device] %}
+        
+        {# Add discovered device tracker entities with safety checks #}
+        {% for entity in states.device_tracker %}
+          {% if entity.attributes.get('source_type') == 'router' and entity.attributes.get('ip') %}
+            {% set device = {
+              'name': entity.attributes.get('friendly_name', entity.name),
+              'ip': entity.attributes.get('ip'),
+              'status': 'Online' if entity.state == 'home' else 'Away',
+              'type': 'Mobile' if 'iphone' in entity.name.lower() else 'Computer' if 'laptop' in entity.name.lower() else 'Smart Device' if 'sonoff' in entity.name.lower() or 'tuya' in entity.name.lower() else 'Unknown Device',
+              'vendor': entity.attributes.get('vendor', 'Unknown'),
+              'mac': entity.attributes.get('mac', 'Unknown'),
+              'ports': 'Unknown',
+              'services': 'Unknown',
+              'last_seen': entity.last_changed.strftime('%Y-%m-%d %H:%M') if entity.last_changed else now().strftime('%Y-%m-%d %H:%M')
+            } %}
+            {% set device_list = device_list + [device] %}
+          {% endif %}
+        {% endfor %}
+        
+        {{ device_list | length }}
+      attributes:
+        devices: >
+          {% set device_list = [] %}
+          
+          {# Add Home Assistant Server #}
+          {% set ha_device = {
+            'name': 'Home Assistant Server',
+            'ip': '192.168.1.30',
+            'status': 'Online',
+            'type': 'Server',
+            'vendor': 'Home Assistant',
+            'mac': 'Unknown',
+            'ports': '8123',
+            'services': 'HA, InfluxDB, Grafana',
+            'last_seen': now().strftime('%Y-%m-%d %H:%M')
+          } %}
+          {% set device_list = device_list + [ha_device] %}
+          
+          {# Add Router #}
+          {% set router_device = {
+            'name': 'Nokia Beacon 2 Router',
+            'ip': '192.168.1.1',
+            'status': 'Online' if is_state('binary_sensor.nokia_router_online', 'on') else 'Offline',
+            'type': 'Router',
+            'vendor': 'Nokia',
+            'mac': 'Unknown',
+            'ports': '80, 443',
+            'services': 'HTTP, HTTPS, DHCP, DNS',
+            'last_seen': now().strftime('%Y-%m-%d %H:%M')
+          } %}
+          {% set device_list = device_list + [router_device] %}
+          
+          {# Add discovered device tracker entities with safety checks #}
+          {% for entity in states.device_tracker %}
+            {% if entity.attributes.get('source_type') == 'router' and entity.attributes.get('ip') %}
+              {% set device = {
+                'name': entity.attributes.get('friendly_name', entity.name),
+                'ip': entity.attributes.get('ip'),
+                'status': 'Online' if entity.state == 'home' else 'Away',
+                'type': 'Mobile' if 'iphone' in entity.name.lower() else 'Computer' if 'laptop' in entity.name.lower() else 'Smart Device' if 'sonoff' in entity.name.lower() or 'tuya' in entity.name.lower() else 'Unknown Device',
+                'vendor': entity.attributes.get('vendor', 'Unknown'),
+                'mac': entity.attributes.get('mac', 'Unknown'),
+                'ports': 'Unknown',
+                'services': 'Unknown',
+                'last_seen': entity.last_changed.strftime('%Y-%m-%d %H:%M') if entity.last_changed else now().strftime('%Y-%m-%d %H:%M')
+              } %}
+              {% set device_list = device_list + [device] %}
+            {% endif %}
+          {% endfor %}
+          
+          {{ device_list | sort(attribute='ip') }}
+
+    # Weekly Automation Health Report (FIXED - safe template handling)
+    - name: "Weekly Automation Health Report"
+      unique_id: weekly_automation_health_report
+      state: "{{ now().strftime('%Y-%m-%d') }}"
+      attributes:
+        report_content: >
+          Weekly Automation Health Check - {{ now().strftime('%Y-%m-%d') }}
+          
+          📊 AUTOMATION STATISTICS:
+          • Active Automations: {{ states.automation | selectattr('state', 'eq', 'on') | list | count }}
+          • Disabled Automations: {{ states.automation | selectattr('state', 'eq', 'off') | list | count }}
+          • Last Triggered: {{ states('sensor.last_automation_triggered') | default('Unknown') }}
+          • Daily Triggers This Week: {{ states('counter.daily_automations_triggered') | default('0') }}
+          
+          🖥️ SYSTEM HEALTH:
+          • System Status: {{ 'Healthy' if is_state('binary_sensor.system_health_status', 'on') else 'Needs Attention' }}
+          • Uptime: {{ states('sensor.system_uptime_days') | default('Unknown') }} days
+          • CPU Usage: {{ states('sensor.processor_use') | default('Unknown') }}%
+          • Memory Usage: {{ states('sensor.memory_use_percent') | default('Unknown') }}%
+          • Disk Usage: {{ states('sensor.disk_use_percent_config') | default('Unknown') }}%
+          
+          🔧 MAINTENANCE STATUS:
+          • Maintenance Mode: {{ 'Active' if is_state('binary_sensor.maintenance_mode_active', 'on') else 'Inactive' }}
+          
+          📈 PERFORMANCE METRICS:
+          • Database Size: {{ states('sensor.database_size') | default('Unknown') }}MB
+          • Config Check: {% set config_notifications = states.persistent_notification | selectattr('attributes.title', 'defined') | selectattr('attributes.title', 'search', 'Config') | map(attribute='attributes.created_at') | list %}{% if config_notifications | length > 0 %}Last run {{ relative_time(config_notifications | last | as_datetime) }} ago{% else %}No recent config checks{% endif %}
+          
+          📈 BACKUP HEALTH:
+          • Google Drive Status: {{ states('sensor.google_drive_backup_status') | default('Not Configured') }}
+          • Google Drive Health: {{ states('sensor.google_drive_backup_score') | default('N/A') }}%
+          • OneDrive Status: {{ states('sensor.onedrive_status_simple') | default('Unknown') }}
+          
+          Report Generated: {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
+
+    # System Health Summary (NEW - comprehensive health monitoring)
+    - name: "System Health Summary"
+      unique_id: system_health_summary
+      state: >
+        {% set issues = 0 %}
+        {% if states('sensor.johanba_server_system_temperature') | float(0) > 60 %}
+          {% set issues = issues + 1 %}
+        {% endif %}
+        {% if states('sensor.johanba_server_memory_usage') | float(0) > 80 %}
+          {% set issues = issues + 1 %}
+        {% endif %}
+        {% if not is_state('binary_sensor.archer_d2_wan_status', 'on') %}
+          {% set issues = issues + 1 %}
+        {% endif %}
+        {{ 'Healthy' if issues == 0 else 'Issues Detected' }}
+      attributes:
+        issue_count: >
+          {% set issues = 0 %}
+          {% if states('sensor.johanba_server_system_temperature') | float(0) > 60 %}
+            {% set issues = issues + 1 %}
+          {% endif %}
+          {% if states('sensor.johanba_server_memory_usage') | float(0) > 80 %}
+            {% set issues = issues + 1 %}
+          {% endif %}
+          {% if not is_state('binary_sensor.archer_d2_wan_status', 'on') %}
+            {% set issues = issues + 1 %}
+          {% endif %}
+          {{ issues }}
+        details: >
+          {% set issue_list = [] %}
+          {% if states('sensor.johanba_server_system_temperature') | float(0) > 60 %}
+            {% set issue_list = issue_list + ['High temperature: ' + states('sensor.johanba_server_system_temperature') + '°C'] %}
+          {% endif %}
+          {% if states('sensor.johanba_server_memory_usage') | float(0) > 80 %}
+            {% set issue_list = issue_list + ['High memory usage: ' + states('sensor.johanba_server_memory_usage') + '%'] %}
+          {% endif %}
+          {% if not is_state('binary_sensor.archer_d2_wan_status', 'on') %}
+            {% set issue_list = issue_list + ['Network connection issue'] %}
+          {% endif %}
+          {{ issue_list | join(', ') if issue_list | length > 0 else 'No issues detected' }}
+
+    # OneDrive Sensors - Fixed with proper calculations
+    - name: "OneDrive Storage Percentage Calculated"
+      unique_id: onedrive_storage_percentage_calculated
+      unit_of_measurement: "%"
+      icon: "mdi:percent"
+      state: >
+        {% if states('sensor.onedrive_used_storage') not in ['unknown', 'unavailable'] and 
+              states('sensor.onedrive_total_available_storage') not in ['unknown', 'unavailable'] %}
+          {{ ((states('sensor.onedrive_used_storage')|float / states('sensor.onedrive_total_available_storage')|float) * 100) | round(1) }}
+        {% else %}
+          unavailable
+        {% endif %}
+      availability: >
+        {{ states('sensor.onedrive_used_storage') not in ['unknown', 'unavailable'] and 
+           states('sensor.onedrive_total_available_storage') not in ['unknown', 'unavailable'] }}
+
+    - name: "OneDrive Storage Status Enhanced"
+      unique_id: onedrive_storage_status_enhanced
+      icon: "mdi:information"
+      state: >
+        {% set percentage = states('sensor.onedrive_storage_percentage_calculated')|float(0) %}
+        {% if percentage >= 90 %}
+          Critical
+        {% elif percentage >= 75 %}
+          Warning
+        {% elif percentage >= 50 %}
+          Normal
+        {% else %}
+          Good
+        {% endif %}
+      availability: >
+        {{ states('sensor.onedrive_storage_percentage_calculated') not in ['unknown', 'unavailable'] }}
+
+    - name: "OneDrive Days Until Full Calculated"
+      unique_id: onedrive_days_until_full_calculated
+      unit_of_measurement: "days"
+      icon: "mdi:calendar-clock"
+      state: >
+        {% if states('sensor.onedrive_remaining_storage') not in ['unknown', 'unavailable'] %}
+          {% set remaining_gb = states('sensor.onedrive_remaining_storage')|float %}
+          {% if remaining_gb > 0 %}
+            {{ (remaining_gb / 0.1) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+        {% else %}
+          unavailable
+        {% endif %}
+      availability: >
+        {{ states('sensor.onedrive_remaining_storage') not in ['unknown', 'unavailable'] }}
+
+    # Your existing sensors (keeping all your current working sensors)
+    - name: "Sensor Inventory Auditor"
+      unique_id: sensor_inventory_auditor
+      state: "{{ states.sensor | length }}"
+      attributes:
+        all_sensors: >
+          {{ states.sensor | map(attribute='entity_id') | list }}    
+          
+    - name: "Sensor Audit Grafana Markdown"
+      unique_id: sensor_audit_grafana_markdown
+      state: >
+        {% set expected = [
+          'sensor.electricity_weekly_cost',
+          'sensor.total_monthly_energy',
+          'sensor.energy_weekly',
+          'sensor.plugs_2_weekly_cost'
+        ] %}
+        {% set actual = states.sensor | map(attribute='entity_id') | list %}
+        {% set missing = expected | reject('in', actual) | list %}
+        {% set present = expected | select('in', actual) | list %}
+
+        (
+          "**Grafana Audit Report**\n"
+          ~ "- Expected: " ~ expected | length ~ "\n"
+          ~ "- Present: " ~ present | length ~ "\n"
+          ~ "- Missing: " ~ missing | length ~ "\n\n"
+          ~ missing | map('regex_replace', '^', '❌ ') | join('\n')
+        )
+
+    - name: "Eskom Cost This Month 2"
+      unique_id: eskom_cost_this_month_2
+      state: >
+        {{ states('sensor.electricity_monthly_cost') }}
+      unit_of_measurement: "ZAR"
+      state_class: "measurement"
+      device_class: "monetary"
+
+    - name: "Garage Mid Door Battery Level"
+      unique_id: garage_mid_door_battery_level_%
+      unit_of_measurement: "%"
+      state: >
+        {% set v = states('sensor.garage_mid_door_voltage') | float(0) %}
+        {% if v >= 3.0 %}
+          100
+        {% elif v >= 2.6 %}
+          {{ ((v - 2.6) / 0.4 * 100) | round(0) }}
+        {% else %}
+          0
+        {% endif %}
+
+    - name: "Eskom Cost This Month"
+      unique_id: eskom_cost_this_month
+      unit_of_measurement: "ZAR"
+      state: >
+          {% set usage = states('sensor.monthly_eskom_energy') | float(0) %}
+          {% if usage <= 100 %}
+            {{ (usage * 2.97) | round(2) }}
+          {% elif usage <= 400 %}
+            {{ (100 * 2.97 + (usage - 100) * 3.48) | round(2) }}
+          {% elif usage <= 650 %}
+            {{ (100 * 2.97 + 300 * 3.48 + (usage - 400) * 3.79) | round(2) }}
+          {% else %}
+            {{ (100 * 2.97 + 300 * 3.48 + 250 * 3.79 + (usage - 650) * 4.09) | round(2) }}
+          {% endif %}
+
+    - name: "Eskom Remaining Prepaid Credit"
+      unique_id: eskom_remaining_credit
+      unit_of_measurement: "kWh"
+      state: >
+          {% set purchased = states('counter.prepaid_units_tracker') | float(0) %}
+          {% set used = states('sensor.monthly_eskom_energy') | float(0) %}
+          {{ (purchased - used) | round(2) }}
+
+    - name: "Stale Entities Count"
+      unique_id: stale_entities_count
+      state: >
+        {{ states.sensor
+          | selectattr('state', 'in', ['unavailable', 'unknown'])
+          | list | length }}
+
+# Binary sensor templates
+- binary_sensor:
+    - name: "Is Solar Hours"
+      unique_id: is_solar_hours
+      state: >
+          {% set now = now().time() %}
+          {{ now >= strptime("08:30", "%H:%M").time() and now < strptime("16:00", "%H:%M").time() }}
+
+    - name: "Is Eskom Hours"
+      unique_id: is_eskom_hours
+      state: >
+          {% set now = now().time() %}
+          {{ now < strptime("08:30", "%H:%M").time() or now >= strptime("16:00", "%H:%M").time() }}
+
+    # Backup System Health (NEW - comprehensive backup monitoring)
+    - name: "Backup System Health"
+      unique_id: backup_system_health
+      device_class: connectivity
+      state: >
+        {% set onedrive_ok = is_state('binary_sensor.onedrive_health_simple', 'on') %}
+        {% set gdrive_ok = states('sensor.google_drive_backup_status') in ['backed_up', 'backing_up'] %}
+        {% set local_backup_ok = states('sensor.backup_backup_manager_state') != 'unknown' %}
+        {{ onedrive_ok or gdrive_ok or local_backup_ok }}
+      icon: >
+        {% set onedrive_ok = is_state('binary_sensor.onedrive_health_simple', 'on') %}
+        {% set gdrive_ok = states('sensor.google_drive_backup_status') in ['backed_up', 'backing_up'] %}
+        {% set local_backup_ok = states('sensor.backup_backup_manager_state') != 'unknown' %}
+        {% if onedrive_ok and gdrive_ok %}
+          mdi:shield-check
+        {% elif onedrive_ok or gdrive_ok %}
+          mdi:shield
+        {% else %}
+          mdi:shield-off
+        {% endif %}
+      attributes:
+        backup_status: >
+          OneDrive: {{ 'OK' if is_state('binary_sensor.onedrive_health_simple', 'on') else 'Issues' }}, 
+          Google Drive: {{ states('sensor.google_drive_backup_status') | default('Not Configured') }}, 
+          Local: {{ states('sensor.backup_backup_manager_state') | default('Unknown') | title }}

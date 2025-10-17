@@ -1,0 +1,277 @@
+# OneDrive Automations (Fixed to use working entities)
+# Add these to your automations.yaml file
+
+# Daily OneDrive Status Report at 09:00
+- id: onedrive_daily_report
+  alias: "OneDrive Daily Status Report"
+  description: "Daily status report of OneDrive usage and health at 09:00"
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition: []
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "☁️ OneDrive Daily Report"
+        message: >
+          Storage: {{ states('sensor.onedrive_used_storage') }}GB / {{ states('sensor.onedrive_total_available_storage') }}GB 
+          Usage: {{ ((states('sensor.onedrive_used_storage')|float / states('sensor.onedrive_total_available_storage')|float) * 100)|round(1) }}%
+          Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          Drive State: {{ states('sensor.onedrive_drive_state') | title }}
+          Status: {{ states('sensor.onedrive_storage_status_enhanced') }}
+        data:
+          actions:
+            - action: "VIEW_ONEDRIVE_DASHBOARD"
+              title: "View Dashboard"
+
+# Storage Warning Alert (Using calculated warning sensor)
+- id: onedrive_storage_warning
+  alias: "OneDrive Storage Warning"
+  description: "Alert when calculated OneDrive storage exceeds 85%"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.onedrive_storage_warning_calculated
+      to: "on"
+      for:
+        minutes: 5
+  condition: []
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "⚠️ OneDrive Storage Warning"
+        message: >
+          OneDrive storage is {{ ((states('sensor.onedrive_used_storage')|float / states('sensor.onedrive_total_available_storage')|float) * 100)|round(1) }}% full!
+          Used: {{ states('sensor.onedrive_used_storage') }}GB
+          Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          Days until full: {{ states('sensor.onedrive_days_until_full_calculated') }}
+        data:
+          tag: "onedrive_storage_warning"
+          actions:
+            - action: "CLEANUP_BACKUPS"
+              title: "Run Cleanup"
+            - action: "VIEW_STORAGE"
+              title: "View Details"
+
+# Connection Health Monitor (Using calculated health sensor)
+- id: onedrive_connection_health
+  alias: "OneDrive Connection Health Monitor"
+  description: "Monitor OneDrive connection health using calculated sensor"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.onedrive_health_calculated
+      to: "off"
+      for:
+        minutes: 30
+  condition: []
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "🔴 OneDrive Connection Issue"
+        message: >
+          OneDrive connection issue detected!
+          Drive State: {{ states('sensor.onedrive_drive_state') }}
+          Health Status: Calculated as unhealthy
+        data:
+          tag: "onedrive_connection"
+          actions:
+            - action: "FORCE_SYNC"
+              title: "Force Sync"
+            - action: "HEALTH_CHECK"
+              title: "Run Diagnostic"
+
+# Weekly Status Report at 09:00 on Sundays
+- id: onedrive_weekly_report
+  alias: "OneDrive Weekly Status Report"
+  description: "Comprehensive weekly OneDrive status every Sunday at 09:00"
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition:
+    - condition: time
+      weekday:
+        - sun
+  action:
+    - service: script.onedrive_diagnostic_check
+    - delay:
+        minutes: 1
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "📊 OneDrive Weekly Report"
+        message: >
+          Weekly OneDrive Analysis:
+          • Used: {{ states('sensor.onedrive_used_storage') }}GB
+          • Total Available: {{ states('sensor.onedrive_total_available_storage') }}GB
+          • Usage: {{ ((states('sensor.onedrive_used_storage')|float / states('sensor.onedrive_total_available_storage')|float) * 100)|round(1) }}%
+          • Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          • Drive State: {{ states('sensor.onedrive_drive_state') | title }}
+          • Health Score: {{ states('sensor.onedrive_storage_health_score') }}/10
+        data:
+          actions:
+            - action: "VIEW_DASHBOARD"
+              title: "View Dashboard"
+
+# Monthly Storage Report at 09:00 on 1st of month
+- id: onedrive_monthly_report
+  alias: "OneDrive Monthly Storage Report"
+  description: "Detailed monthly storage analysis on 1st at 09:00"
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition:
+    - condition: template
+      value_template: "{{ now().day == 1 }}"
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "📈 OneDrive Monthly Report"
+        message: >
+          Monthly OneDrive Analysis:
+          • Storage Used: {{ states('sensor.onedrive_used_storage') }}GB ({{ ((states('sensor.onedrive_used_storage')|float / states('sensor.onedrive_total_available_storage')|float) * 100)|round(1) }}%)
+          • Total Available: {{ states('sensor.onedrive_total_available_storage') }}GB
+          • Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          • Drive State: {{ states('sensor.onedrive_drive_state') | title }}
+          • Health Score: {{ states('sensor.onedrive_storage_health_score') }}/10
+          • Days Until Full: {{ states('sensor.onedrive_days_until_full_calculated') }}
+          • Status: {{ states('sensor.onedrive_storage_status_enhanced') }}
+        data:
+          actions:
+            - action: "VIEW_DETAILED_REPORT"
+              title: "View Dashboard"
+            - action: "RUN_CLEANUP"
+              title: "Run Cleanup"# OneDrive Automations (Updated with actual entity names)
+# Add these to your automations.yaml file
+
+# Daily OneDrive Status Report at 09:00
+- id: onedrive_daily_report
+  alias: "OneDrive Daily Status Report"
+  description: "Daily status report of OneDrive usage and health at 09:00"
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition: []
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "OneDrive Daily Report"
+        message: >
+          Storage: {{ states('sensor.onedrive_used_storage') }}GB / {{ states('sensor.onedrive_total_available_storage') }}GB 
+          ({{ states('sensor.onedrive_storage_percentage') }}% used)
+          Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          Status: {{ states('sensor.onedrive_storage_status') }}
+          Drive State: {{ states('sensor.onedrive_drive_state') }}
+        data:
+          actions:
+            - action: "VIEW_ONEDRIVE_DASHBOARD"
+              title: "View Dashboard"
+
+# Storage Warning Alert (Using actual entity)
+- id: onedrive_storage_warning
+  alias: "OneDrive Storage Warning"
+  description: "Alert when OneDrive storage warning is triggered"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.onedrive_storage_warning
+      to: "on"
+      for:
+        minutes: 5
+  condition: []
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "⚠️ OneDrive Storage Warning"
+        message: >
+          OneDrive storage is {{ states('sensor.onedrive_storage_percentage') }}% full!
+          Used: {{ states('sensor.onedrive_used_storage') }}GB
+          Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          Days until full: {{ states('sensor.onedrive_days_until_full') }}
+        data:
+          tag: "onedrive_storage_warning"
+          actions:
+            - action: "CLEANUP_BACKUPS"
+              title: "Cleanup Old Backups"
+            - action: "VIEW_STORAGE"
+              title: "View Storage Details"
+
+# Connection Health Monitor (Using actual entities)
+- id: onedrive_connection_health
+  alias: "OneDrive Connection Health Monitor"
+  description: "Monitor OneDrive connection health"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.onedrive_health
+      to: "off"
+      for:
+        hours: 1
+  condition: []
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "🔴 OneDrive Connection Issue"
+        message: >
+          OneDrive connection issue detected!
+          Drive State: {{ states('sensor.onedrive_drive_state') }}
+          Health Status: {{ states('binary_sensor.onedrive_health') }}
+        data:
+          tag: "onedrive_connection"
+          actions:
+            - action: "FORCE_SYNC"
+              title: "Force Sync"
+            - action: "HEALTH_CHECK"
+              title: "Run Health Check"
+
+# Weekly Backup Cleanup at 09:00 on Sundays
+- id: onedrive_weekly_cleanup
+  alias: "OneDrive Weekly Backup Cleanup"
+  description: "Clean up old backups every Sunday at 09:00"
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition:
+    - condition: time
+      weekday:
+        - sun
+  action:
+    - service: script.onedrive_health_check
+    - delay:
+        minutes: 2
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "🧹 OneDrive Weekly Check"
+        message: >
+          Weekly OneDrive health check completed.
+          Current storage: {{ states('sensor.onedrive_storage_percentage') }}% used
+          Drive state: {{ states('sensor.onedrive_drive_state') }}
+          Remaining space: {{ states('sensor.onedrive_remaining_storage') }}GB
+        data:
+          tag: "weekly_cleanup"
+
+# Monthly Storage Report at 09:00 on 1st of month
+- id: onedrive_monthly_report
+  alias: "OneDrive Monthly Storage Report"
+  description: "Detailed monthly storage analysis on 1st at 09:00"
+  trigger:
+    - platform: time
+      at: "09:00:00"
+  condition:
+    - condition: template
+      value_template: "{{ now().day == 1 }}"
+  action:
+    - service: telegram_bot.send_message  # Replace with your actual device name
+      data:
+        title: "📊 OneDrive Monthly Report"
+        message: >
+          Monthly OneDrive Analysis:
+          • Storage Used: {{ states('sensor.onedrive_used_storage') }}GB
+          • Total Available: {{ states('sensor.onedrive_total_available_storage') }}GB
+          • Remaining: {{ states('sensor.onedrive_remaining_storage') }}GB
+          • Usage: {{ states('sensor.onedrive_storage_percentage') }}%
+          • Drive State: {{ states('sensor.onedrive_drive_state') }}
+          • Health: {{ 'Good' if is_state('binary_sensor.onedrive_health', 'on') else 'Needs Attention' }}
+          • Days Until Full: {{ states('sensor.onedrive_days_until_full') }}
+        data:
+          actions:
+            - action: "VIEW_DETAILED_REPORT"
+              title: "View Dashboard"
+            - action: "RUN_HEALTH_CHECK"
+              title: "Health Check"
+#-------------------------------------------------------------------------------              
