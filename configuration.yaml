@@ -1,34 +1,14 @@
-
 # ==============================================================================
 # Home Assistant Main Configuration - Restructured
 # File: configuration.yaml
-# Updated: 2025-09-12
-# Note: Optimized structure and organization
+# Updated: 2025-10-21
+# Note: Consolidated to a single 'homeassistant' block to fix package loading.
 # ==============================================================================
-# ==============================================================================
-# Load frontend themes from the themes folder
-# Frontend Configuration
-frontend:
-  themes: !include_dir_merge_named themes
-  extra_module_url:
-    - /hacsfiles/lovelace-card-mod/card-mod.js
-# ==============================================================================
-# automation: !include automations.yaml
-automation: !include_dir_merge_list automations/
-# sensors: !include_dir_merge_list sensors/
-script: !include scripts.yaml
-scene: !include scenes.yaml
-template: !include template.yaml
-group: !include groups.yaml
-
-#===============================================================================
-# Information from this files moved to Templaye.yaml
-# sensor: !include sensors/update_summary.yaml
-#===============================================================================
-# automation: !include automations/update_report_email.yaml
 
 # ==============================================================================
-# The homeassistant packages will become the standard of loading configs going forward
+# Core Home Assistant Configuration
+# All 'homeassistant' settings are now in this single block.
+# ==============================================================================
 homeassistant:
   # Basic instance information
   name: "Smart Home - Pierre van Ryneveld"
@@ -50,13 +30,33 @@ homeassistant:
     - "/config/scripts"
     - "/tmp"
     - "/config/entity_exports"
+    
+  # Packages configuration - This will now be loaded correctly.
   packages: !include_dir_named packages
+
 # ==============================================================================
-# HTTP Configuration - Secure and Optimized (Corrected)
+# Load frontend themes from the themes folder
+# ==============================================================================
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+
+# ==============================================================================
+# Load Automations, Scripts, Scenes, etc.
+# ==============================================================================
+automation: !include_dir_merge_list automations/
+script: !include scripts.yaml
+scene: !include scenes.yaml
+template: !include template.yaml
+group: !include groups.yaml
+
+# ==============================================================================
+# HTTP Configuration - Secure and Optimized
+# ==============================================================================
 http:
   # Core security settings
   use_x_forwarded_for: true
-
   trusted_proxies:
     - 192.168.1.0/24
     - 127.0.0.1
@@ -68,24 +68,27 @@ http:
     - "http://192.168.1.30:8123"
     - "http://localhost:8123"
     - "http://127.0.0.1:8123"
-    - "https://my.home-assistant.io"  # For HA Cloud if using remote access
+    - "https://my.home-assistant.io"
   
-  # Security settings optimized for your setup
-  login_attempts_threshold: 5      # Reduced from 10 for better security
+  # Security settings
+  login_attempts_threshold: 5
   ip_ban_enabled: true
-
-  use_x_frame_options: true    # Changed to true for security on 10 Oct 2025
+  use_x_frame_options: true
   
   # SSL profile for better security
   ssl_profile: modern
 
 # ==============================================================================
-# Command Line Info https://www.home-assistant.io/integrations/command_line
+# Command Line Sensor
+# ==============================================================================
 command_line:
   - sensor:
       name: Badlogin
       command: "grep -c 'Login attempt' /home/hass/.homeassistant/home-assistant.log"
-#==============================================================================
+
+# ==============================================================================
+# Logger Configuration
+# ==============================================================================
 logger:
   default: critical
   logs:
@@ -94,76 +97,54 @@ logger:
     homeassistant.loader: error
     homeassistant.setup: warning
     homeassistant.config: warning
-
-    # Integration-specific logging (optimized for your setup)
-    homeassistant.components.mqtt: warning       # Changed from info
-    homeassistant.components.tuya: warning       # Changed from info  
-    homeassistant.components.automation: warning # Changed from info
-    homeassistant.components.script: warning     # Changed from info
-    
-    # Custom components - selective logging
+    homeassistant.components.mqtt: warning
+    homeassistant.components.tuya: warning
+    homeassistant.components.automation: warning
+    homeassistant.components.script: warning
     custom_components.alexa_media: warning
     custom_components.localtuya: warning
-    custom_components.powercalc: error           # Often verbose
+    custom_components.powercalc: error
     custom_components.solcast_solar: warning
-    custom_components.ha_visualiser: error      # Debug only when needed
+    custom_components.ha_visualiser: error
     custom_components.o365: warning
     custom_components.sonoff: warning
-    
-    # Energy monitoring - your Deye/Sunsunk inverters
-    custom_components.deye: info                 # Keep info for energy debugging
-    custom_components.sunsunk: info              # Keep info for energy debugging
-    
-    # Network and connectivity
+    custom_components.deye: info
+    custom_components.sunsunk: info
     homeassistant.components.network: error
     homeassistant.components.websocket: error
-    
-    # Database and performance
     homeassistant.components.recorder: warning
     homeassistant.components.history: error
     homeassistant.components.influxdb: warning
-    
-    # System components
     homeassistant.components.system_health: error
     homeassistant.components.updater: error
     homeassistant.components.homeassistant: warning
-    
-    # Notification services
     homeassistant.components.telegram: warning
     homeassistant.components.notify: warning
-    
-    # Reduce noise from frequent updates
     homeassistant.util.dt: error
     homeassistant.util.yaml: error
     homeassistant.helpers.entity: error
     homeassistant.helpers.entity_registry: error
     homeassistant.helpers.device_registry: error
-    
-    # Third-party library noise reduction
     urllib3.connectionpool: error
     requests.packages.urllib3.connectionpool: error
     aiohttp.access: error
-    
-    # HACS noise reduction (if you have HACS)
     custom_components.hacs: warning
-#==============================================================================
-# Text to speech
+
+# ==============================================================================
+# Text to Speech
+# ==============================================================================
 tts:
   - platform: google_translate  
     service_name: google_say
-#===============================================================================
-# Enable the recorder for long-term statistics (works with InfluxDB)
-# Recorder Configuration - Optimized for Performance and Storage
+
+# ==============================================================================
+# Recorder Configuration
+# ==============================================================================
 recorder:
-  # Extended retention for better trend analysis (optimal for your 2x8kW setup)
   purge_keep_days: 30
   auto_purge: true
   auto_repack: true
-  
-  # Optimized commit interval for better performance with InfluxDB
   commit_interval: 5
-  
-  # Strategic domain inclusion - be selective
   include:
     domains:
       - climate
@@ -174,7 +155,6 @@ recorder:
       - light
       - switch
     entities:
-      # Include only critical sensors for your energy monitoring
       - sensor.deyeinvertermaster_summary_battery_soc
       - sensor.deyeinverterslave_summary_battery_soc
       - sensor.deyeinvertermaster_today_energy_bought
@@ -185,14 +165,11 @@ recorder:
       - sensor.deyeinverterslave_today_load_consumption
       - sensor.deyeinvertermaster_ac_output_active_power_r_total
       - sensor.deyeinverterslave_ac_output_active_power_r_total
-
-  # Comprehensive exclusions for high-frequency, low-value entities  
   exclude:
     domains:
       - updater
       - sun
     entities:
-      # Time and date sensors (change constantly, no historical value)
       - sensor.date_time
       - sensor.time
       - sensor.date_time_utc
@@ -200,8 +177,6 @@ recorder:
       - sensor.time_date
       - sensor.uptime
       - sensor.time_utc
-      
-      # System sensors that change frequently
       - sensor.last_boot
       - sensor.processor_use
       - sensor.processor_temperature
@@ -210,81 +185,54 @@ recorder:
       - sensor.load_1m
       - sensor.load_5m 
       - sensor.load_15m
-      
-      # Network monitoring sensors (if you have them)
       - sensor.speedtest_download
       - sensor.speedtest_upload
       - sensor.speedtest_ping
-      
-      # Frequent automation state changes
       - automation.daily_sensor_report_09h00_final
       - automation.extract_sensors_daily
-      
-    # Wildcard patterns go in entity_globs (NOT entities)
     entity_globs:
-      # Exclude all HACS and update sensors (frequent changes, low value)
       - sensor.*_update_available
       - sensor.hacs_*
       - binary_sensor.hacs_*
-      
-      # Exclude weather API sensors that update frequently
       - sensor.openweathermap_*
       - sensor.weather_*
-      
-      # Exclude frequent changing device trackers from unknown devices
       - device_tracker.unknown_*
-      
-      # Exclude frequent node-red status entities
       - sensor.node_red_*
-      
-      # Exclude telegram notification history
       - sensor.telegram_*
-#===============================================================================
-# Shell Commands - Enhanced and Secure
+
+# ==============================================================================
+# Shell Commands
+# ==============================================================================
 shell_command:
-  # Git operations
   git_commit: '/config/scripts/git_commit.sh'
-  
-  # System operations
   backup_config: >
     cp -r /config /backup/ha-config-$(date +%Y%m%d_%H%M%S)
-  
   check_system_status: >
     echo "System check at $(date)" > /config/system_check.log
-  
-  # Sensor operations
   extract_sensors: >
     python3 /config/scripts/extract_sensors.py
-  
-  # Integration management (using secrets for security)
   restart_deye_integration: >
     curl -X POST -H "Authorization: Bearer !secret ha_long_lived_token" \
     -H "Content-Type: application/json" \
     http://192.168.1.30:8123/api/config/config_entries/reload
-  
   restart_homeassistant: >
     curl -X POST -H "Authorization: Bearer !secret ha_long_lived_token" \
     -H "Content-Type: application/json" \
     http://192.168.1.30:8123/api/services/homeassistant/restart
-    
-  # Log management
   cleanup_logs: >
     find /config -name "home-assistant.log*" -mtime +7 -delete && 
     find /config -name "*.log" -size +10M -delete
-    
   check_log_size: >
     du -sh /config/home-assistant.log 2>/dev/null | cut -f1 > /config/log_size.txt || echo "0" > /config/log_size.txt
-
-# Auto-cleanup sensor reports older than 14 days
   cleanup_sensor_reports: >
     find /config/sensor_reports -type f -name "sensors_*" -mtime +14 -delete &&
     echo "Sensor reports older than 14 days deleted"
-#-------------------------------------------------------------------------------
-# DuckDND config
+
+# ==============================================================================
+# Other Integrations
+# ==============================================================================
 duckdns:
   domain: !secret duckdns_domain
   access_token: !secret duckdns_token
-#-------------------------------------------------------------------------------
-# Mobile App Enablement
+
 mobile_app:
-#-------------------------------------------------------------------------------
