@@ -1,0 +1,32 @@
+- alias: "GDACS Disaster Alert Notification"
+  id: gdacs_disaster_alert_notification
+  trigger:
+    - platform: state
+      entity_id: sensor.25_8408252_28_2475291
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state not in ['unknown', 'unavailable'] and trigger.to_state.state | string != '0' }}"
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: "GDACS Disaster Alert"
+        message: |
+          A new GDACS alert has been received.
+          Alert Level: {{ trigger.to_state.attributes.alert_level }}
+          Country: {{ trigger.to_state.attributes.country }}
+          Type: {{ trigger.to_state.attributes.event_type }}
+          Severity: {{ trigger.to_state.attributes.severity }}
+          Population: {{ trigger.to_state.attributes.population }}
+          More Info: {{ trigger.to_state.attributes.url }}
+    - service: notify.email_notification
+      data:
+        title: "GDACS Disaster Alert"
+        message: |
+          A new GDACS alert has been received.
+          Alert Level: {{ trigger.to_state.attributes.alert_level }}
+          Country: {{ trigger.to_state.attributes.country }}
+          Type: {{ trigger.to_state.attributes.event_type }}
+          Severity: {{ trigger.to_state.attributes.severity }}
+          Population: {{ trigger.to_state.attributes.population }}
+          More Info: {{ trigger.to_state.attributes.url }}
+  mode: single
