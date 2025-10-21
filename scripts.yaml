@@ -1,0 +1,23 @@
+# ==============================================================================
+# Script: Export All Entities to CSV
+#
+# This script generates a CSV file containing a list of all entities in
+# Home Assistant, along with their state and key attributes.
+#
+# The output file is saved to /config/entity_exports/all_entities.csv
+# ==============================================================================
+
+export_all_entities_to_csv:
+  alias: "Export All Entities to CSV"
+  description: "Generates a CSV file of all entities and their attributes."
+  icon: mdi:file-delimited
+  mode: single
+  sequence:
+    - service: notify.file_exporter
+      data:
+        message: |
+          "Entity ID","Friendly Name","State","Last Changed"
+          {% for entity in states -%}
+          "{{ entity.entity_id }}","{{ entity.name | replace('"', '""') }}","{{ entity.state | replace('"', '""') }}","{{ entity.last_changed }}"
+          {% endfor %}
+# ==============================================================================

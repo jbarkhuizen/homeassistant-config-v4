@@ -1,0 +1,18 @@
+# ==============================================================================
+# Automation: Daily Entity Export
+#
+# This automation runs a script every morning to export a complete list of
+# Home Assistant entities to a CSV file.
+#
+# ==============================================================================
+
+- id: 'daily_entity_export_to_csv'
+  alias: "System: Daily - Export All Entities to CSV"
+  description: "Runs a script at 07:00 to generate a CSV file of all entities."
+  trigger:
+    - platform: time
+      at: "07:00:00"
+  condition: []
+  action:
+    - service: script.export_all_entities_to_csv
+  mode: single

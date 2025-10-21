@@ -1,0 +1,336 @@
+# ==============================================================================
+# Solar Power Optimization Package
+# File: packages/solar_power_optimization.yaml
+# Created: 2025-10-21
+# Purpose: Optimize solar power usage by automatically controlling high-power
+#          devices based on available solar generation
+# Device: SONOFF switch.sonoff_10009ce3f9 (1.2kW, Priority 1)
+# Operating Hours: 07:00 - 17:00
+# Threshold: 7000W ON / 5000W OFF
+# ==============================================================================
+
+# ==============================================================================
+# Input Booleans - Enable/Disable Automation
+# ==============================================================================
+input_boolean:
+  solar_optimization_enabled:
+    name: Solar Power Optimization Enabled
+    initial: on
+    icon: mdi:solar-power
+
+# ==============================================================================
+# Input Numbers - Adjustable Thresholds
+# ==============================================================================
+input_number:
+  solar_power_threshold_on:
+    name: Solar Power ON Threshold
+    min: 5000
+    max: 15000
+    step: 500
+    initial: 7000
+    unit_of_measurement: "W"
+    icon: mdi:lightning-bolt
+    mode: box
+  
+  solar_power_threshold_off:
+    name: Solar Power OFF Threshold
+    min: 2000
+    max: 10000
+    step: 500
+    initial: 5000
+    unit_of_measurement: "W"
+    icon: mdi:lightning-bolt-outline
+    mode: box
+
+# ==============================================================================
+# Template Sensors - System Status and Monitoring
+# ==============================================================================
+template:
+  - sensor:
+      # Main status sensor
+      - name: "Solar Optimization Status"
+        unique_id: solar_optimization_status
+        state: >
+          {% if is_state('input_boolean.solar_optimization_enabled', 'on') %}
+            {% set current_solar = states('sensor.deyeinvertercombined_solar_power_used') | float(0) %}
+            {% set threshold_on = states('input_number.solar_power_threshold_on') | float(0) %}
+            {% set threshold_off = states('input_number.solar_power_threshold_off') | float(0) %}
+            {% if current_solar >= threshold_on %}
+              Active - High Solar ({{ current_solar | round(0) }}W)
+            {% elif current_solar >= threshold_off %}
+              Active - Medium Solar ({{ current_solar | round(0) }}W)
+            {% else %}
+              Active - Low Solar ({{ current_solar | round(0) }}W)
+            {% endif %}
+          {% else %}
+            Disabled
+          {% endif %}
+        icon: >
+          {% if is_state('input_boolean.solar_optimization_enabled', 'on') %}
+            {% set current_solar = states('sensor.deyeinvertercombined_solar_power_used') | float(0) %}
+            {% set threshold_on = states('input_number.solar_power_threshold_on') | float(0) %}
+            {% if current_solar >= threshold_on %}
+              mdi:solar-power
+            {% else %}
+              mdi:solar-power-variant
+            {% endif %}
+          {% else %}
+            mdi:solar-power-variant-outline
+          {% endif %}
+        attributes:
+          current_solar_power: >
+            {{ states('sensor.deyeinvertercombined_solar_power_used') | float(0) | round(0) }}
+          threshold_on: >
+            {{ states('input_number.solar_power_threshold_on') | float(0) | round(0) }}
+          threshold_off: >
+            {{ states('input_number.solar_power_threshold_off') | float(0) | round(0) }}
+          device_power_consumption: 1200
+          available_excess_power: >
+            {{ (states('sensor.deyeinvertercombined_solar_power_used') | float(0) - 1200) | round(0) }}
+          device_status: >
+            {{ states('switch.sonoff_10009ce3f9') }}
+          operating_hours: "07:00 - 17:00"
+          
+      # Daily energy saved sensor
+      - name: "Solar Optimization Energy Saved Today"
+        unique_id: solar_optimization_energy_saved_today
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: >
+          {% set runtime = state_attr('switch.sonoff_10009ce3f9', 'current_power_w') | float(0) %}
+          {% if runtime > 0 %}
+            {{ (runtime / 1000) | round(2) }}
+          {% else %}
+            0
+          {% endif %}
+        icon: mdi:solar-power
+
+# ==============================================================================
+# Automations - Core Solar Power Control Logic
+# ==============================================================================
+automation:
+  # --------------------------------------------------------------------------
+  # AUTOMATION 1: Turn ON Device When Solar is Abundant
+  # --------------------------------------------------------------------------
+  - id: 'solar_power_turn_on_device'
+    alias: "Solar Power - Turn ON SONOFF Device (Priority 1)"
+    description: "Automatically turns on SONOFF device when solar power exceeds 7000W during daylight hours"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.deyeinvertercombined_solar_power_used
+        above: input_number.solar_power_threshold_on
+        for:
+          minutes: 5
+      - platform: time
+        at: "07:15:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_optimization_enabled
+        state: "on"
+      - condition: time
+        after: "07:00:00"
+        before: "17:00:00"
+      - condition: numeric_state
+        entity_id: sensor.deyeinvertercombined_solar_power_used
+        above: input_number.solar_power_threshold_on
+      - condition: state
+        entity_id: switch.sonoff_10009ce3f9
+        state: "off"
+    actions:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_10009ce3f9
+        data: {}
+      - service: notify.email_notification
+        data:
+          title: "☀️ Solar Power Optimization"
+          message: >-
+            High solar generation detected: {{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W
+            
+            ✅ SONOFF Device (1.2kW) activated at {{ now().strftime('%H:%M') }}
+            
+            Available excess power: {{ (states('sensor.deyeinvertercombined_solar_power_used') | float(0) - 1200) | round(0) }}W
+      - service: telegram_bot.send_message
+        data:
+          message: >-
+            ☀️ *Solar Power Optimization*
+            
+            High solar generation: *{{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W*
+            
+            ✅ SONOFF Device activated at {{ now().strftime('%H:%M') }}
+      - service: logbook.log
+        data:
+          name: Solar Optimization
+          message: >-
+            SONOFF device turned ON - Solar power: {{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W
+          entity_id: switch.sonoff_10009ce3f9
+    mode: single
+
+  # --------------------------------------------------------------------------
+  # AUTOMATION 2: Turn OFF Device When Solar Drops
+  # --------------------------------------------------------------------------
+  - id: 'solar_power_turn_off_device'
+    alias: "Solar Power - Turn OFF SONOFF Device When Solar Low"
+    description: "Automatically turns off SONOFF device when solar power drops below 5000W"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.deyeinvertercombined_solar_power_used
+        below: input_number.solar_power_threshold_off
+        for:
+          minutes: 10
+      - platform: time
+        at: "17:00:00"
+    conditions:
+      - condition: state
+        entity_id: switch.sonoff_10009ce3f9
+        state: "on"
+      - condition: or
+        conditions:
+          - condition: numeric_state
+            entity_id: sensor.deyeinvertercombined_solar_power_used
+            below: input_number.solar_power_threshold_off
+          - condition: time
+            after: "17:00:00"
+    actions:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.sonoff_10009ce3f9
+        data: {}
+      - service: notify.email_notification
+        data:
+          title: "🌙 Solar Power Optimization"
+          message: >-
+            Low solar generation detected: {{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W
+            
+            ⛔ SONOFF Device (1.2kW) deactivated at {{ now().strftime('%H:%M') }}
+            
+            Reason: {% if now().hour >= 17 %}Outside operating hours{% else %}Solar power below threshold{% endif %}
+      - service: telegram_bot.send_message
+        data:
+          message: >-
+            🌙 *Solar Power Optimization*
+            
+            Low solar: *{{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W*
+            
+            ⛔ SONOFF Device deactivated at {{ now().strftime('%H:%M') }}
+      - service: logbook.log
+        data:
+          name: Solar Optimization
+          message: >-
+            SONOFF device turned OFF - Solar power: {{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W
+          entity_id: switch.sonoff_10009ce3f9
+    mode: single
+
+  # --------------------------------------------------------------------------
+  # AUTOMATION 3: Morning Staggered Check (07:15)
+  # --------------------------------------------------------------------------
+  - id: 'solar_power_morning_check'
+    alias: "Solar Power - Morning Check at 07:15"
+    description: "Performs a staggered morning check to activate devices if solar is already high"
+    trigger:
+      - platform: time
+        at: "07:15:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_optimization_enabled
+        state: "on"
+      - condition: numeric_state
+        entity_id: sensor.deyeinvertercombined_solar_power_used
+        above: input_number.solar_power_threshold_on
+      - condition: state
+        entity_id: switch.sonoff_10009ce3f9
+        state: "off"
+    actions:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_10009ce3f9
+        data: {}
+      - service: notify.email_notification
+        data:
+          title: "🌅 Solar Power - Morning Check"
+          message: >-
+            Morning solar check completed at 07:15
+            
+            Solar generation: {{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W
+            
+            ✅ SONOFF Device activated
+      - service: telegram_bot.send_message
+        data:
+          message: >-
+            🌅 *Solar Power - Morning Check*
+            
+            Solar: *{{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W*
+            
+            ✅ Device activated
+    mode: single
+
+  # --------------------------------------------------------------------------
+  # AUTOMATION 4: Safety - Turn OFF at 17:00
+  # --------------------------------------------------------------------------
+  - id: 'solar_power_safety_turn_off'
+    alias: "Solar Power - Safety Turn OFF at 17:00"
+    description: "Safety automation to ensure device is turned off at end of operating hours"
+    trigger:
+      - platform: time
+        at: "17:00:00"
+    conditions:
+      - condition: state
+        entity_id: switch.sonoff_10009ce3f9
+        state: "on"
+    actions:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.sonoff_10009ce3f9
+        data: {}
+      - service: notify.email_notification
+        data:
+          title: "🕔 Solar Power - End of Day"
+          message: >-
+            Operating hours ended at 17:00
+            
+            ⛔ All solar-controlled devices deactivated
+            
+            Final solar generation: {{ states('sensor.deyeinvertercombined_solar_power_used') | round(0) }}W
+      - service: telegram_bot.send_message
+        data:
+          message: >-
+            🕔 *Solar Power - End of Day*
+            
+            Operating hours ended. All devices deactivated.
+      - service: logbook.log
+        data:
+          name: Solar Optimization
+          message: "End of day - All devices turned OFF at 17:00"
+          entity_id: switch.sonoff_10009ce3f9
+    mode: single
+
+  # --------------------------------------------------------------------------
+  # AUTOMATION 5: Manual Override Notification
+  # --------------------------------------------------------------------------
+  - id: 'solar_power_manual_override_alert'
+    alias: "Solar Power - Manual Override Alert"
+    description: "Notifies when automation is manually disabled"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.solar_optimization_enabled
+        to: "off"
+    actions:
+      - service: notify.email_notification
+        data:
+          title: "⚠️ Solar Power Optimization"
+          message: >-
+            Solar power automation has been MANUALLY DISABLED at {{ now().strftime('%H:%M') }}
+            
+            Devices will not be automatically controlled until re-enabled.
+      - service: telegram_bot.send_message
+        data:
+          message: >-
+            ⚠️ *Solar Power Optimization*
+            
+            Automation DISABLED at {{ now().strftime('%H:%M') }}
+    mode: single
+
+# ==============================================================================
+# End of Solar Power Optimization Package
+# ==============================================================================

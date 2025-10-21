@@ -49,6 +49,7 @@ homeassistant:
     - "/config/sensor_reports"
     - "/config/scripts"
     - "/tmp"
+    - "/config/entity_exports"
   packages: !include_dir_named packages
 # ==============================================================================
 # HTTP Configuration - Secure and Optimized (Corrected)
