@@ -29,6 +29,7 @@ homeassistant:
     - "/config/sensor_reports"
     - "/config/scripts"
     - "/tmp"
+    - "/config/exports"
     - "/config/entity_exports"
     
   # Packages configuration - This will now be loaded correctly.
