@@ -235,3 +235,34 @@
           • Restart affected devices
           • Remove entities if devices are permanently offline
   mode: single
+
+
+- alias: 'Lightning Alert - Close Strike'
+  trigger:
+      platform: numeric_state
+      entity_id: sensor.blitzortung_lightning_distance
+      below: 10
+  action:
+      - service: notify.mobile_app_your_phone
+        data:
+          title: "⚡ LIGHTNING WARNING"
+          message: "Lightning detected {{ states('sensor.blitzortung_lightning_distance') }}km away!"
+          data:
+            priority: high
+            ttl: 0
+
+
+- alias: 'Storm Approaching Alert'
+  trigger:
+      platform: numeric_state
+      entity_id: sensor.blitzortung_lightning_counter
+      above: 5
+  condition:
+      condition: numeric_state
+      entity_id: sensor.blitzortung_lightning_distance
+      below: 30
+  action:
+      - service: notify.persistent_notification
+        data:
+          title: "Storm Detected"
+          message: "{{ states('sensor.blitzortung_lightning_counter') }} strikes within 30km. Storm approaching Centurion area."
