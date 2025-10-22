@@ -44,11 +44,11 @@ automation:
   # Enhanced 09:00 Daily Inverter System Check
   # Added with Claude.ai
   - id: inverter_daily_morning_check
-    alias: 'Inverter: Daily Morning System Check at 09:00'
+    alias: 'Inverter: Daily Morning System Check at 07:15'
     description: 'Comprehensive daily check of both 8kW Sunsunk inverters at 09:00'
     trigger:
       - platform: time
-        at: "09:00:00"
+        at: "07:15:00"
     condition:
       - condition: state
         entity_id: input_boolean.maintenance_mode
@@ -99,11 +99,11 @@ automation:
 #===============================================================================      
   # Smart Energy Mode Optimization at 09:00
   - id: inverter_daily_energy_optimization
-    alias: 'Inverter: Daily Energy Mode Optimization at 09:00'
+    alias: 'Inverter: Daily Energy Mode Optimization at 07:30'
     description: 'Optimize energy settings based on weather and battery status at 09:00'
     trigger:
       - platform: time
-        at: "09:00:00"
+        at: "07:30:00"
     condition:
       - condition: state
         entity_id: input_boolean.energy_saving_mode
@@ -152,11 +152,11 @@ automation:
 #===============================================================================      
   # Battery Health Check at 09:00
   - id: inverter_battery_health_check
-    alias: 'Inverter: Battery Health Check at 09:00'
+    alias: 'Inverter: Battery Health Check at 07:45'
     description: 'Daily battery health monitoring and alerts at 09:00'
     trigger:
       - platform: time
-        at: "09:00:00"
+        at: "07:45:00"
     condition: []
     action:
       # Check battery levels
@@ -196,10 +196,10 @@ automation:
   # Weekly Inverter Performance Report (Mondays at 09:00)
   - id: inverter_weekly_performance_report
     alias: 'Inverter: Weekly Performance Report'
-    description: 'Generate weekly performance summary every Monday at 09:00'
+    description: 'Generate weekly performance summary every Monday at 08:30'
     trigger:
       - platform: time
-        at: "09:00:00"
+        at: "08:30:00"
     condition:
       - condition: time
         weekday:

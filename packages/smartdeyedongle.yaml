@@ -40,8 +40,8 @@ template:
         state: >
           {{ (
             states('sensor.deyeinvertermaster_inverter_output_power') | float(0) + 
-            states('sensor.deyeinvertermaster_grid_load_l1') | float(0) + 
-            states('sensor.deyeinvertermaster_grid_load_l2') | float(0) - 
+            (states('sensor.deyeinvertermaster_grid_load_l1') | float(0) + 
+             states('sensor.deyeinvertermaster_grid_load_l2') | float(0)) - 
             states('sensor.deyeinvertermaster_aux_power') | float(0)
           ) | round(1) }}
         unit_of_measurement: "W"

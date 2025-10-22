@@ -11,12 +11,12 @@
 # DAILY UPDATE REPORT - TELEGRAM NOTIFICATION
 #-----------------------------------------------------------------------------
 - id: daily_update_status_report_telegram
-  alias: 'System: Daily Update Status Report at 09:15 (Telegram)'
-  description: 'Send daily report of available updates via Telegram at 09:15'
+  alias: 'System: Daily Update Status Report at 89:15 (Telegram)'
+  description: 'Send daily report of available updates via Telegram at 08:15'
   
   trigger:
     - platform: time
-      at: "09:15:00"
+      at: "08:15:00"
   
   condition: []
   
@@ -124,12 +124,12 @@
 # DAILY UPDATE REPORT - EMAIL NOTIFICATION
 #-----------------------------------------------------------------------------
 - id: daily_update_status_report_email
-  alias: 'System: Daily Update Status Report at 09:15 (Email)'
-  description: 'Send daily report of available updates via Email at 09:15'
+  alias: 'System: Daily Update Status Report at 08:00 (Email)'
+  description: 'Send daily report of available updates via Email at 08:00'
   
   trigger:
     - platform: time
-      at: "09:15:00"
+      at: "08:00:00"
   
   condition:
     # Only send email if updates are available or it's Monday (weekly summary)

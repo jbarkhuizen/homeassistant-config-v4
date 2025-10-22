@@ -1,0 +1,5 @@
+input_boolean:
+  maintenance_mode:
+    name: Maintenance Mode
+    icon: mdi:wrench
+    initial: false
