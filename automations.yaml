@@ -1,3 +1,7 @@
+#===============================================================================
+# Automation to export sensirs data to CSV
+#===============================================================================
+
 - alias: "Export sensors to CSV"
   trigger:
       - platform: time_pattern
@@ -198,3 +202,36 @@
           data:
             attachments:
               - /config/exports/entities_full_export_*.csv
+#===============================================================================
+# Automation to monitor unavailable entities
+#===============================================================================
+- id: system_unavailable_entity_monitor
+  alias: 'System: Unavailable Entity Monitor'
+  description: 'Monitor and alert on unavailable entities daily at 07:00'
+  trigger:
+    - platform: time
+      at: "07:00:00"
+  condition: []
+  action:
+    - service: python_script.get_unavailable_entities
+      response_variable: unavailable_list
+    - condition: template
+      value_template: "{{ unavailable_list.entities | length > 0 }}"
+    - service: notify.email_notification
+      data:
+        title: "⚠️ Unavailable Entities Report"
+        message: >
+          **Unavailable Entities Found:**
+          
+          {% for entity in unavailable_list.entities %}
+          • {{ entity.entity_id }} - {{ entity.friendly_name }}
+          {% endfor %}
+          
+          **Total Count:** {{ unavailable_list.entities | length }}
+          
+          **Action Required:**
+          • Check device batteries
+          • Verify Wi-Fi connectivity
+          • Restart affected devices
+          • Remove entities if devices are permanently offline
+  mode: single

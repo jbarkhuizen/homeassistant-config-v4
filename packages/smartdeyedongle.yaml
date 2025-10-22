@@ -22,15 +22,32 @@ template:
         unit_of_measurement: "kWh"
         device_class: energy
         state_class: total_increasing
-
+# ==============================================================================
       # Essential Load Calculation
       # Formula: inverter_power + grid_power - aux_power
+#      - name: "deyeinvertermaster_essential_load"
+#        unique_id: "deyeinvertermaster_essential_load"
+#        state: "{{ (states('sensor.deyeinvertermaster_inverter_output_power') | float(0) + (states('sensor.deyeinvertermaster_grid_load_l1') | float(0) - states('sensor.deyeinvertermaster_aux_output_power') | float(0))) | round(0) }}"
+#        unit_of_measurement: "W"
+#        device_class: power
+#        state_class: measurement
+# ==============================================================================
+# Updated from Claude.ai on 22 Oct 2025 @ 15h15
+# ==============================================================================
+
       - name: "deyeinvertermaster_essential_load"
         unique_id: "deyeinvertermaster_essential_load"
-        state: "{{ (states('sensor.deyeinvertermaster_inverter_output_power') | float(0) + (states('sensor.deyeinvertermaster_grid_load_l1') | float(0) - states('sensor.deyeinvertermaster_aux_output_power') | float(0))) | round(0) }}"
+        state: >
+          {{ (
+            states('sensor.deyeinvertermaster_inverter_output_power') | float(0) + 
+            states('sensor.deyeinvertermaster_grid_load_l1') | float(0) + 
+            states('sensor.deyeinvertermaster_grid_load_l2') | float(0) - 
+            states('sensor.deyeinvertermaster_aux_power') | float(0)
+          ) | round(1) }}
         unit_of_measurement: "W"
         device_class: power
         state_class: measurement
+# ==============================================================================
 
       # Non-Essential Load Calculation
       # Formula: grid_ct_power - grid_power

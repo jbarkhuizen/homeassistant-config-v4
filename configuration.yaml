@@ -98,45 +98,60 @@ command_line:
 # Logger Configuration
 # ==============================================================================
 logger:
-  default: critical
+  default: warning
   logs:
+    # Core Components - Set to info for better debugging
+    homeassistant.core: info
     homeassistant.components.http: warning
-    homeassistant.core: warning
-    homeassistant.loader: error
-    homeassistant.setup: warning
-    homeassistant.config: warning
-    homeassistant.components.mqtt: warning
-    homeassistant.components.tuya: warning
-    homeassistant.components.automation: warning
-    homeassistant.components.script: warning
+    homeassistant.loader: warning
+    homeassistant.setup: info
+    homeassistant.config: info
+    
+    # Automation & Scripts - Info level for troubleshooting
+    homeassistant.components.automation: info
+    homeassistant.components.script: info
+    
+    # Integration-specific
+    homeassistant.components.mqtt: info
+    homeassistant.components.tuya: info
+    homeassistant.components.telegram: info
+    homeassistant.components.notify: info
+    
+    # Custom Components - Reduce only problematic ones to error
     custom_components.alexa_media: warning
     custom_components.localtuya: warning
-    custom_components.powercalc: error
-    custom_components.solcast_solar: warning
-    custom_components.ha_visualiser: error
-    custom_components.o365: warning
-    custom_components.sonoff: warning
+    custom_components.powercalc: warning
+    custom_components.solcast_solar: info
     custom_components.deye: info
     custom_components.sunsunk: info
-    homeassistant.components.network: error
-    homeassistant.components.websocket: error
+    custom_components.sonoff: info
+    custom_components.hacs: info
+    
+    # Database & History - Keep at warning
     homeassistant.components.recorder: warning
-    homeassistant.components.history: error
-    homeassistant.components.influxdb: warning
-    homeassistant.components.system_health: error
-    homeassistant.components.updater: error
-    homeassistant.components.homeassistant: warning
-    homeassistant.components.telegram: warning
-    homeassistant.components.notify: warning
-    homeassistant.util.dt: error
-    homeassistant.util.yaml: error
-    homeassistant.helpers.entity: error
-    homeassistant.helpers.entity_registry: error
-    homeassistant.helpers.device_registry: error
+    homeassistant.components.history: warning
+    homeassistant.components.influxdb: info
+    
+    # Network - Info for device tracking
+    homeassistant.components.network: info
+    homeassistant.components.websocket: warning
+    
+    # System Health
+    homeassistant.components.system_health: warning
+    homeassistant.components.updater: warning
+    homeassistant.components.homeassistant: info
+    
+    # Utilities
+    homeassistant.util.dt: warning
+    homeassistant.util.yaml: warning
+    homeassistant.helpers.entity: warning
+    homeassistant.helpers.entity_registry: warning
+    homeassistant.helpers.device_registry: warning
+    
+    # External Libraries
     urllib3.connectionpool: error
     requests.packages.urllib3.connectionpool: error
     aiohttp.access: error
-    custom_components.hacs: warning
 
 # ==============================================================================
 # Text to Speech

@@ -234,6 +234,73 @@ template:
             {% else %}
               {{ ns.updates | join(', ') }} and {{ addon_count.count }} add-on update(s) available
             {% endif %}
+ #---------------------------------------------------------------------
+          # System Health Score
+#--------------------------------------------------------------------
+  - sensor:
+      - name: "System Health Score"
+        unique_id: system_health_score
+        unit_of_measurement: "%"
+        state: >
+          {% set ns = namespace(score=100) %}
+          
+          {# Check unavailable entities (-2 points each) #}
+          {% set unavailable = states | selectattr('state', 'in', ['unavailable', 'unknown']) | list | length %}
+          {% set ns.score = ns.score - (unavailable * 2) %}
+          
+          {# Check CPU usage (from system monitor) #}
+          {% if states('sensor.processor_use') | float(0) > 80 %}
+            {% set ns.score = ns.score - 10 %}
+          {% elif states('sensor.processor_use') | float(0) > 60 %}
+            {% set ns.score = ns.score - 5 %}
+          {% endif %}
+          
+          {# Check disk usage #}
+          {% if states('sensor.disk_use_percent') | float(0) > 80 %}
+            {% set ns.score = ns.score - 10 %}
+          {% elif states('sensor.disk_use_percent') | float(0) > 60 %}
+            {% set ns.score = ns.score - 5 %}
+          {% endif %}
+          
+          {# Check memory usage #}
+          {% if states('sensor.memory_use_percent') | float(0) > 80 %}
+            {% set ns.score = ns.score - 10 %}
+          {% elif states('sensor.memory_use_percent') | float(0) > 60 %}
+            {% set ns.score = ns.score - 5 %}
+          {% endif %}
+          
+          {# Ensure minimum score of 0 #}
+          {{ [ns.score, 0] | max }}
+        attributes:
+          unavailable_entities: >
+            {{ states | selectattr('state', 'in', ['unavailable', 'unknown']) | list | length }}
+          cpu_usage: "{{ states('sensor.processor_use', '0') }}%"
+          disk_usage: "{{ states('sensor.disk_use_percent', '0') }}%"
+          memory_usage: "{{ states('sensor.memory_use_percent', '0') }}%"
+          status: >
+            {% set score = states('sensor.system_health_score') | int(100) %}
+            {% if score >= 90 %}
+              Excellent
+            {% elif score >= 75 %}
+              Good
+            {% elif score >= 60 %}
+              Fair
+            {% elif score >= 40 %}
+              Poor
+            {% else %}
+              Critical
+            {% endif %}
+        icon: >
+          {% set score = states('sensor.system_health_score') | int(100) %}
+          {% if score >= 90 %}
+            mdi:check-circle
+          {% elif score >= 75 %}
+            mdi:check
+          {% elif score >= 60 %}
+            mdi:alert-circle
+          {% else %}
+            mdi:alert
+          {% endif %}
 
 #===============================================================================
 # BINARY SENSOR - Update Available Alert
@@ -271,6 +338,7 @@ template:
             {% else %}
               normal
             {% endif %}
+
 
 #===============================================================================
 # END OF UPDATE SUMMARY CONFIGURATION
