@@ -1,0 +1,200 @@
+- alias: "Export sensors to CSV"
+  trigger:
+      - platform: time_pattern
+        minutes: /30  # Every 30 minutes
+  action:
+      - action: notify.send_message  # NOT notify.sensor_export
+        data:
+          entity_id: notify.sensor_export  # Target the entity here
+          message: >-
+            "{{ now().strftime('%Y-%m-%d') }}",
+            "{{ now().strftime('%H:%M:%S') }}",
+            "{{ states('sensor.temperature') }}",
+            "{{ states('sensor.humidity') }}",
+            "{{ states('sensor.pressure') }}"
+
+- alias: "Export entities weekly"
+  trigger:
+      - platform: time
+        at: "03:00:00"
+  condition:
+      - condition: time
+        weekday:
+          - mon
+  action:
+      - service: pyscript.export_all_entities
+
+      # ==============================================================================
+# Daily Entity Export with Email Delivery
+# File: automations/daily_email_entity_export.yaml
+# Purpose: Export all entities to CSV and email at 06:00 daily
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# OPTION 1: Using Pyscript (RECOMMENDED - Most Reliable)
+# ------------------------------------------------------------------------------
+# This assumes you're using the pyscript solution from the guide
+
+- id: 'daily_entity_export_email'
+  alias: "System: Daily Entity Export and Email"
+  description: "Export entities to CSV at 06:00 and email the file"
+    
+  trigger:
+      - platform: time
+        at: "06:00:00"
+    
+  action:
+      # Step 1: Run the pyscript export
+      - service: pyscript.export_all_entities
+        data: {}
+      
+      # Step 2: Wait for file to be written
+      - delay:
+          seconds: 10
+      
+      # Step 3: Send email with attachment
+      - service: notify.email_notification  # Change to your email service name
+        data:
+          title: "Home Assistant Entity Export - {{ now().strftime('%Y-%m-%d') }}"
+          message: |
+            Daily entity export completed successfully.
+            
+            Export Details:
+            - Date: {{ now().strftime('%A, %d %B %Y') }}
+            - Time: {{ now().strftime('%H:%M:%S') }}
+            - Total Entities: {{ states | count }}
+            - System: Smart Home - Pierre van Ryneveld
+            
+            The complete entity list is attached as a CSV file.
+            
+            This is an automated export from your Home Assistant system.
+          data:
+            attachments:
+              - /config/exports/entities_full_export_*.csv  # Latest file
+
+
+# ------------------------------------------------------------------------------
+# OPTION 2: Using Bash Script with Fixed Filename
+# ------------------------------------------------------------------------------
+# If using the shell command/bash script method
+
+- id: 'daily_bash_export_email'
+  alias: "System: Daily Bash Export and Email"
+  description: "Export via bash script and email at 06:00"
+    
+  trigger:
+      - platform: time
+        at: "06:00:00"
+    
+  action:
+      # Step 1: Run the shell command
+      - service: shell_command.export_entities_bash
+        data: {}
+      
+      # Step 2: Wait for export to complete
+      - delay:
+          seconds: 5
+      
+      # Step 3: Email the file
+      - service: notify.email_notification
+        data:
+          title: "HA Entity Export - {{ now().strftime('%Y-%m-%d') }}"
+          message: "Daily entity export completed. See attached CSV file."
+          data:
+            attachments:
+              - "/config/exports/entities_export_{{ now().strftime('%Y%m%d') }}_*.csv"
+
+
+# ------------------------------------------------------------------------------
+# OPTION 3: Fixed Daily Filename (Simplest)
+# ------------------------------------------------------------------------------
+# Creates one file per day with predictable name for easy emailing
+
+
+- id: 'daily_export_fixed_name'
+  alias: "System: Daily Export with Fixed Filename"
+  description: "Export to fixed filename for reliable email attachment"
+    
+  trigger:
+      - platform: time
+        at: "06:00:00"
+    
+  action:
+      # Export using pyscript with today's date
+      - service: pyscript.export_entities_daily
+        data: {}
+      
+      - delay:
+          seconds: 5
+      
+      # Email with predictable filename
+      - service: notify.email_notification
+        data:
+          title: "📊 Daily HA Entity Report - {{ now().strftime('%d %B %Y') }}"
+          message: |
+            Good morning!
+            
+            Your daily Home Assistant entity export is ready.
+            
+            📅 Export Date: {{ now().strftime('%A, %d %B %Y') }}
+            ⏰ Export Time: 06:00 AM
+            🏠 System: Smart Home - Pierre van Ryneveld
+            📊 Total Entities: {{ states | count }}
+            
+            Key Statistics:
+            - Sensors: {{ states.sensor | count }}
+            - Lights: {{ states.light | count }}
+            - Switches: {{ states.switch | count }}
+            - Automations: {{ states.automation | count }}
+            
+            The complete entity export is attached.
+            
+            Have a great day!
+          data:
+            attachments:
+              - /config/exports/entities_daily_{{ now().strftime('%Y%m%d') }}.csv
+
+
+# ------------------------------------------------------------------------------
+# OPTION 4: Weekly Summary (Alternative Schedule)
+# ------------------------------------------------------------------------------
+# Send weekly instead of daily to reduce email volume
+
+- id: 'weekly_export_email'
+  alias: "System: Weekly Entity Export Email"
+  description: "Email entity export every Monday at 06:00"
+    
+  trigger:
+      - platform: time
+        at: "06:00:00"
+  
+  condition:
+      - condition: time
+        weekday:
+          - mon
+    
+  action:
+      - service: pyscript.export_all_entities
+        data: {}
+      
+      - delay:
+          seconds: 10
+      
+      - service: notify.email_notification
+        data:
+          title: "📋 Weekly HA Entity Report - Week {{ now().strftime('%W, %Y') }}"
+          message: |
+            Weekly Home Assistant entity export for monitoring and backup.
+            
+            Week: {{ now().strftime('%W') }}
+            Date: {{ now().strftime('%A, %d %B %Y') }}
+            
+            System Health:
+            - Total Entities: {{ states | count }}
+            - Unavailable: {{ states | selectattr('state', 'eq', 'unavailable') | list | count }}
+            - Unknown: {{ states | selectattr('state', 'eq', 'unknown') | list | count }}
+            
+            Attached: Complete entity export CSV
+          data:
+            attachments:
+              - /config/exports/entities_full_export_*.csv
