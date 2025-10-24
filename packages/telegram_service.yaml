@@ -1,9 +1,5 @@
-# Telegram Bot being depresiated in yaml from 2025.12.0
-#telegram_bot:
-#  - platform: polling
-#    api_key: !secret telegram_bot_token
-#    allowed_chat_ids:
-#      - !secret telegram_chat_id
+# Telegram Bot is now configured via UI (Settings > Devices & Services)
+# YAML configuration deprecated from 2025.12.0
 
 notify:
   - name: BarkieHome

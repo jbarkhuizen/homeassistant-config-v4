@@ -1,9 +1,25 @@
+#===============================================================================
+# Email Notification Services - Consolidated
+# File: packages/email_service.yaml
+# Purpose: All email notification services in one place
+# Updated: 2025-10-24 - Fixed after Home Assistant breaking changes
+#===============================================================================
+
 notify:
-#===============================================================================
-# Email Configuration
-# Purpose: All email service settings
-#===============================================================================
-  # Email services (confirmed working)
+  # Primary email service for all notifications
+  - name: email_notification
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    timeout: 15
+    sender: jbarkhuizen@gmail.com
+    encryption: starttls
+    username: jbarkhuizen@gmail.com
+    password: !secret gmail_app_password
+    recipient: jbarkhuizen@gmail.com
+    sender_name: "Home Assistant"
+
+  # Alternative email service for general reports
   - name: email_ha
     platform: smtp
     server: smtp.gmail.com
@@ -15,7 +31,8 @@ notify:
     password: !secret gmail_app_password
     recipient: jbarkhuizen@gmail.com
     sender_name: "Home Assistant General Reports"
-#-------------------------------------------------------------------------------
+
+  # Email service for sensor reports
   - name: email_sensors
     platform: smtp
     server: smtp.gmail.com
@@ -27,7 +44,8 @@ notify:
     password: !secret gmail_app_password
     recipient: jbarkhuizen@gmail.com
     sender_name: "Home Assistant Sensor Reports"
-#-------------------------------------------------------------------------------
+
+  # Email service for system alerts
   - name: email_alerts
     platform: smtp
     server: smtp.gmail.com
@@ -39,4 +57,3 @@ notify:
     password: !secret gmail_app_password
     recipient: jbarkhuizen@gmail.com
     sender_name: "Home Assistant Alert System"
-#-------------------------------------------------------------------------------    
