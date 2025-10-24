@@ -1,0 +1,1918 @@
+current_temperature,device_class,domain,entity_id,friendly_name,humidity,last_changed,last_updated,restored,state,temperature,unit_of_measurement
+,,conversation,conversation.home_assistant,Home Assistant,,,,,unknown,,
+,,switch,switch.get_hacs,Get HACS,,,,,off,,
+,,switch,switch.file_editor,File editor,,,,,on,,
+,,switch,switch.matter_server,Matter Server,,,,,on,,
+,,switch,switch.samba_share,Samba share,,,,,on,,
+,,switch,switch.terminal_ssh,Terminal & SSH,,,,,on,,
+,,switch,switch.vlc,VLC,,,,,on,,
+,,switch,switch.adguard_home,AdGuard Home,,,,,on,,
+,,switch,switch.appdaemon,AppDaemon,,,,,on,,
+,,switch,switch.grafana,Grafana,,,,,on,,
+,,switch,switch.influxdb,InfluxDB,,,,,on,,
+,,switch,switch.log_viewer,Log Viewer,,,,,on,,
+,,switch,switch.motioneye,motionEye,,,,,on,,
+,,switch,switch.mqtt_io,MQTT IO,,,,,off,,
+,,switch,switch.node_red,Node-RED,,,,,on,,
+,,switch,switch.sabnzbd,SABnzbd,,,,,on,,
+,,switch,switch.spotify_connect,Spotify Connect,,,,,on,,
+,,switch,switch.studio_code_server,Studio Code Server,,,,,on,,
+,,switch,switch.mosquitto_broker,Mosquitto broker,,,,,on,,
+,,switch,switch.tailscale,Tailscale,,,,,on,,
+,,switch,switch.tor,Tor,,,,,on,,
+,,switch,switch.vaultwarden_bitwarden,Vaultwarden (Bitwarden),,,,,off,,
+,,switch,switch.uptime_kuma,Uptime Kuma,,,,,on,,
+,,switch,switch.zerotier_one,ZeroTier One,,,,,on,,
+,,switch,switch.traccar,Traccar,,,,,off,,
+,,switch,switch.music_assistant_server,Music Assistant Server,,,,,on,,
+,,switch,switch.nginx_proxy_manager,Nginx Proxy Manager,,,,,on,,
+,,switch,switch.jupyterlab,JupyterLab,,,,,on,,
+,,switch,switch.sqlite_web,SQLite Web,,,,,on,,
+,,update,update.home_assistant_supervisor_update,Home Assistant Supervisor Update,,,,,off,,
+,,update,update.home_assistant_core_update,Home Assistant Core Update,,,,,off,,
+,,update,update.get_hacs_update,Get HACS Update,,,,,off,,
+,,update,update.file_editor_update,File editor Update,,,,,off,,
+,,update,update.matter_server_update,Matter Server Update,,,,,off,,
+,,update,update.samba_share_update,Samba share Update,,,,,off,,
+,,update,update.terminal_ssh_update,Terminal & SSH Update,,,,,off,,
+,,update,update.vlc_update,VLC Update,,,,,off,,
+,,update,update.adguard_home_update,AdGuard Home Update,,,,,off,,
+,,update,update.appdaemon_update,AppDaemon Update,,,,,off,,
+,,update,update.grafana_update,Grafana Update,,,,,off,,
+,,update,update.influxdb_update,InfluxDB Update,,,,,off,,
+,,update,update.log_viewer_update,Log Viewer Update,,,,,off,,
+,,update,update.motioneye_update,motionEye Update,,,,,off,,
+,,update,update.mqtt_io_update,MQTT IO Update,,,,,off,,
+,,update,update.node_red_update,Node-RED Update,,,,,off,,
+,,update,update.sabnzbd_update,SABnzbd Update,,,,,off,,
+,,update,update.spotify_connect_update,Spotify Connect Update,,,,,off,,
+,,update,update.studio_code_server_update,Studio Code Server Update,,,,,off,,
+,,update,update.mosquitto_broker_update,Mosquitto broker Update,,,,,off,,
+,,update,update.tailscale_update,Tailscale Update,,,,,off,,
+,,update,update.tor_update,Tor Update,,,,,off,,
+,,update,update.vaultwarden_bitwarden_update,Vaultwarden (Bitwarden) Update,,,,,off,,
+,,update,update.uptime_kuma_update,Uptime Kuma Update,,,,,off,,
+,,update,update.zerotier_one_update,ZeroTier One Update,,,,,off,,
+,,update,update.traccar_update,Traccar Update,,,,,off,,
+,,update,update.music_assistant_server_update,Music Assistant Server Update,,,,,off,,
+,,update,update.nginx_proxy_manager_update,Nginx Proxy Manager Update,,,,,off,,
+,,update,update.jupyterlab_update,JupyterLab Update,,,,,off,,
+,,update,update.sqlite_web_update,SQLite Web Update,,,,,off,,
+,,update,update.home_assistant_operating_system_update,Home Assistant Operating System Update,,,,,off,,
+,,group,group.all_lights,All Lights,,,,,unknown,,
+,,group,group.security_sensors,Security Sensors,,,,,unknown,,
+,,group,group.motion_sensors,Motion Sensors,,,,,unknown,,
+,,group,group.energy_monitoring,Energy Monitoring,,,,,unknown,,
+,,group,group.sonoff_devices,SONOFF Devices,,,,,unknown,,
+,,group,group.tuya_devices,TUYA Devices,,,,,unknown,,
+,,group,group.onedrive_monitoring,OneDrive Monitoring,,,,,unknown,,
+,,group,group.system_health,System Health,,,,,off,,
+,,group,group.solar_energy,Solar Energy,,,,,unknown,,
+,running,binary_sensor,binary_sensor.get_hacs_running,Get HACS Running,,,,,off,,
+,running,binary_sensor,binary_sensor.file_editor_running,File editor Running,,,,,on,,
+,running,binary_sensor,binary_sensor.matter_server_running,Matter Server Running,,,,,on,,
+,running,binary_sensor,binary_sensor.samba_share_running,Samba share Running,,,,,on,,
+,running,binary_sensor,binary_sensor.terminal_ssh_running,Terminal & SSH Running,,,,,on,,
+,running,binary_sensor,binary_sensor.vlc_running,VLC Running,,,,,on,,
+,running,binary_sensor,binary_sensor.adguard_home_running,AdGuard Home Running,,,,,on,,
+,running,binary_sensor,binary_sensor.appdaemon_running,AppDaemon Running,,,,,on,,
+,running,binary_sensor,binary_sensor.grafana_running,Grafana Running,,,,,on,,
+,running,binary_sensor,binary_sensor.influxdb_running,InfluxDB Running,,,,,on,,
+,running,binary_sensor,binary_sensor.log_viewer_running,Log Viewer Running,,,,,on,,
+,running,binary_sensor,binary_sensor.motioneye_running,motionEye Running,,,,,on,,
+,running,binary_sensor,binary_sensor.mqtt_io_running,MQTT IO Running,,,,,off,,
+,running,binary_sensor,binary_sensor.node_red_running,Node-RED Running,,,,,on,,
+,running,binary_sensor,binary_sensor.sabnzbd_running,SABnzbd Running,,,,,on,,
+,running,binary_sensor,binary_sensor.spotify_connect_running,Spotify Connect Running,,,,,on,,
+,running,binary_sensor,binary_sensor.studio_code_server_running,Studio Code Server Running,,,,,on,,
+,running,binary_sensor,binary_sensor.mosquitto_broker_running,Mosquitto broker Running,,,,,on,,
+,running,binary_sensor,binary_sensor.tailscale_running,Tailscale Running,,,,,on,,
+,running,binary_sensor,binary_sensor.tor_running,Tor Running,,,,,on,,
+,running,binary_sensor,binary_sensor.vaultwarden_bitwarden_running,Vaultwarden (Bitwarden) Running,,,,,off,,
+,running,binary_sensor,binary_sensor.uptime_kuma_running,Uptime Kuma Running,,,,,on,,
+,running,binary_sensor,binary_sensor.zerotier_one_running,ZeroTier One Running,,,,,on,,
+,running,binary_sensor,binary_sensor.traccar_running,Traccar Running,,,,,off,,
+,running,binary_sensor,binary_sensor.music_assistant_server_running,Music Assistant Server Running,,,,,on,,
+,running,binary_sensor,binary_sensor.nginx_proxy_manager_running,Nginx Proxy Manager Running,,,,,on,,
+,running,binary_sensor,binary_sensor.jupyterlab_running,JupyterLab Running,,,,,on,,
+,running,binary_sensor,binary_sensor.sqlite_web_running,SQLite Web Running,,,,,on,,
+,,sensor,sensor.get_hacs_version,Get HACS Version,,,,,1.3.1,,
+,,sensor,sensor.get_hacs_newest_version,Get HACS Newest version,,,,,1.3.1,,
+,,sensor,sensor.get_hacs_cpu_percent,Get HACS CPU percent,,,,,unavailable,,%
+,,sensor,sensor.get_hacs_memory_percent,Get HACS Memory percent,,,,,unavailable,,%
+,,sensor,sensor.file_editor_version,File editor Version,,,,,5.8.0,,
+,,sensor,sensor.file_editor_newest_version,File editor Newest version,,,,,5.8.0,,
+,,sensor,sensor.file_editor_cpu_percent,File editor CPU percent,,,,,0.02,,%
+,,sensor,sensor.file_editor_memory_percent,File editor Memory percent,,,,,0.3,,%
+,,sensor,sensor.matter_server_version,Matter Server Version,,,,,8.1.1,,
+,,sensor,sensor.matter_server_newest_version,Matter Server Newest version,,,,,8.1.1,,
+,,sensor,sensor.matter_server_cpu_percent,Matter Server CPU percent,,,,,0.01,,%
+,,sensor,sensor.matter_server_memory_percent,Matter Server Memory percent,,,,,0.56,,%
+,,sensor,sensor.samba_share_version,Samba share Version,,,,,12.5.2,,
+,,sensor,sensor.samba_share_newest_version,Samba share Newest version,,,,,12.5.2,,
+,,sensor,sensor.samba_share_cpu_percent,Samba share CPU percent,,,,,0.0,,%
+,,sensor,sensor.samba_share_memory_percent,Samba share Memory percent,,,,,0.21,,%
+,,sensor,sensor.terminal_ssh_version,Terminal & SSH Version,,,,,9.20.1,,
+,,sensor,sensor.terminal_ssh_newest_version,Terminal & SSH Newest version,,,,,9.20.1,,
+,,sensor,sensor.terminal_ssh_cpu_percent,Terminal & SSH CPU percent,,,,,0.0,,%
+,,sensor,sensor.terminal_ssh_memory_percent,Terminal & SSH Memory percent,,,,,0.04,,%
+,,sensor,sensor.vlc_version,VLC Version,,,,,0.3.1,,
+,,sensor,sensor.vlc_newest_version,VLC Newest version,,,,,0.3.1,,
+,,sensor,sensor.vlc_cpu_percent,VLC CPU percent,,,,,0.0,,%
+,,sensor,sensor.vlc_memory_percent,VLC Memory percent,,,,,0.07,,%
+,,sensor,sensor.adguard_home_version,AdGuard Home Version,,,,,5.3.4,,
+,,sensor,sensor.adguard_home_newest_version,AdGuard Home Newest version,,,,,5.3.4,,
+,,sensor,sensor.adguard_home_cpu_percent,AdGuard Home CPU percent,,,,,1.13,,%
+,,sensor,sensor.adguard_home_memory_percent,AdGuard Home Memory percent,,,,,0.65,,%
+,,sensor,sensor.appdaemon_version,AppDaemon Version,,,,,0.17.10,,
+,,sensor,sensor.appdaemon_newest_version,AppDaemon Newest version,,,,,0.17.10,,
+,,sensor,sensor.appdaemon_cpu_percent,AppDaemon CPU percent,,,,,7.43,,%
+,,sensor,sensor.appdaemon_memory_percent,AppDaemon Memory percent,,,,,0.8,,%
+,,sensor,sensor.grafana_version,Grafana Version,,,,,11.0.0,,
+,,sensor,sensor.grafana_newest_version,Grafana Newest version,,,,,11.0.0,,
+,,sensor,sensor.grafana_cpu_percent,Grafana CPU percent,,,,,0.7,,%
+,,sensor,sensor.grafana_memory_percent,Grafana Memory percent,,,,,1.61,,%
+,,sensor,sensor.influxdb_version,InfluxDB Version,,,,,5.0.2,,
+,,sensor,sensor.influxdb_newest_version,InfluxDB Newest version,,,,,5.0.2,,
+,,sensor,sensor.influxdb_cpu_percent,InfluxDB CPU percent,,,,,0.28,,%
+,,sensor,sensor.influxdb_memory_percent,InfluxDB Memory percent,,,,,1.23,,%
+,,sensor,sensor.log_viewer_version,Log Viewer Version,,,,,0.17.1,,
+,,sensor,sensor.log_viewer_newest_version,Log Viewer Newest version,,,,,0.17.1,,
+,,sensor,sensor.log_viewer_cpu_percent,Log Viewer CPU percent,,,,,0.0,,%
+,,sensor,sensor.log_viewer_memory_percent,Log Viewer Memory percent,,,,,0.18,,%
+,,sensor,sensor.motioneye_version,motionEye Version,,,,,0.22.3,,
+,,sensor,sensor.motioneye_newest_version,motionEye Newest version,,,,,0.22.3,,
+,,sensor,sensor.motioneye_cpu_percent,motionEye CPU percent,,,,,0.01,,%
+,,sensor,sensor.motioneye_memory_percent,motionEye Memory percent,,,,,0.42,,%
+,,sensor,sensor.mqtt_io_version,MQTT IO Version,,,,,0.4.0,,
+,,sensor,sensor.mqtt_io_newest_version,MQTT IO Newest version,,,,,0.4.0,,
+,,sensor,sensor.mqtt_io_cpu_percent,MQTT IO CPU percent,,,,,unavailable,,%
+,,sensor,sensor.mqtt_io_memory_percent,MQTT IO Memory percent,,,,,unavailable,,%
+,,sensor,sensor.node_red_version,Node-RED Version,,,,,20.0.0,,
+,,sensor,sensor.node_red_newest_version,Node-RED Newest version,,,,,20.0.0,,
+,,sensor,sensor.node_red_cpu_percent,Node-RED CPU percent,,,,,0.0,,%
+,,sensor,sensor.node_red_memory_percent,Node-RED Memory percent,,,,,1.68,,%
+,,sensor,sensor.sabnzbd_version,SABnzbd Version,,,,,0.5.0,,
+,,sensor,sensor.sabnzbd_newest_version,SABnzbd Newest version,,,,,0.5.0,,
+,,sensor,sensor.sabnzbd_cpu_percent,SABnzbd CPU percent,,,,,0.04,,%
+,,sensor,sensor.sabnzbd_memory_percent,SABnzbd Memory percent,,,,,0.57,,%
+,,sensor,sensor.spotify_connect_version,Spotify Connect Version,,,,,0.16.1,,
+,,sensor,sensor.spotify_connect_newest_version,Spotify Connect Newest version,,,,,0.16.1,,
+,,sensor,sensor.spotify_connect_cpu_percent,Spotify Connect CPU percent,,,,,0.0,,%
+,,sensor,sensor.spotify_connect_memory_percent,Spotify Connect Memory percent,,,,,0.02,,%
+,,sensor,sensor.studio_code_server_version,Studio Code Server Version,,,,,5.19.3,,
+,,sensor,sensor.studio_code_server_newest_version,Studio Code Server Newest version,,,,,5.19.3,,
+,,sensor,sensor.studio_code_server_cpu_percent,Studio Code Server CPU percent,,,,,3.46,,%
+,,sensor,sensor.studio_code_server_memory_percent,Studio Code Server Memory percent,,,,,59.75,,%
+,,sensor,sensor.mosquitto_broker_version,Mosquitto broker Version,,,,,6.5.2,,
+,,sensor,sensor.mosquitto_broker_newest_version,Mosquitto broker Newest version,,,,,6.5.2,,
+,,sensor,sensor.mosquitto_broker_cpu_percent,Mosquitto broker CPU percent,,,,,0.05,,%
+,,sensor,sensor.mosquitto_broker_memory_percent,Mosquitto broker Memory percent,,,,,0.12,,%
+,,sensor,sensor.tailscale_version,Tailscale Version,,,,,0.26.1,,
+,,sensor,sensor.tailscale_newest_version,Tailscale Newest version,,,,,0.26.1,,
+,,sensor,sensor.tailscale_cpu_percent,Tailscale CPU percent,,,,,0.01,,%
+,,sensor,sensor.tailscale_memory_percent,Tailscale Memory percent,,,,,0.32,,%
+,,sensor,sensor.tor_version,Tor Version,,,,,6.1.4,,
+,,sensor,sensor.tor_newest_version,Tor Newest version,,,,,6.1.4,,
+,,sensor,sensor.tor_cpu_percent,Tor CPU percent,,,,,0.01,,%
+,,sensor,sensor.tor_memory_percent,Tor Memory percent,,,,,0.66,,%
+,,sensor,sensor.vaultwarden_bitwarden_version,Vaultwarden (Bitwarden) Version,,,,,0.24.3,,
+,,sensor,sensor.vaultwarden_bitwarden_newest_version,Vaultwarden (Bitwarden) Newest version,,,,,0.24.3,,
+,,sensor,sensor.vaultwarden_bitwarden_cpu_percent,Vaultwarden (Bitwarden) CPU percent,,,,,unavailable,,%
+,,sensor,sensor.vaultwarden_bitwarden_memory_percent,Vaultwarden (Bitwarden) Memory percent,,,,,unavailable,,%
+,,sensor,sensor.uptime_kuma_version,Uptime Kuma Version,,,,,0.14.1,,
+,,sensor,sensor.uptime_kuma_newest_version,Uptime Kuma Newest version,,,,,0.14.1,,
+,,sensor,sensor.uptime_kuma_cpu_percent,Uptime Kuma CPU percent,,,,,0.64,,%
+,,sensor,sensor.uptime_kuma_memory_percent,Uptime Kuma Memory percent,,,,,0.76,,%
+,,sensor,sensor.zerotier_one_version,ZeroTier One Version,,,,,0.23.1,,
+,,sensor,sensor.zerotier_one_newest_version,ZeroTier One Newest version,,,,,0.23.1,,
+,,sensor,sensor.zerotier_one_cpu_percent,ZeroTier One CPU percent,,,,,0.08,,%
+,,sensor,sensor.zerotier_one_memory_percent,ZeroTier One Memory percent,,,,,0.04,,%
+,,sensor,sensor.traccar_version,Traccar Version,,,,,0.25.0,,
+,,sensor,sensor.traccar_newest_version,Traccar Newest version,,,,,0.25.0,,
+,,sensor,sensor.traccar_cpu_percent,Traccar CPU percent,,,,,unavailable,,%
+,,sensor,sensor.traccar_memory_percent,Traccar Memory percent,,,,,unavailable,,%
+,,sensor,sensor.music_assistant_server_version,Music Assistant Server Version,,,,,2.6.0,,
+,,sensor,sensor.music_assistant_server_newest_version,Music Assistant Server Newest version,,,,,2.6.0,,
+,,sensor,sensor.music_assistant_server_cpu_percent,Music Assistant Server CPU percent,,,,,0.02,,%
+,,sensor,sensor.music_assistant_server_memory_percent,Music Assistant Server Memory percent,,,,,0.79,,%
+,,sensor,sensor.nginx_proxy_manager_version,Nginx Proxy Manager Version,,,,,2.1.0,,
+,,sensor,sensor.nginx_proxy_manager_newest_version,Nginx Proxy Manager Newest version,,,,,2.1.0,,
+,,sensor,sensor.nginx_proxy_manager_cpu_percent,Nginx Proxy Manager CPU percent,,,,,0.01,,%
+,,sensor,sensor.nginx_proxy_manager_memory_percent,Nginx Proxy Manager Memory percent,,,,,0.68,,%
+,,sensor,sensor.jupyterlab_version,JupyterLab Version,,,,,0.16.1,,
+,,sensor,sensor.jupyterlab_newest_version,JupyterLab Newest version,,,,,0.16.1,,
+,,sensor,sensor.jupyterlab_cpu_percent,JupyterLab CPU percent,,,,,0.0,,%
+,,sensor,sensor.jupyterlab_memory_percent,JupyterLab Memory percent,,,,,0.92,,%
+,,sensor,sensor.sqlite_web_version,SQLite Web Version,,,,,4.4.1,,
+,,sensor,sensor.sqlite_web_newest_version,SQLite Web Newest version,,,,,4.4.1,,
+,,sensor,sensor.sqlite_web_cpu_percent,SQLite Web CPU percent,,,,,0.02,,%
+,,sensor,sensor.sqlite_web_memory_percent,SQLite Web Memory percent,,,,,0.18,,%
+,,sensor,sensor.home_assistant_core_cpu_percent,Home Assistant Core CPU percent,,,,,17.59,,%
+,,sensor,sensor.home_assistant_core_memory_percent,Home Assistant Core Memory percent,,,,,8.38,,%
+,,sensor,sensor.home_assistant_supervisor_cpu_percent,Home Assistant Supervisor CPU percent,,,,,2.21,,%
+,,sensor,sensor.home_assistant_supervisor_memory_percent,Home Assistant Supervisor Memory percent,,,,,2.19,,%
+,,sensor,sensor.home_assistant_host_os_agent_version,Home Assistant Host OS Agent version,,,,,1.7.2,,
+,,sensor,sensor.home_assistant_host_apparmor_version,Home Assistant Host AppArmor version,,,,,3.1.7,,
+,data_size,sensor,sensor.home_assistant_host_disk_total,Home Assistant Host Disk total,,,,,109.3,,GB
+,data_size,sensor,sensor.home_assistant_host_disk_used,Home Assistant Host Disk used,,,,,21.1,,GB
+,data_size,sensor,sensor.home_assistant_host_disk_free,Home Assistant Host Disk free,,,,,83.7,,GB
+,,sensor,sensor.home_assistant_operating_system_version,Home Assistant Operating System Version,,,,,16.2,,
+,,sensor,sensor.home_assistant_operating_system_newest_version,Home Assistant Operating System Newest version,,,,,16.2,,
+,connectivity,binary_sensor,binary_sensor.network_monitoring_active,Network Monitoring Active,,,,,off,,
+,energy,sensor,sensor.deyeinvertermaster_solar_power_used_2,deyeinvertermaster_solar_power_used,,,,,0.0,,kWh
+,power,sensor,sensor.deyeinvertermaster_essential_load_2,deyeinvertermaster_essential_load,,,,,693,,W
+,power,sensor,sensor.deyeinvertermaster_non_essential_load_2,deyeinvertermaster_non_essential_load,,,,,-145,,W
+,,sensor,sensor.deyeinvertermaster_priority_charge_or_load_2,deyeinvertermaster_priority_charge_or_load,,,,,on,,
+,,sensor,sensor.battery_devices_low_count,Battery Devices Low Count,,,,,4,,devices
+,,sensor,sensor.battery_devices_critical_count,Battery Devices Critical Count,,,,,4,,devices
+,,sensor,sensor.battery_devices_total_count,Battery Devices Total Count,,,,,14,,devices
+,,sensor,sensor.battery_system_health_score,Battery System Health Score,,,,,54.8,,%
+,,sensor,sensor.battery_next_replacement_needed,Battery Next Replacement Needed,,,,,deyeinvertercombined_battery_soc,,
+,problem,binary_sensor,binary_sensor.battery_alert_active,Battery Alert Active,,,,,on,,
+,,sensor,sensor.daily_energy_efficiency,Daily Energy Efficiency,,,,,47.5,,%
+,,sensor,sensor.battery_status_summary,Battery Status Summary,,,,,Critical,,
+,,sensor,sensor.inverter_operation_mode,Inverter Operation Mode,,,,,Night Mode (Automatic),,
+,humidity,sensor,sensor.cloud_coverage,Cloud Coverage,,,2025-10-23 05:59:00,,50,,%
+,,sensor,sensor.cpu_usage_percent,CPU Usage Percent,,,,,2.21,,%
+,,sensor,sensor.network_devices_table,Network Devices Table,,,,,unknown,,
+,,sensor,sensor.network_summary,Network Summary,,,,,unavailable,,
+,,sensor,sensor.prepaid_units_left,Prepaid units left,,,,,157.44,,kWh
+,energy,sensor,sensor.deyeinvertermaster_solar_power_used,deyeinvertermaster_solar_power_used,,,,,0.1,,kWh
+,energy,sensor,sensor.deyeinvertermaster_solar_power_battery_charge,deyeinvertermaster_solar_power_battery_charge,,,,,-0.1,,kWh
+,power,sensor,sensor.deyeinvertermaster_essential_load,deyeinvertermaster_essential_load,,,,,693.0,,W
+,power,sensor,sensor.deyeinvertermaster_non_essential_load,deyeinvertermaster_non_essential_load,,,,,-145,,W
+,,sensor,sensor.deyeinvertermaster_priority_charge_or_load,deyeinvertermaster_priority_charge_or_load,,,,,on,,
+,power,sensor,sensor.deyeinvertermaster_battery_charge_grid_power,deyeinvertermaster_battery_charge_grid_power,,,,,0.096,,kW
+,,sensor,sensor.deyeinvertermaster_ha_time,deyeinvertermaster_ha_time,,,,,2510230600,,
+,energy,sensor,sensor.daily_total_solar_production,Daily Total Solar Production,,,,,0.01,,kWh
+,energy,sensor,sensor.lifetime_total_solar_production,Lifetime Total Solar Production,,,,,306.3,,kWh
+,,sensor,sensor.pv_string_balance,PV String Balance,,,,,148.2,,%
+,,sensor,sensor.solar_optimization_status,Solar Optimization Status,,,,,Active - Low Solar (0W),,
+,energy,sensor,sensor.solar_optimization_energy_saved_today,Solar Optimization Energy Saved Today,,,,,0,,kWh
+,,sensor,sensor.system_cpu_status,System CPU Status,,,2025-10-23 06:00:00,,Normal,,
+,,sensor,sensor.system_memory_status,System Memory Status,,,,,Normal,,
+,,sensor,sensor.system_health_score,System Health Score,,,,,100,,%
+,problem,binary_sensor,binary_sensor.system_health_critical,System Health Critical,,,,,off,,
+,,sensor,sensor.home_assistant_updates_summary,Home Assistant Updates Summary,,,,,Room Summary Card update,,
+,update,binary_sensor,binary_sensor.updates_available,Updates Available,,,,,on,,
+,energy,sensor,sensor.deyeinvertermaster_solar_power_used_3,deyeinvertermaster_solar_power_used,,,,,0.0,,kWh
+,power,sensor,sensor.deyeinvertermaster_essential_load_3,deyeinvertermaster_essential_load,,,,,742,,W
+,power,sensor,sensor.deyeinvertermaster_non_essential_load_3,deyeinvertermaster_non_essential_load,,,,,-145,,W
+,,sensor,sensor.deyeinvertermaster_priority_charge_or_load_3,deyeinvertermaster_priority_charge_or_load,,,,,on,,
+,power,sensor,sensor.deyeinvertermaster_battery_charge_grid_power_2,deyeinvertermaster_battery_charge_grid_power,,,,,0.096,,kW
+,energy,sensor,sensor.deyeinverterslave_solar_power_used,deyeinverterslave_solar_power_used,,,,,0.0,,kWh
+,power,sensor,sensor.deyeinverterslave_essential_load,deyeinverterslave_essential_load,,,,,-402,,W
+,power,sensor,sensor.deyeinverterslave_non_essential_load,deyeinverterslave_non_essential_load,,,,,999,,W
+,,sensor,sensor.deyeinverterslave_priority_charge_or_load,deyeinverterslave_priority_charge_or_load,,,,,on,,
+,power,sensor,sensor.deyeinverterslave_battery_charge_grid_power,deyeinverterslave_battery_charge_grid_power,,,,,0.024,,kW
+,battery,sensor,sensor.deyeinvertercombined_battery_soc,deyeinvertercombined_battery_soc,,,,,0.0,,%
+,voltage,sensor,sensor.deyeinvertercombined_battery_voltage,deyeinvertercombined_battery_voltage,,,,,52.2049999237061,,V
+,energy,sensor,sensor.deyeinvertercombined_summary_day_battery_charge,deyeinvertercombined_summary_day_battery_charge,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_load,deyeinvertercombined_summary_day_load,,,,,3.8,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_battery_discharge,deyeinvertercombined_summary_day_battery_discharge,,,,,2.8,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_pv,deyeinvertercombined_summary_day_pv,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_pv1,deyeinvertercombined_summary_day_pv1,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_pv2,deyeinvertercombined_summary_day_pv2,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_pv3,deyeinvertercombined_summary_day_pv3,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_pv4,deyeinvertercombined_summary_day_pv4,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_grid_import_buy,deyeinvertercombined_summary_day_grid_import_buy,,,,,4.90000009536743,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_grid_import_buy_half,deyeinvertercombined_summary_day_grid_import_buy_half,,,,,2.45000004768371,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_day_grid_export_sell,deyeinvertercombined_summary_day_grid_export_sell,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertercombined_summary_total_pv,deyeinvertercombined_summary_total_pv,,,,,0.7583,,MWh
+,energy,sensor,sensor.deyeinvertercombined_summary_total_load,deyeinvertercombined_summary_total_load,,,,,0.9752,,MWh
+,energy,sensor,sensor.deyeinvertercombined_summary_total_grid_import_buy,deyeinvertercombined_summary_total_grid_import_buy,,,,,0.2425,,MWh
+,energy,sensor,sensor.deyeinvertercombined_summary_total_grid_export_sell,deyeinvertercombined_summary_total_grid_export_sell,,,,,0.0002,,MWh
+,energy,sensor,sensor.deyeinvertercombined_summary_total_battery_discharge,deyeinvertercombined_summary_total_battery_discharge,,,,,0.3502,,MWh
+,energy,sensor,sensor.deyeinvertercombined_summary_total_battery_charge,deyeinvertercombined_summary_total_battery_charge,,,,,0.3504,,MWh
+,power,sensor,sensor.deyeinvertercombined_essential_load,deyeinvertercombined_essential_load,,,,,291.0,,W
+,power,sensor,sensor.deyeinvertercombined_grid_load,deyeinvertercombined_grid_load,,,,,340.0,,W
+,power,sensor,sensor.deyeinvertercombined_inverter_output_power,deyeinvertercombined_inverter_output_power,,,,,-102.0,,W
+,power,sensor,sensor.deyeinvertercombined_battery_output_power,deyeinvertercombined_battery_output_power,,,,,-120.0,,W
+,energy,sensor,sensor.deyeinvertercombined_solar_power_used,deyeinvertercombined_solar_power_used,,,,,0.1,,kWh
+,power,sensor,sensor.deyeinvertercombined_pv_power,deyeinvertercombined_pv_power,,,,,141.0,,W
+,power,sensor,sensor.deyeinvertercombined_pv1_power,deyeinvertercombined_pv1_power,,,,,36.0,,W
+,power,sensor,sensor.deyeinvertercombined_pv2_power,deyeinvertercombined_pv2_power,,,,,43.0,,W
+,power,sensor,sensor.deyeinvertercombined_pv3_power,deyeinvertercombined_pv3_power,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertercombined_pv4_power,deyeinvertercombined_pv4_power,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertercombined_grid_power_ct_clamp,deyeinvertercombined_grid_power_ct_clamp,,,,,1194.0,,W
+,current,sensor,sensor.deyeinvertercombined_battery_output_current,deyeinvertercombined_battery_output_current,,,,,-2.3,,A
+,power,sensor,sensor.deyeinvertercombined_non_essential_load,deyeinvertercombined_non_essential_load,,,,,-1144.0,,W
+,power,sensor,sensor.deyeinvertercombined_battery_charge_grid_power,deyeinvertercombined_battery_charge_grid_power,,,,,0.12,,kW
+,,event,event.backup_automatic_backup,Backup Automatic backup,,,,,2025-10-22T09:08:59.841+00:00,,
+,enum,sensor,sensor.backup_backup_manager_state,Backup Backup Manager state,,,,,idle,,
+,timestamp,sensor,sensor.backup_next_scheduled_automatic_backup,Backup Next scheduled automatic backup,,,,,2025-10-23T09:00:00+00:00,,
+,timestamp,sensor,sensor.backup_last_successful_automatic_backup,Backup Last successful automatic backup,,,,,2025-10-22T09:08:45+00:00,,
+,timestamp,sensor,sensor.backup_last_attempted_automatic_backup,Backup Last attempted automatic backup,,,,,2025-10-22T09:00:00+00:00,,
+,energy,sensor,sensor.deyeinverterslave_summary_total_battery_charge_grid,deyeinverterslave_summary_total_battery_charge_grid,,,,,21.603,,kWh
+,,sensor,sensor.badlogin,Badlogin,,,,,unknown,,
+,energy,sensor,sensor.deyeinvertermaster_summary_total_battery_charge_grid,deyeinvertermaster_summary_total_battery_charge_grid,,,,,30.400,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_total_battery_charge_grid_2,deyeinverterslave_summary_total_battery_charge_grid,,,,,21.603,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_pv1_fix,deyeinvertermaster_summary_total_pv1_fix,,,,,167.597,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_pv2_fix,deyeinvertermaster_summary_total_pv2_fix,,,,,138.689,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_pv3_fix,deyeinvertermaster_summary_total_pv3_fix,,,,,unknown,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_pv4_fix,deyeinvertermaster_summary_total_pv4_fix,,,,,unknown,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_battery_charge_grid_2,deyeinvertermaster_summary_total_battery_charge_grid,,,,,30.400,,kWh
+,connectivity,binary_sensor,binary_sensor.remote_ui,Remote UI,,,,,on,,
+,,stt,stt.home_assistant_cloud,Home Assistant Cloud,,,,,unknown,,
+,,tts,tts.home_assistant_cloud,Home Assistant Cloud,,,,,unknown,,
+,,zone,zone.home,Smart Home - Pierre van Ryneveld,,,,,0,,
+,,script,script.export_all_entities_to_csv,Export All Entities to CSV,,,,,off,,
+,,script,script.check_missing_sensors,Check Missing Sensors,,,,,off,,
+,,script,script.scan_network_now,Scan Network Now,,,,,off,,
+,,script,script.export_network_devices,Export Network Device List,,,,,off,,
+,,script,script.test_email_basic,Test Email - Basic,,,,,off,,
+,,tts,tts.google_translate_en_com,Google Translate en com,,,,,unknown,,
+,,input_datetime,input_datetime.timezone1_time,Timezone 1 Time,,,,,01:00:00,,
+,,input_datetime,input_datetime.timezone2_time,Timezone 2 Time,,,,,05:00:00,,
+,,input_datetime,input_datetime.timezone3_time,Timezone 3 Time,,,,,09:00:00,,
+,,input_datetime,input_datetime.timezone4_time,Timezone 4 Time,,,,,13:00:00,,
+,,input_datetime,input_datetime.timezone5_time,Timezone 5 Time,,,,,17:00:00,,
+,,input_datetime,input_datetime.timezone6_time,Timezone 6 Time,,,,,21:00:00,,
+,,input_select,input_select.energy_mode,Energy Mode,,,,,Automatic,,
+,,input_boolean,input_boolean.battery_alerts_enabled,Enable Battery Alerts,,,,,on,,
+,,input_boolean,input_boolean.battery_weekly_report_enabled,Enable Weekly Battery Report,,,,,on,,
+,,input_boolean,input_boolean.maintenance_mode,Maintenance Mode,,,,,off,,
+,,input_boolean,input_boolean.energy_saving_mode,Energy Saving Mode,,,,,off,,
+,,input_boolean,input_boolean.network_auto_scan,Auto Network Scan,,,,,on,,
+,,input_boolean,input_boolean.show_offline_network_devices,Show Offline Devices,,,,,on,,
+,,input_boolean,input_boolean.prepaid_meter_emergency_mode,Prepaid Meter Emergency Mode,,,,,off,,
+,,input_boolean,input_boolean.solar_optimization_enabled,Solar Power Optimization Enabled,,,,,on,,
+,,person,person.johan_barkhuizen,Johan Barkhuizen,,,,,not_home,,
+,,input_number,input_number.battery_critical_threshold,Battery Critical Level,,,,,15.0,,%
+,,input_number,input_number.battery_low_threshold,Battery Low Level,,,,,25.0,,%
+,,input_number,input_number.battery_warning_threshold,Battery Warning Level,,,,,35.0,,%
+,,input_number,input_number.solar_generation_target,Daily Solar Generation Target,,,,,25.0,,kWh
+,,input_number,input_number.battery_charge_target,Battery Charge Target,,,,,90.0,,%
+,,input_number,input_number.prepaid_meter_units,Prepaid meter Recharge Units,,,,,261.84,,
+,,input_number,input_number.prepaid_meter_inverter_total_units,Prepaid meter Inverter Reading,,,,,138.099998235703,,
+,,input_number,input_number.prepaid_meter_warning_threshold,Prepaid Meter Warning Level,,,,,50.0,,kWh
+,,input_number,input_number.prepaid_meter_critical_threshold,Prepaid Meter Critical Level,,,,,20.0,,kWh
+,,input_number,input_number.prepaid_meter_emergency_threshold,Prepaid Meter Emergency Level,,,,,5.0,,kWh
+,,input_number,input_number.solar_power_threshold_on,Solar Power ON Threshold,,,,,7000.0,,W
+,,input_number,input_number.solar_power_threshold_off,Solar Power OFF Threshold,,,,,5000.0,,W
+,energy,sensor,sensor.deyeinvertermaster_summary_day_battery_charge_grid,deyeinvertermaster_summary_day_battery_charge_grid,,,,,0.108,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_battery_charge_grid,deyeinverterslave_summary_day_battery_charge_grid,,,,,0.093,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv1_fix,deyeinvertermaster_summary_day_pv1_fix,,,,,0.001,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv2_fix,deyeinvertermaster_summary_day_pv2_fix,,,,,0.007,,kWh
+,,sensor,sensor.deyeinvertermaster_summary_day_pv3_fix,deyeinvertermaster_summary_day_pv3_fix,,,,,unknown,,
+,,sensor,sensor.date_time,Date & Time,,,,,"2025-10-23, 06:00",,
+,motion,binary_sensor,binary_sensor.sonoff_a4800986e6,Front Door Motion Sensor,,,,,off,,
+,moisture,binary_sensor,binary_sensor.sonoff_a4800e446e_moisture,SNZB-05P Moisture,,,,,off,,
+,motion,binary_sensor,binary_sensor.sonoff_a48005596e,Gang Motion Sensor,,,,,unavailable,,
+,door,binary_sensor,binary_sensor.sonoff_a4800d7025,Back Door Sensor,,,,,on,,
+,door,binary_sensor,binary_sensor.sonoff_a480098890,Front Door Sensor,,,,,on,,
+,door,binary_sensor,binary_sensor.sonoff_1000fd4860,Salon Front Door Sensor,,,,,off,,
+,door,binary_sensor,binary_sensor.sonoff_100150e8d2,Braai Door Sensor,,,,,on,,
+,door,binary_sensor,binary_sensor.sonoff_100150eae4,Garage Mid Door Sensor,,,,,off,,
+,door,binary_sensor,binary_sensor.sonoff_1002357bda,Braai Door Sensor New,,,,,off,,
+,door,binary_sensor,binary_sensor.sonoff_1002357619,Study Window 1,,,,,off,,
+,,binary_sensor,binary_sensor.sonoff_10011a0eb6_zled,ZBBridge Zled,,,,,off,,
+19.2,,climate,climate.sonoff_100156c56b,NSPanel,,,,,off,26,
+,,remote,remote.sonoff_100148ec9b,RFBridge433,,,,,unavailable,,
+,temperature,sensor,sensor.sonoff_a4800986dd_temperature,Bedroom Temperature/Humidity Sensor Temperature,,,,,19.95,,°C
+,humidity,sensor,sensor.sonoff_a4800986dd_humidity,Bedroom Temperature/Humidity Sensor Humidity,,,,,52.21,,%
+,battery,sensor,sensor.sonoff_a4800986dd_battery,Bedroom Temperature/Humidity Sensor Battery,,,,,69,,%
+,battery,sensor,sensor.sonoff_a4800986e6_battery,Front Door Motion Sensor Battery,,,,,8,,%
+,temperature,sensor,sensor.sonoff_a48008e4cc_temperature,Power Room Temperature/Humidity Sensor Temperature,,,,,23.68,,°C
+,humidity,sensor,sensor.sonoff_a48008e4cc_humidity,Power Room Temperature/Humidity Sensor Humidity,,,,,41.03,,%
+,battery,sensor,sensor.sonoff_a48008e4cc_battery,Power Room Temperature/Humidity Sensor Battery,,,,,84,,%
+,signal_strength,sensor,sensor.sonoff_10002a5897_rssi,Device2a5897 RSSI,,,,,-70,,dBm
+,battery,sensor,sensor.sonoff_a4800e446e_battery,SNZB-05P Battery,,,,,100,,%
+,battery,sensor,sensor.sonoff_a48005596e_battery,Gang Motion Sensor Battery,,,,,unavailable,,%
+,battery,sensor,sensor.sonoff_a4800d7025_battery,Back Door Sensor Battery,,,,,37,,%
+,battery,sensor,sensor.sonoff_a480098890_battery,Front Door Sensor Battery,,,,,78,,%
+,signal_strength,sensor,sensor.sonoff_100148ec9b_rssi,RFBridge433 RSSI,,,,,unavailable,,dBm
+,signal_strength,sensor,sensor.sonoff_10023e2383_rssi,ZBBridge-P RSSI,,,,,-31,,dBm
+,signal_strength,sensor,sensor.sonoff_100040424b_rssi,SONOFF Alarm RSSI,,,,,-72,,dBm
+,voltage,sensor,sensor.sonoff_1000fd4860_battery_voltage,Salon Front Door Sensor Battery Voltage,,,,,2.889,,V
+,signal_strength,sensor,sensor.sonoff_1000fd4860_rssi,Salon Front Door Sensor RSSI,,,,,-94,,dBm
+,voltage,sensor,sensor.sonoff_100150e8d2_battery_voltage,Braai Door Sensor Battery Voltage,,,,,2.333,,V
+,signal_strength,sensor,sensor.sonoff_100150e8d2_rssi,Braai Door Sensor RSSI,,,,,unavailable,,dBm
+,voltage,sensor,sensor.sonoff_100150eae4_battery_voltage,Garage Mid Door Sensor Battery Voltage,,,,,2.812,,V
+,signal_strength,sensor,sensor.sonoff_100150eae4_rssi,Garage Mid Door Sensor RSSI,,,,,-101,,dBm
+,signal_strength,sensor,sensor.sonoff_10023b8a40_rssi,Study AirCon Plug RSSI,,,,,-58,,dBm
+,current,sensor,sensor.sonoff_10023b8a40_current,Study AirCon Plug Current,,,,,0.0,,A
+,power,sensor,sensor.sonoff_10023b8a40_power,Study AirCon Plug Power,,,,,0.0,,W
+,voltage,sensor,sensor.sonoff_10023b8a40_voltage,Study AirCon Plug Voltage,,,,,244.41,,V
+,energy,sensor,sensor.sonoff_10023b8a40_energy,Study AirCon Plug Energy,,,,,0.0,,kWh
+,battery,sensor,sensor.sonoff_1002357bda_battery,Braai Door Sensor New Battery,,,,,100,,%
+,signal_strength,sensor,sensor.sonoff_1002357bda_rssi,Braai Door Sensor New RSSI,,,,,-60,,dBm
+,battery,sensor,sensor.sonoff_1002357619_battery,Study Window 1 Battery,,,,,unavailable,,%
+,signal_strength,sensor,sensor.sonoff_1002357619_rssi,Study Window 1 RSSI,,,,,unavailable,,dBm
+,signal_strength,sensor,sensor.sonoff_10023b8a5d_rssi,Fan Plug RSSI,,,,,-40,,dBm
+,current,sensor,sensor.sonoff_10023b8a5d_current,Fan Plug Current,,,,,0.0,,A
+,power,sensor,sensor.sonoff_10023b8a5d_power,Fan Plug Power,,,,,0.0,,W
+,voltage,sensor,sensor.sonoff_10023b8a5d_voltage,Fan Plug Voltage,,,,,243.96,,V
+,energy,sensor,sensor.sonoff_10023b8a5d_energy,Fan Plug Energy,,,,,0.0,,kWh
+,signal_strength,sensor,sensor.sonoff_1000cd865e_rssi,Inverter Power Room RSSI,,,,,-49,,dBm
+,current,sensor,sensor.sonoff_1000cd865e_current,Inverter Power Room Current,,,,,0.24,,A
+,power,sensor,sensor.sonoff_1000cd865e_power,Inverter Power Room Power,,,,,30.84,,W
+,voltage,sensor,sensor.sonoff_1000cd865e_voltage,Inverter Power Room Voltage,,,,,242.92,,V
+,energy,sensor,sensor.sonoff_1000cd865e_energy,Inverter Power Room Energy,,,,,0.19,,kWh
+,signal_strength,sensor,sensor.sonoff_1000404240_rssi,Unknown RSSI,,,,,-74,,dBm
+,signal_strength,sensor,sensor.sonoff_10015ac372_rssi,LivingArea Lights RSSI,,,,,-71,,dBm
+,signal_strength,sensor,sensor.sonoff_10015786b8_rssi,Enrico Area Lights RSSI,,,,,-85,,dBm
+,signal_strength,sensor,sensor.sonoff_100091ce3e_rssi,Backyard lights RSSI,,,,,-73,,dBm
+,signal_strength,sensor,sensor.sonoff_1001076ca1_rssi,Back Yard Lights RSSI,,,,,-68,,dBm
+,signal_strength,sensor,sensor.sonoff_1000f9d186_rssi,Loadshedder RSSI,,,,,-52,,dBm
+,signal_strength,sensor,sensor.sonoff_1000cd8652_rssi,Available Empty RSSI,,,,,unavailable,,dBm
+,current,sensor,sensor.sonoff_1000cd8652_current,Available Empty Current,,,,,unavailable,,A
+,power,sensor,sensor.sonoff_1000cd8652_power,Available Empty Power,,,,,unavailable,,W
+,voltage,sensor,sensor.sonoff_1000cd8652_voltage,Available Empty Voltage,,,,,unavailable,,V
+,energy,sensor,sensor.sonoff_1000cd8652_energy,Available Empty Energy,,,,,unavailable,,kWh
+,signal_strength,sensor,sensor.sonoff_1001e17c4d_rssi,Garage Door RSSI,,,,,unavailable,,dBm
+,signal_strength,sensor,sensor.sonoff_1001e75f9e_rssi,Front Gate RSSI,,,,,unavailable,,dBm
+,signal_strength,sensor,sensor.sonoff_10011a0eb6_rssi,ZBBridge RSSI,,,,,-70,,dBm
+,temperature,sensor,sensor.sonoff_100156c56b_temperature,NSPanel Temperature,,,,,19.2,,°C
+,temperature,sensor,sensor.sonoff_100156c56b_outdoor_temp,NSPanel Outdoor Temp,,,,,13,,°C
+,signal_strength,sensor,sensor.sonoff_1000cd8649_rssi,Freezer Garage Centre RSSI,,,,,-55,,dBm
+,current,sensor,sensor.sonoff_1000cd8649_current,Freezer Garage Centre Current,,,,,0.0,,A
+,power,sensor,sensor.sonoff_1000cd8649_power,Freezer Garage Centre Power,,,,,0.0,,W
+,voltage,sensor,sensor.sonoff_1000cd8649_voltage,Freezer Garage Centre Voltage,,,,,237.49,,V
+,energy,sensor,sensor.sonoff_1000cd8649_energy,Freezer Garage Centre Energy,,,,,0.0,,kWh
+,signal_strength,sensor,sensor.sonoff_10009ce3f9_rssi,Pool Pump RSSI,,,,,-89,,dBm
+,current,sensor,sensor.sonoff_10009ce3f9_current,Pool Pump Current,,,,,0.0,,A
+,power,sensor,sensor.sonoff_10009ce3f9_power,Pool Pump Power,,,,,0.0,,W
+,voltage,sensor,sensor.sonoff_10009ce3f9_voltage,Pool Pump Voltage,,,,,242.48,,V
+,energy,sensor,sensor.sonoff_10009ce3f9_energy,Pool Pump Energy,,,,,0.0,,kWh
+,signal_strength,sensor,sensor.sonoff_1000f86dde_rssi,Pool Lights RSSI,,,,,-62,,dBm
+,signal_strength,sensor,sensor.sonoff_1000cd8453_rssi,Routers Garage RSSI,,,,,-45,,dBm
+,current,sensor,sensor.sonoff_1000cd8453_current,Routers Garage Current,,,,,0.23,,A
+,power,sensor,sensor.sonoff_1000cd8453_power,Routers Garage Power,,,,,42.84,,W
+,voltage,sensor,sensor.sonoff_1000cd8453_voltage,Routers Garage Voltage,,,,,243.16,,V
+,energy,sensor,sensor.sonoff_1000cd8453_energy,Routers Garage Energy,,,,,0.26,,kWh
+,signal_strength,sensor,sensor.sonoff_1000cd8209_rssi,Freezer Garage Left Wall RSSI,,,,,-71,,dBm
+,current,sensor,sensor.sonoff_1000cd8209_current,Freezer Garage Left Wall Current,,,,,1.21,,A
+,power,sensor,sensor.sonoff_1000cd8209_power,Freezer Garage Left Wall Power,,,,,131.05,,W
+,voltage,sensor,sensor.sonoff_1000cd8209_voltage,Freezer Garage Left Wall Voltage,,,,,242.09,,V
+,energy,sensor,sensor.sonoff_1000cd8209_energy,Freezer Garage Left Wall Energy,,,,,0.27,,kWh
+,timestamp,sensor,sensor.sonoff_a930003660,Remote,,,,,2025-10-22T18:40:46+00:00,,
+,,switch,switch.sonoff_10002a5897,Device2a5897,,,,,off,,
+,,switch,switch.sonoff_10002a5897_led,Device2a5897 LED,,,,,on,,
+,,switch,switch.sonoff_10002a5897_pulse,Device2a5897 INCHING,,,,,off,,
+,,switch,switch.sonoff_100148ec9b_led,RFBridge433 LED,,,,,unavailable,,
+,,switch,switch.sonoff_100040424b,SONOFF Alarm,,,,,off,,
+,,switch,switch.sonoff_100040424b_led,SONOFF Alarm LED,,,,,on,,
+,,switch,switch.sonoff_100040424b_pulse,SONOFF Alarm INCHING,,,,,off,,
+,,switch,switch.sonoff_10023b8a40_1,Study AirCon Plug,,,,,off,,
+,,switch,switch.sonoff_10023b8a40_led,Study AirCon Plug LED,,,,,on,,
+,,switch,switch.sonoff_10023b8a5d_1,Fan Plug,,,,,off,,
+,,switch,switch.sonoff_10023b8a5d_led,Fan Plug LED,,,,,on,,
+,,switch,switch.sonoff_1000cd865e,Inverter Power Room,,,,,on,,
+,,switch,switch.sonoff_1000cd865e_led,Inverter Power Room LED,,,,,on,,
+,,switch,switch.sonoff_1000404240,Unknown,,,,,off,,
+,,switch,switch.sonoff_1000404240_led,Unknown LED,,,,,on,,
+,,switch,switch.sonoff_1000404240_pulse,Unknown INCHING,,,,,off,,
+,,switch,switch.sonoff_10015ac372_1,Braai Area Light,,,,,off,,
+,,switch,switch.sonoff_10015ac372_2,Outdoor Light Front,,,,,off,,
+,,switch,switch.sonoff_10015ac372_3,TV Room Light,,,,,off,,
+,,switch,switch.sonoff_10015ac372_led,LivingArea Lights LED,,,,,on,,
+,,switch,switch.sonoff_10015786b8_1,Enrico Room Light,,,,,off,,
+,,switch,switch.sonoff_10015786b8_2,Enrico Study Light,,,,,off,,
+,,switch,switch.sonoff_10015786b8_led,Enrico Area Lights LED,,,,,on,,
+,,switch,switch.sonoff_100091ce3e_1,Channel1,,,,,off,,
+,,switch,switch.sonoff_100091ce3e_2,BackYard Light 2,,,,,off,,
+,,switch,switch.sonoff_100091ce3e_led,Backyard lights LED,,,,,on,,
+,,switch,switch.sonoff_1001076ca1,Back Yard Lights,,,,,off,,
+,,switch,switch.sonoff_1001076ca1_led,Back Yard Lights LED,,,,,on,,
+,,switch,switch.sonoff_1001076ca1_pulse,Back Yard Lights INCHING,,,,,off,,
+,,switch,switch.sonoff_1000f9d186,Loadshedder,,,,,on,,
+,,switch,switch.sonoff_1000f9d186_led,Loadshedder LED,,,,,on,,
+,,switch,switch.sonoff_1000f9d186_pulse,Loadshedder INCHING,,,,,off,,
+,,switch,switch.sonoff_1000cd8652,Available Empty,,,,,unavailable,,
+,,switch,switch.sonoff_1000cd8652_led,Available Empty LED,,,,,unavailable,,
+,,switch,switch.sonoff_1001e17c4d,Garage Door,,,,,unavailable,,
+,,switch,switch.sonoff_1001e17c4d_led,Garage Door LED,,,,,unavailable,,
+,,switch,switch.sonoff_1001e17c4d_pulse,Garage Door INCHING,,,,,unavailable,,
+,,switch,switch.sonoff_1001e75f9e,Front Gate,,,,,unavailable,,
+,,switch,switch.sonoff_1001e75f9e_led,Front Gate LED,,,,,unavailable,,
+,,switch,switch.sonoff_1001e75f9e_pulse,Front Gate INCHING,,,,,unavailable,,
+,,switch,switch.sonoff_10011a0eb6_led,ZBBridge LED,,,,,on,,
+,,switch,switch.sonoff_100156c56b_1,Main Bedroom Light,,,,,on,,
+,,switch,switch.sonoff_100156c56b_2,Shower & Toilet Lights,,,,,off,,
+,,switch,switch.sonoff_1000cd8649,Freezer Garage Centre,,,,,on,,
+,,switch,switch.sonoff_1000cd8649_led,Freezer Garage Centre LED,,,,,on,,
+,,switch,switch.sonoff_10009ce3f9,Pool Pump,,,,,off,,
+,,switch,switch.sonoff_10009ce3f9_led,Pool Pump LED,,,,,on,,
+,,switch,switch.sonoff_1000f86dde,Pool Lights,,,,,off,,
+,,switch,switch.sonoff_1000f86dde_led,Pool Lights LED,,,,,on,,
+,,switch,switch.sonoff_1000f86dde_pulse,Pool Lights INCHING,,,,,off,,
+,,switch,switch.sonoff_1000cd8453,Routers Garage,,,,,on,,
+,,switch,switch.sonoff_1000cd8453_led,Routers Garage LED,,,,,on,,
+,,switch,switch.sonoff_1000cd8209,Freezer Garage Left Wall,,,,,on,,
+,,switch,switch.sonoff_1000cd8209_led,Freezer Garage Left Wall LED,,,,,on,,
+,,number,number.sonoff_10002a5897_pulsewidth,Device2a5897 INCHING Duration,,,,,0.5,,
+,,number,number.sonoff_100040424b_pulsewidth,SONOFF Alarm INCHING Duration,,,,,1.0,,
+,,number,number.sonoff_1000404240_pulsewidth,Unknown INCHING Duration,,,,,0.5,,
+,,number,number.sonoff_1001076ca1_pulsewidth,Back Yard Lights INCHING Duration,,,,,0.5,,
+,,number,number.sonoff_1000f9d186_pulsewidth,Loadshedder INCHING Duration,,,,,0.5,,
+,,number,number.sonoff_1001e17c4d_pulsewidth,Garage Door INCHING Duration,,,,,unavailable,,
+,,number,number.sonoff_1001e75f9e_pulsewidth,Front Gate INCHING Duration,,,,,unavailable,,
+,,number,number.sonoff_1000f86dde_pulsewidth,Pool Lights INCHING Duration,,,,,0.5,,
+,,sun,sun.sun,Sun,,,,,above_horizon,,
+,,binary_sensor,binary_sensor.sun_solar_rising,Sun Solar rising,,,,,on,,
+,timestamp,sensor,sensor.sun_next_dawn,Sun Next dawn,,,,,2025-10-24T02:54:21+00:00,,
+,timestamp,sensor,sensor.sun_next_dusk,Sun Next dusk,,,,,2025-10-23T16:47:44+00:00,,
+,timestamp,sensor,sensor.sun_next_midnight,Sun Next midnight,,,,,2025-10-23T21:51:09+00:00,,
+,timestamp,sensor,sensor.sun_next_noon,Sun Next noon,,,,,2025-10-23T09:51:19+00:00,,
+,timestamp,sensor,sensor.sun_next_rising,Sun Next rising,,,,,2025-10-24T03:19:58+00:00,,
+,timestamp,sensor,sensor.sun_next_setting,Sun Next setting,,,,,2025-10-23T16:22:05+00:00,,
+,,sensor,sensor.sun_solar_elevation,Sun Solar elevation,,,,,6.77,,°
+,,sensor,sensor.sun_solar_azimuth,Sun Solar azimuth,,,,,99.56,,°
+,,sensor,sensor.sun_solar_rising,Sun Solar rising,,,,,True,,
+,,media_player,media_player.tv_samsung_7_series_65,[TV] Samsung 7 Series (65),,,,,unavailable,,
+,,calendar,calendar.anniversaries,Anniversaries,,,,,off,,
+,,sensor,sensor.anniversary_johan_linandi_marraige,Johan & Linandi Marraige ,,,,,354,,Days
+,,media_player,media_player.smart_tv,Smart TV,,,,,unavailable,,
+,,sensor,sensor.ai_provider_status_google,AI Provider Status (Google),,,,,connected,,
+,,sensor,sensor.max_input_tokens_google,Max Input Tokens (Google),,,,,500,,tokens
+,,sensor,sensor.max_output_tokens_google,Max Output Tokens (Google),,,,,500,,tokens
+,,sensor,sensor.ai_model_in_use_google,AI Model In Use (Google),,,,,gemini-2.0-flash,,
+,,sensor,sensor.last_error_message_google,Last Error Message (Google),,,,,No Error,,
+,connectivity,binary_sensor,binary_sensor.archer_d2_wan_status,Archer_D2 WAN status,,,,,on,,
+,data_size,sensor,sensor.archer_d2_data_received,Archer_D2 Data received,,,,,0,,B
+,data_size,sensor,sensor.archer_d2_data_sent,Archer_D2 Data sent,,,,,535077287,,B
+,,sensor,sensor.archer_d2_packets_received,Archer_D2 Packets received,,,,,0,,packets
+,,sensor,sensor.archer_d2_packets_sent,Archer_D2 Packets sent,,,,,24786441,,packets
+,,sensor,sensor.archer_d2_external_ip,Archer_D2 External IP,,,,,0.0.0.0,,
+,duration,sensor,sensor.archer_d2_uptime,Archer_D2 Uptime,,,,,1877636,,s
+,,sensor,sensor.archer_d2_wan_status,Archer_D2 WAN status,,,,,Connected,,
+,,sensor,sensor.archer_d2_number_of_port_mapping_entries_ipv4,Archer_D2 Number of port mapping entries (IPv4),,,,,0,,
+,data_rate,sensor,sensor.archer_d2_download_speed,Archer_D2 Download speed,,,,,0.0,,KiB/s
+,data_rate,sensor,sensor.archer_d2_upload_speed,Archer_D2 Upload speed,,,,,2.4967498683914,,KiB/s
+,,sensor,sensor.archer_d2_packet_download_speed,Archer_D2 Packet download speed,,,,,0.0,,packets/s
+,,sensor,sensor.archer_d2_packet_upload_speed,Archer_D2 Packet upload speed,,,,,9.76668652559593,,packets/s
+,connectivity,binary_sensor,binary_sensor.dir_825_wan_status,DIR-825 WAN status,,,,,off,,
+,data_size,sensor,sensor.dir_825_data_received,DIR-825 Data received,,,,,0,,B
+,data_size,sensor,sensor.dir_825_data_sent,DIR-825 Data sent,,,,,0,,B
+,,sensor,sensor.dir_825_packets_received,DIR-825 Packets received,,,,,0,,packets
+,,sensor,sensor.dir_825_packets_sent,DIR-825 Packets sent,,,,,0,,packets
+,,sensor,sensor.dir_825_external_ip,DIR-825 External IP,,,,,0.0.0.0,,
+,duration,sensor,sensor.dir_825_uptime,DIR-825 Uptime,,,,,1877673,,s
+,,sensor,sensor.dir_825_wan_status,DIR-825 WAN status,,,,,Disconnected,,
+,data_rate,sensor,sensor.dir_825_download_speed,DIR-825 Download speed,,,,,0.0,,KiB/s
+,data_rate,sensor,sensor.dir_825_upload_speed,DIR-825 Upload speed,,,,,0.0,,KiB/s
+,,sensor,sensor.dir_825_packet_download_speed,DIR-825 Packet download speed,,,,,0.0,,packets/s
+,,sensor,sensor.dir_825_packet_upload_speed,DIR-825 Packet upload speed,,,,,0.0,,packets/s
+,,binary_sensor,binary_sensor.astroweather_backyard_deep_sky_view,Astroweather Backyard Deep Sky View,,,,,on,,
+,,binary_sensor,binary_sensor.astroweather_backyard_moon_rises_during_darkness,Astroweather Backyard Moon rises during darkness,,,,,off,,
+,,binary_sensor,binary_sensor.astroweather_backyard_moon_sets_during_darkness,Astroweather Backyard Moon sets during darkness,,,,,on,,
+,,binary_sensor,binary_sensor.astroweather_backyard_moon_always_up_during_darkness,Astroweather Backyard Moon always up during darkness,,,,,off,,
+,,binary_sensor,binary_sensor.astroweather_backyard_moon_always_down_during_darkness,Astroweather Backyard Moon always down during darkness,,,,,off,,
+,,sensor,sensor.astroweather_backyard_forecast_length,Astroweather Backyard Forecast Length,,,,,58,,h
+,,sensor,sensor.astroweather_backyard_location_name,Astroweather Backyard Location Name,,,,,unknown,,
+,,sensor,sensor.astroweather_backyard_latitude,Astroweather Backyard Latitude,,,,,-25.84051,,°
+,,sensor,sensor.astroweather_backyard_longitude,Astroweather Backyard Longitude,,,,,28.24814,,°
+,,sensor,sensor.astroweather_backyard_elevation,Astroweather Backyard Elevation,,,,,1561,,m
+,,sensor,sensor.astroweather_backyard_time_shift,Astroweather Backyard Time Shift,,,,,7200,,
+,timestamp,sensor,sensor.astroweather_backyard_timestamp,Astroweather Backyard Timestamp,,,,,2025-10-23T03:00:00+00:00,,
+,,sensor,sensor.astroweather_backyard_cloud_cover,Astroweather Backyard Cloud Cover,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_cloudless,Astroweather Backyard Cloudless,,,,,100,,%
+,,sensor,sensor.astroweather_backyard_clouds_area,Astroweather Backyard Clouds Area,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_clouds_area_high,Astroweather Backyard Clouds Area High,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_clouds_area_medium,Astroweather Backyard Clouds Area Medium,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_clouds_area_low,Astroweather Backyard Clouds Area Low,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_fog_area,Astroweather Backyard Fog Area,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_fog_2m_area,Astroweather Backyard Fog 2m Area,,,,,0,,%
+,,sensor,sensor.astroweather_backyard_seeing_percentage,Astroweather Backyard Seeing Percentage,,,,,13,,%
+,,sensor,sensor.astroweather_backyard_seeing,Astroweather Backyard Seeing,,,,,2.16,,
+,,sensor,sensor.astroweather_backyard_transparency,Astroweather Backyard Transparency,,,,,48,,%
+,,sensor,sensor.astroweather_backyard_transparency_plain,Astroweather Backyard Transparency Plain,,,,,unknown,,
+,temperature,sensor,sensor.astroweather_backyard_lifted_index,Astroweather Backyard Lifted Index,,,,,-1.78,,°C
+,,sensor,sensor.astroweather_backyard_lifted_index_plain,Astroweather Backyard Lifted Index Plain,,,,,"-4 to -1.5, unstable",,
+,humidity,sensor,sensor.astroweather_backyard_2m_relative_humidity,Astroweather Backyard 2m Relative Humidity,,,,,59.0,,%
+,,sensor,sensor.astroweather_backyard_calm_percentage,Astroweather Backyard Calm Percentage,,,,,93,,%
+,,sensor,sensor.astroweather_backyard_10m_wind_direction,Astroweather Backyard 10m Wind Direction,,,,,E,,
+,wind_speed,sensor,sensor.astroweather_backyard_10m_wind_speed,Astroweather Backyard 10m Wind Speed,,,,,3.744,,km/h
+,temperature,sensor,sensor.astroweather_backyard_2m_temperature,Astroweather Backyard 2m Temperature,,,,,10.3,,°C
+,temperature,sensor,sensor.astroweather_backyard_2m_dewpoint,Astroweather Backyard 2m Dewpoint,,,,,2.6,,°C
+,precipitation,sensor,sensor.astroweather_backyard_precipitation_amount,Astroweather Backyard Precipitation Amount,,,,,0.0,,mm
+,,sensor,sensor.astroweather_backyard_condition,Astroweather Backyard Condition,,,,,78,,%
+,,sensor,sensor.astroweather_backyard_sun_altitude,Astroweather Backyard Sun Altitude,,,,,6.121,,°
+,,sensor,sensor.astroweather_backyard_sun_azimuth,Astroweather Backyard Sun Azimuth,,,,,99.806,,°
+,timestamp,sensor,sensor.astroweather_backyard_sun_next_setting,Astroweather Backyard Sun Next Setting,,,,,2025-10-23T16:41:45+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_sun_next_setting_nautical,Astroweather Backyard Sun Next Setting Nautical,,,,,2025-10-23T17:09:46+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_sun_next_setting_astronomical,Astroweather Backyard Sun Next Setting Astronomical,,,,,2025-10-23T17:38:24+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_sun_next_rising,Astroweather Backyard Sun Next Rising,,,,,2025-10-24T03:00:25+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_sun_next_rising_nautical,Astroweather Backyard Sun Next Rising Nautical,,,,,2025-10-24T02:32:25+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_sun_next_rising_astronomical,Astroweather Backyard Sun Next Rising Astronomical,,,,,2025-10-24T02:03:47+00:00,,
+,,sensor,sensor.astroweather_backyard_sun_constellation,Astroweather Backyard Sun Constellation,,,,,Virgo,,
+,timestamp,sensor,sensor.astroweather_backyard_moon_next_rising,Astroweather Backyard Moon Next Rising,,,,,2025-10-23T04:13:17+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_moon_next_setting,Astroweather Backyard Moon Next Setting,,,,,2025-10-23T18:11:26+00:00,,
+,,sensor,sensor.astroweather_backyard_moon_phase,Astroweather Backyard Moon Phase,,,,,2.6,,%
+,,sensor,sensor.astroweather_backyard_moon_icon,Astroweather Backyard Moon Icon,,,,,moon-waxing-crescent,,
+,timestamp,sensor,sensor.astroweather_backyard_moon_next_new_moon,Astroweather Backyard Moon Next New Moon,,,,,2025-11-20T06:47:13+00:00,,
+,timestamp,sensor,sensor.astroweather_backyard_moon_next_full_moon,Astroweather Backyard Moon Next Full Moon,,,,,2025-11-05T13:19:15+00:00,,
+,,sensor,sensor.astroweather_backyard_moon_altitude,Astroweather Backyard Moon Altitude,,,,,-4.145,,°
+,,sensor,sensor.astroweather_backyard_moon_azimuth,Astroweather Backyard Moon Azimuth,,,,,115.773,,°
+,distance,sensor,sensor.astroweather_backyard_moon_distance,Astroweather Backyard Moon Distance,,,,,406606.0,,km
+,,sensor,sensor.astroweather_backyard_moon_relative_distance,Astroweather Backyard Moon Relative Distance,,,,,5.777,,%
+,,sensor,sensor.astroweather_backyard_moon_angular_size,Astroweather Backyard Moon Angular Size,,,,,0.49,,°
+,,sensor,sensor.astroweather_backyard_moon_relative_size,Astroweather Backyard Moon Relative Size,,,,,-5.351,,%
+,,sensor,sensor.astroweather_backyard_moon_constellation,Astroweather Backyard Moon Constellation,,,,,Libra,,
+,timestamp,sensor,sensor.astroweather_backyard_moon_next_dark_night,Astroweather Backyard Moon Next Dark Night,,,,,2025-11-17T18:00:34+00:00,,
+,duration,sensor,sensor.astroweather_backyard_astronomical_night_duration,Astroweather Backyard Astronomical Night Duration,,,,,30322.742948,,s
+,duration,sensor,sensor.astroweather_backyard_deep_sky_darkness,Astroweather Backyard Deep Sky Darkness,,,,,28340.513674,,s
+,,sensor,sensor.astroweather_backyard_deepsky_forecast_today,Astroweather Backyard Deepsky Forecast Today,,,,,78,,%
+,,sensor,sensor.astroweather_backyard_deepsky_forecast_today_plain,Astroweather Backyard Deepsky Forecast Today Plain,,,,,█▆▆▆▆▆▆▆▆,,
+,,sensor,sensor.astroweather_backyard_deepsky_forecast_today_description,Astroweather Backyard Deepsky Forecast Today Description,,,,,Clearsky night,,
+,,sensor,sensor.astroweather_backyard_deepsky_forecast_tomorrow,Astroweather Backyard Deepsky Forecast Tomorrow,,,,,71,,%
+,,sensor,sensor.astroweather_backyard_deepsky_forecast_tomorrow_plain,Astroweather Backyard Deepsky Forecast Tomorrow Plain,,,,,█▆▆▆▆▄███,,
+,,sensor,sensor.astroweather_backyard_deepsky_forecast_tomorrow_description,Astroweather Backyard Deepsky Forecast Tomorrow Description,,,,,Clearsky night,,
+,,sensor,sensor.astroweather_backyard_uptonight,Astroweather Backyard Uptonight,,,,,0,,
+,,weather,weather.astroweather_backyard,Astroweather Backyard,59.0,,,,Good,10.3,
+,,sensor,sensor.loadshedding_national_status,Loadshedding National Status,,,,,0,,
+,,sensor,sensor.loadshedding_cape_town_status,Loadshedding Cape Town Status,,,,,0,,
+,,sensor,sensor.loadshedding_local_status,Loadshedding Local Status,,,,,0,,
+,,sensor,sensor.loadshedding_api_quota,Loadshedding API Quota,,,,,48,,
+,,calendar,calendar.loadshedding_local_events,Loadshedding Local Events,,,,,off,,
+,,calendar,calendar.loadshedding_local_schedule,Loadshedding Local Schedule,,,,,off,,
+,,sensor,sensor.dwains_dashboard_latest_version,Dwains Dashboard Latest version,,,,,3.7.0,,latest version
+,data_size,sensor,sensor.system_monitor_disk_free_config,System Monitor Disk free /config,,,,,83.8,,GiB
+,data_size,sensor,sensor.system_monitor_disk_free_ssl,System Monitor Disk free /ssl,,,,,83.8,,GiB
+,data_size,sensor,sensor.system_monitor_disk_free,System Monitor Disk free /,,,,,83.8,,GiB
+,data_size,sensor,sensor.system_monitor_disk_free_share,System Monitor Disk free /share,,,,,83.8,,GiB
+,data_size,sensor,sensor.system_monitor_disk_free_run_audio,System Monitor Disk free /run/audio,,,,,83.8,,GiB
+,data_size,sensor,sensor.system_monitor_disk_free_media,System Monitor Disk free /media,,,,,83.8,,GiB
+,data_size,sensor,sensor.system_monitor_disk_use_config,System Monitor Disk use /config,,,,,21.1,,GiB
+,data_size,sensor,sensor.system_monitor_disk_use_ssl,System Monitor Disk use /ssl,,,,,21.1,,GiB
+,data_size,sensor,sensor.system_monitor_disk_use,System Monitor Disk use /,,,,,21.1,,GiB
+,data_size,sensor,sensor.system_monitor_disk_use_share,System Monitor Disk use /share,,,,,21.1,,GiB
+,data_size,sensor,sensor.system_monitor_disk_use_run_audio,System Monitor Disk use /run/audio,,,,,21.1,,GiB
+,data_size,sensor,sensor.system_monitor_disk_use_media,System Monitor Disk use /media,,,,,21.1,,GiB
+,,sensor,sensor.system_monitor_disk_usage_config,System Monitor Disk usage /config,,,,,20.1,,%
+,,sensor,sensor.system_monitor_disk_usage_ssl,System Monitor Disk usage /ssl,,,,,20.1,,%
+,,sensor,sensor.system_monitor_disk_usage,System Monitor Disk usage /,,,,,20.1,,%
+,,sensor,sensor.system_monitor_disk_usage_share,System Monitor Disk usage /share,,,,,20.1,,%
+,,sensor,sensor.system_monitor_disk_usage_run_audio,System Monitor Disk usage /run/audio,,,,,20.1,,%
+,,sensor,sensor.system_monitor_disk_usage_media,System Monitor Disk usage /media,,,,,20.1,,%
+,,sensor,sensor.system_monitor_ipv4_address_lo,System Monitor IPv4 address lo,,,,,127.0.0.1,,
+,,sensor,sensor.system_monitor_ipv4_address_docker0,System Monitor IPv4 address docker0,,,,,172.30.232.1,,
+,,sensor,sensor.system_monitor_ipv4_address_hassio,System Monitor IPv4 address hassio,,,,,172.30.32.1,,
+,,sensor,sensor.system_monitor_ipv4_address_enp2s0,System Monitor IPv4 address enp2s0,,,,,192.168.1.30,,
+,,sensor,sensor.system_monitor_ipv6_address_lo,System Monitor IPv6 address lo,,,,,unknown,,
+,,sensor,sensor.system_monitor_ipv6_address_docker0,System Monitor IPv6 address docker0,,,,,unknown,,
+,,sensor,sensor.system_monitor_ipv6_address_hassio,System Monitor IPv6 address hassio,,,,,fd0c:ac1e:2100::1,,
+,,sensor,sensor.system_monitor_ipv6_address_enp2s0,System Monitor IPv6 address enp2s0,,,,,2c0f:f528:40:6a68:d4f4:2290:6787:dcb4,,
+,timestamp,sensor,sensor.system_monitor_last_boot,System Monitor Last boot,,,,,2025-10-07T14:51:46+00:00,,
+,,sensor,sensor.system_monitor_load_15_min,System Monitor Load (15 min),,,,,1.81,,
+,,sensor,sensor.system_monitor_load_1_min,System Monitor Load (1 min),,,,,1.31,,
+,,sensor,sensor.system_monitor_load_5_min,System Monitor Load (5 min),,,,,1.8,,
+,data_size,sensor,sensor.system_monitor_memory_free,System Monitor Memory free,,,,,849.2,,MiB
+,data_size,sensor,sensor.system_monitor_memory_use,System Monitor Memory use,,,,,6771.0,,MiB
+,,sensor,sensor.system_monitor_memory_usage,System Monitor Memory usage,,,,,88.9,,%
+,data_size,sensor,sensor.system_monitor_network_in_lo,System Monitor Network in lo,,,,,4338.7,,MiB
+,data_size,sensor,sensor.system_monitor_network_in_docker0,System Monitor Network in docker0,,,,,0.0,,MiB
+,data_size,sensor,sensor.system_monitor_network_in_hassio,System Monitor Network in hassio,,,,,19860.3,,MiB
+,data_size,sensor,sensor.system_monitor_network_in_enp2s0,System Monitor Network in enp2s0,,,,,80096.3,,MiB
+,data_size,sensor,sensor.system_monitor_network_out_lo,System Monitor Network out lo,,,,,4338.7,,MiB
+,data_size,sensor,sensor.system_monitor_network_out_docker0,System Monitor Network out docker0,,,,,0.8,,MiB
+,data_size,sensor,sensor.system_monitor_network_out_hassio,System Monitor Network out hassio,,,,,819199.1,,MiB
+,data_size,sensor,sensor.system_monitor_network_out_enp2s0,System Monitor Network out enp2s0,,,,,53845.8,,MiB
+,,sensor,sensor.system_monitor_packets_in_lo,System Monitor Packets in lo,,,,,14882107,,
+,,sensor,sensor.system_monitor_packets_in_docker0,System Monitor Packets in docker0,,,,,3,,
+,,sensor,sensor.system_monitor_packets_in_hassio,System Monitor Packets in hassio,,,,,84753820,,
+,,sensor,sensor.system_monitor_packets_in_enp2s0,System Monitor Packets in enp2s0,,,,,182229669,,
+,,sensor,sensor.system_monitor_packets_out_lo,System Monitor Packets out lo,,,,,14882107,,
+,,sensor,sensor.system_monitor_packets_out_docker0,System Monitor Packets out docker0,,,,,14857,,
+,,sensor,sensor.system_monitor_packets_out_hassio,System Monitor Packets out hassio,,,,,96088707,,
+,,sensor,sensor.system_monitor_packets_out_enp2s0,System Monitor Packets out enp2s0,,,,,354093887,,
+,data_rate,sensor,sensor.system_monitor_network_throughput_in_lo,System Monitor Network throughput in lo,,,,,0.001,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_in_docker0,System Monitor Network throughput in docker0,,,,,unknown,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_in_hassio,System Monitor Network throughput in hassio,,,,,0.017,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_in_enp2s0,System Monitor Network throughput in enp2s0,,,,,0.042,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_out_lo,System Monitor Network throughput out lo,,,,,0.001,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_out_docker0,System Monitor Network throughput out docker0,,,,,unknown,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_out_hassio,System Monitor Network throughput out hassio,,,,,1.217,,MB/s
+,data_rate,sensor,sensor.system_monitor_network_throughput_out_enp2s0,System Monitor Network throughput out enp2s0,,,,,0.025,,MB/s
+,,sensor,sensor.system_monitor_processor_use,System Monitor Processor use,,,,,51,,%
+,temperature,sensor,sensor.system_monitor_processor_temperature,System Monitor Processor temperature,,,,,48.0,,°C
+,data_size,sensor,sensor.system_monitor_swap_free,System Monitor Swap free,,,,,0.2,,MiB
+,data_size,sensor,sensor.system_monitor_swap_use,System Monitor Swap use,,,,,2514.5,,MiB
+,,sensor,sensor.system_monitor_swap_usage,System Monitor Swap usage,,,,,100.0,,%
+,,sensor,sensor.cloudflare_speed_test_ip_address,Cloudflare Speed Test IP address,,,,,2c0f:f528:40:6a68:d4f4:2290:6787:dcb4,,
+,,sensor,sensor.cloudflare_speed_test_isp,Cloudflare Speed Test ISP,,,,,Metrofibre Networx,,
+,duration,sensor,sensor.cloudflare_speed_test_latency,Cloudflare Speed Test Latency,,,,,15,,ms
+,duration,sensor,sensor.cloudflare_speed_test_jitter,Cloudflare Speed Test Jitter,,,,,4,,ms
+,data_rate,sensor,sensor.cloudflare_speed_test_100kb_down,Cloudflare Speed Test 100kB down,,,,,34.17,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_100kb_up,Cloudflare Speed Test 100kB up,,,,,74.95,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_1mb_down,Cloudflare Speed Test 1MB down,,,,,64.53,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_1mb_up,Cloudflare Speed Test 1MB up,,,,,88.11,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_10mb_down,Cloudflare Speed Test 10MB down,,,,,75.16,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_10mb_up,Cloudflare Speed Test 10MB up,,,,,91.77,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_25mb_down,Cloudflare Speed Test 25MB down,,,,,67.52,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_90th_percentile_down,Cloudflare Speed Test 90th percentile down,,,,,81.52,,Mbit/s
+,data_rate,sensor,sensor.cloudflare_speed_test_90th_percentile_up,Cloudflare Speed Test 90th percentile up,,,,,92.42,,Mbit/s
+,,sensor,sensor.openweathermap_weather,OpenWeatherMap Weather,,,,,clear sky,,
+,temperature,sensor,sensor.openweathermap_dew_point,OpenWeatherMap Dew Point,,,,,4.81,,°C
+,temperature,sensor,sensor.openweathermap_temperature,OpenWeatherMap Temperature,,,,,8.8,,°C
+,temperature,sensor,sensor.openweathermap_feels_like_temperature,OpenWeatherMap Feels like temperature,,,,,8.8,,°C
+,wind_speed,sensor,sensor.openweathermap_wind_speed,OpenWeatherMap Wind speed,,,,,3.672,,km/h
+,wind_speed,sensor,sensor.openweathermap_wind_gust,OpenWeatherMap Wind gust,,,,,7.632,,km/h
+,wind_direction,sensor,sensor.openweathermap_wind_bearing,OpenWeatherMap Wind bearing,,,,,59,,°
+,humidity,sensor,sensor.openweathermap_humidity,OpenWeatherMap Humidity,,,,,76,,%
+,pressure,sensor,sensor.openweathermap_pressure,OpenWeatherMap Pressure,,,,,1022,,hPa
+,,sensor,sensor.openweathermap_cloud_coverage,OpenWeatherMap Cloud coverage,,,,,0,,%
+,precipitation_intensity,sensor,sensor.openweathermap_rain,OpenWeatherMap Rain,,,,,0,,mm/h
+,precipitation_intensity,sensor,sensor.openweathermap_snow,OpenWeatherMap Snow,,,,,0,,mm/h
+,,sensor,sensor.openweathermap_precipitation_kind,OpenWeatherMap Precipitation kind,,,,,None,,
+,,sensor,sensor.openweathermap_uv_index,OpenWeatherMap UV Index,,,,,0,,UV index
+,distance,sensor,sensor.openweathermap_visibility,OpenWeatherMap Visibility,,,,,10000,,m
+,,sensor,sensor.openweathermap_condition,OpenWeatherMap Condition,,,,,sunny,,
+,,sensor,sensor.openweathermap_weather_code,OpenWeatherMap Weather Code,,,,,800,,
+,,weather,weather.openweathermap,OpenWeatherMap,76,,,,sunny,8.8,
+,,switch,switch.button_card_pre_release,button-card Pre-release,,,,,off,,
+,,switch,switch.custom_ui_pre_release,Custom-ui Pre-release,,,,,off,,
+,,switch,switch.layout_card_pre_release,layout-card Pre-release,,,,,off,,
+,,switch,switch.flexible_horseshoe_card_for_lovelace_pre_release,Flexible Horseshoe Card for Lovelace Pre-release,,,,,off,,
+,,switch,switch.battery_notes_pre_release,Battery Notes Pre-release,,,,,off,,
+,,switch,switch.google_home_pre_release,Google Home Pre-release,,,,,off,,
+,,switch,switch.custom_attributes_pre_release,Custom-Attributes Pre-release,,,,,off,,
+,,switch,switch.room_summary_card_pre_release,Room Summary Card Pre-release,,,,,off,,
+,,switch,switch.pyscript_pre_release,pyscript Pre-release,,,,,off,,
+,,switch,switch.slider_button_card_pre_release,Slider Button Card Pre-release,,,,,off,,
+,,switch,switch.power_flow_card_pre_release,Power Flow Card Pre-release,,,,,off,,
+,,switch,switch.card_mod_pre_release,card-mod Pre-release,,,,,off,,
+,,switch,switch.power_wheel_card_pre_release,Power wheel card Pre-release,,,,,off,,
+,,switch,switch.config_template_card_pre_release,Config Template Card Pre-release,,,,,off,,
+,,switch,switch.battery_entity_row_pre_release,Battery Entity Row Pre-release,,,,,off,,
+,,switch,switch.browser_mod_pre_release,browser_mod Pre-release,,,,,off,,
+,,switch,switch.sunsynk_power_flow_card_pre_release,Sunsynk Power Flow Card Pre-release,,,,,off,,
+,,switch,switch.advanced_camera_card_pre_release,Advanced Camera Card Pre-release,,,,,off,,
+,,switch,switch.flex_table_highly_customizable_data_visualization_pre_release,"Flex Table - Highly customizable, Data visualization Pre-release",,,,,off,,
+,,switch,switch.watchman_pre_release,Watchman Pre-release,,,,,off,,
+,,switch,switch.netgear_plus_pre_release,Netgear Plus Pre-release,,,,,off,,
+,,switch,switch.ids_hyyp_hawkmod_pre_release,IDS Hyyp (hawkMod) Pre-release,,,,,off,,
+,,switch,switch.alexa_media_player_pre_release,Alexa Media Player Pre-release,,,,,off,,
+,,switch,switch.tp_link_router_pre_release,TP-Link Router Pre-release,,,,,off,,
+,,switch,switch.horizon_card_pre_release,Horizon Card Pre-release,,,,,off,,
+,,switch,switch.simple_weather_card_pre_release,Simple Weather Card Pre-release,,,,,off,,
+,,switch,switch.energy_flow_card_plus_pre_release,Energy Flow Card Plus Pre-release,,,,,off,,
+,,switch,switch.local_tuya_pre_release,Local Tuya Pre-release,,,,,off,,
+,,switch,switch.bubble_card_pre_release,Bubble Card Pre-release,,,,,off,,
+,,switch,switch.github_card_pre_release,Github Card Pre-release,,,,,off,,
+,,switch,switch.samsungtv_smart_pre_release,SamsungTV Smart Pre-release,,,,,off,,
+,,switch,switch.ha_floorplan_your_imagination_almost_defines_the_limits_pre_release,ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits Pre-release,,,,,off,,
+,,switch,switch.home_assistant_entity_visualizer_pre_release,Home Assistant Entity Visualizer Pre-release,,,,,off,,
+,,switch,switch.mushroom_pre_release,Mushroom Pre-release,,,,,off,,
+,,switch,switch.sonoff_lan_pre_release,Sonoff LAN Pre-release,,,,,off,,
+,,switch,switch.modern_circular_gauge_pre_release,Modern Circular Gauge Pre-release,,,,,off,,
+,,switch,switch.network_scanner_pre_release,Network Scanner Pre-release,,,,,off,,
+,,switch,switch.powercalc_pre_release,Powercalc Pre-release,,,,,off,,
+,,switch,switch.multiple_entity_row_pre_release,Multiple Entity Row Pre-release,,,,,off,,
+,,switch,switch.lightning_detector_card_pre_release,Lightning Detector Card Pre-release,,,,,off,,
+,,switch,switch.power_flow_card_plus_pre_release,Power Flow Card Plus Pre-release,,,,,off,,
+,,switch,switch.bar_card_pre_release,Bar Card Pre-release,,,,,off,,
+,,switch,switch.plotly_graph_card_pre_release,Plotly Graph Card Pre-release,,,,,off,,
+,,switch,switch.entities_button_group_pre_release,Entities Button Group Pre-release,,,,,off,,
+,,switch,switch.logbook_card_pre_release,Logbook Card Pre-release,,,,,off,,
+,,switch,switch.radar_card_pre_release,Radar card Pre-release,,,,,off,,
+,,switch,switch.webrtc_camera_pre_release,WebRTC Camera Pre-release,,,,,off,,
+,,switch,switch.auto_entities_pre_release,auto-entities Pre-release,,,,,off,,
+,,switch,switch.spotify_lovelace_card_pre_release,Spotify Lovelace Card Pre-release,,,,,off,,
+,,switch,switch.canvas_gauge_card_pre_release,Canvas Gauge Card Pre-release,,,,,off,,
+,,switch,switch.matterbridge_whatsapp_custom_notification_notify_pre_release,matterbridge whatsapp custom notification / notify Pre-release,,,,,off,,
+,,switch,switch.card_tools_pre_release,card-tools Pre-release,,,,,off,,
+,,switch,switch.mini_climate_card_pre_release,mini climate card Pre-release,,,,,off,,
+,,switch,switch.dwains_dashboard_pre_release,Dwains Dashboard Pre-release,,,,,off,,
+,,switch,switch.energy_entity_row_pre_release,Energy Entity row Pre-release,,,,,off,,
+,,switch,switch.balena_cloud_pre_release,Balena Cloud Pre-release,,,,,off,,
+,,switch,switch.uptime_card_pre_release,Uptime Card Pre-release,,,,,off,,
+,,switch,switch.battery_state_card_entity_row_pre_release,Battery State Card / Entity Row Pre-release,,,,,off,,
+,,switch,switch.mushroom_dashboard_strategy_pre_release,Mushroom Dashboard Strategy Pre-release,,,,,off,,
+,,switch,switch.mini_graph_card_pre_release,mini-graph-card Pre-release,,,,,off,,
+,,switch,switch.microsoft_365_to_do_pre_release,Microsoft 365 - To Do Pre-release,,,,,off,,
+,,switch,switch.surveillance_card_pre_release,surveillance-card Pre-release,,,,,off,,
+,,switch,switch.extended_gauge_card_pre_release,Extended Gauge Card Pre-release,,,,,off,,
+,,switch,switch.kiosk_mode_pre_release,Kiosk Mode Pre-release,,,,,off,,
+,,switch,switch.microsoft_365_calendar_pre_release,Microsoft 365 - Calendar Pre-release,,,,,off,,
+,,switch,switch.mqtt_discoverystream_alt_pre_release,MQTT DiscoveryStream Alt Pre-release,,,,,off,,
+,,switch,switch.sankey_chart_card_pre_release,Sankey Chart Card Pre-release,,,,,off,,
+,,switch,switch.slider_entity_row_pre_release,slider-entity-row Pre-release,,,,,off,,
+,,switch,switch.smart_irrigation_pre_release,Smart Irrigation Pre-release,,,,,off,,
+,,switch,switch.atomic_calendar_revive_pre_release,Atomic Calendar Revive Pre-release,,,,,off,,
+,,switch,switch.stack_in_card_pre_release,Stack In Card Pre-release,,,,,off,,
+,,switch,switch.flightradar24_pre_release,Flightradar24 Pre-release,,,,,off,,
+,,switch,switch.youtube_pre_release,youtube Pre-release,,,,,off,,
+,,switch,switch.frigate_pre_release,Frigate Pre-release,,,,,off,,
+,,switch,switch.astroweather_card_pre_release,AstroWeather Card Pre-release,,,,,off,,
+,,switch,switch.load_shedding_pre_release,Load Shedding Pre-release,,,,,off,,
+,,switch,switch.mushroom_better_sliders_pre_release,Mushroom - Better Sliders Pre-release,,,,,off,,
+,,switch,switch.utility_meter_next_gen_pre_release,Utility Meter Next Gen Pre-release,,,,,off,,
+,,switch,switch.ui_lovelace_minimalist_pre_release,UI Lovelace Minimalist Pre-release,,,,,off,,
+,,switch,switch.banner_card_pre_release,Banner Card Pre-release,,,,,off,,
+,,switch,switch.power_distribution_card_pre_release,power-distribution-card Pre-release,,,,,off,,
+,,switch,switch.solar_optimizer_pre_release,Solar Optimizer Pre-release,,,,,off,,
+,,switch,switch.iphone_device_tracker_pre_release,iPhone Device Tracker Pre-release,,,,,off,,
+,,switch,switch.irrigation_unlimited_card_pre_release,Irrigation Unlimited Card Pre-release,,,,,off,,
+,,switch,switch.navbar_card_pre_release,Navbar card Pre-release,,,,,off,,
+,,switch,switch.lovelace_lock_card_pre_release,Lovelace Lock Card Pre-release,,,,,off,,
+,,switch,switch.astroweather_pre_release,AstroWeather Pre-release,,,,,off,,
+,,switch,switch.hikvision_nvr_ip_camera_pre_release,Hikvision NVR / IP Camera Pre-release,,,,,off,,
+,,switch,switch.todoist_card_pre_release,Todoist Card Pre-release,,,,,off,,
+,,switch,switch.anniversaries_pre_release,Anniversaries Pre-release,,,,,off,,
+,,switch,switch.hik_connect_pre_release,Hik-Connect Pre-release,,,,,off,,
+,,switch,switch.hacs_pre_release,HACS Pre-release,,,,,off,,
+,,switch,switch.xtend_tuya_pre_release,Xtend Tuya Pre-release,,,,,off,,
+,,switch,switch.blitzortung_lightning_card_pre_release,Blitzortung Lightning Card Pre-release,,,,,off,,
+,,switch,switch.ai_automation_suggester_pre_release,AI Automation Suggester Pre-release,,,,,off,,
+,,switch,switch.eskom_loadshedding_interface_pre_release,Eskom Loadshedding Interface Pre-release,,,,,off,,
+,,switch,switch.developer_tools_pre_release,Developer tools Pre-release,,,,,off,,
+,,switch,switch.energy_gauge_bundle_card_pre_release,Energy Gauge Bundle Card Pre-release,,,,,off,,
+,,switch,switch.state_switch_pre_release,state-switch Pre-release,,,,,off,,
+,,switch,switch.text_divider_row_pre_release,Text Divider Row Pre-release,,,,,off,,
+,,switch,switch.cloudflare_speed_test_pre_release,Cloudflare Speed Test Pre-release,,,,,off,,
+,,switch,switch.solar_bar_card_pre_release,Solar Bar Card Pre-release,,,,,off,,
+,,switch,switch.node_red_companion_pre_release,Node-RED Companion Pre-release,,,,,off,,
+,,switch,switch.wallpanel_pre_release,WallPanel Pre-release,,,,,off,,
+,,switch,switch.gauge_card_pro_pre_release,Gauge Card Pro Pre-release,,,,,off,,
+,,switch,switch.github_flexi_card_entity_row_pre_release,Github Flexi Card / Entity Row Pre-release,,,,,off,,
+,,switch,switch.apexcharts_card_pre_release,apexcharts-card Pre-release,,,,,off,,
+,,switch,switch.weather_radar_card_pre_release,Weather Radar Card Pre-release,,,,,off,,
+,,switch,switch.ipv64_pre_release,IPv64 Pre-release,,,,,off,,
+,,switch,switch.office_365_pre_release,Office 365 Pre-release,,,,,off,,
+,,switch,switch.energy_overview_card_pre_release,Energy Overview Card Pre-release,,,,,off,,
+,,switch,switch.vertical_stack_in_card_pre_release,Vertical Stack In Card Pre-release,,,,,off,,
+,,switch,switch.better_thermostat_ui_pre_release,Better Thermostat UI Pre-release,,,,,off,,
+,,switch,switch.home_maintenance_pre_release,Home Maintenance Pre-release,,,,,off,,
+,,update,update.button_card_update,button-card update,,,,,off,,
+,,update,update.custom_ui_update,Custom-ui update,,,,,off,,
+,,update,update.layout_card_update,layout-card update,,,,,off,,
+,,update,update.flexible_horseshoe_card_for_lovelace_update,Flexible Horseshoe Card for Lovelace update,,,,,off,,
+,,update,update.battery_notes_update,Battery Notes update,,,,,off,,
+,,update,update.google_home_update,Google Home update,,,,,off,,
+,,update,update.custom_attributes_update,Custom-Attributes update,,,,,off,,
+,,update,update.room_summary_card_update,Room Summary Card update,,,,,on,,
+,,update,update.pyscript_update,pyscript update,,,,,off,,
+,,update,update.slider_button_card_update,Slider Button Card update,,,,,off,,
+,,update,update.power_flow_card_update,Power Flow Card update,,,,,off,,
+,,update,update.card_mod_update,card-mod update,,,,,off,,
+,,update,update.power_wheel_card_update,Power wheel card update,,,,,off,,
+,,update,update.config_template_card_update,Config Template Card update,,,,,off,,
+,,update,update.battery_entity_row_update,Battery Entity Row update,,,,,off,,
+,,update,update.browser_mod_update,browser_mod update,,,,,off,,
+,,update,update.sunsynk_power_flow_card_update,Sunsynk Power Flow Card update,,,,,off,,
+,,update,update.advanced_camera_card_update,Advanced Camera Card update,,,,,off,,
+,,update,update.flex_table_highly_customizable_data_visualization_update,"Flex Table - Highly customizable, Data visualization update",,,,,off,,
+,,update,update.watchman_update,Watchman update,,,,,off,,
+,,update,update.netgear_plus_update,Netgear Plus update,,,,,off,,
+,,update,update.ids_hyyp_hawkmod_update,IDS Hyyp (hawkMod) update,,,,,off,,
+,,update,update.alexa_media_player_update,Alexa Media Player update,,,,,off,,
+,,update,update.tp_link_router_update,TP-Link Router update,,,,,off,,
+,,update,update.horizon_card_update,Horizon Card update,,,,,off,,
+,,update,update.simple_weather_card_update,Simple Weather Card update,,,,,off,,
+,,update,update.energy_flow_card_plus_update,Energy Flow Card Plus update,,,,,off,,
+,,update,update.local_tuya_update,Local Tuya update,,,,,off,,
+,,update,update.bubble_card_update,Bubble Card update,,,,,off,,
+,,update,update.github_card_update,Github Card update,,,,,off,,
+,,update,update.samsungtv_smart_update,SamsungTV Smart update,,,,,off,,
+,,update,update.ha_floorplan_your_imagination_almost_defines_the_limits_update,ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits update,,,,,off,,
+,,update,update.home_assistant_entity_visualizer_update,Home Assistant Entity Visualizer update,,,,,off,,
+,,update,update.mushroom_update,Mushroom update,,,,,off,,
+,,update,update.sonoff_lan_update,Sonoff LAN update,,,,,off,,
+,,update,update.modern_circular_gauge_update,Modern Circular Gauge update,,,,,off,,
+,,update,update.network_scanner_update,Network Scanner update,,,,,off,,
+,,update,update.powercalc_update,Powercalc update,,,,,off,,
+,,update,update.multiple_entity_row_update,Multiple Entity Row update,,,,,off,,
+,,update,update.lightning_detector_card_update,Lightning Detector Card update,,,,,off,,
+,,update,update.power_flow_card_plus_update,Power Flow Card Plus update,,,,,off,,
+,,update,update.bar_card_update,Bar Card update,,,,,off,,
+,,update,update.plotly_graph_card_update,Plotly Graph Card update,,,,,off,,
+,,update,update.entities_button_group_update,Entities Button Group update,,,,,off,,
+,,update,update.logbook_card_update,Logbook Card update,,,,,off,,
+,,update,update.radar_card_update,Radar card update,,,,,off,,
+,,update,update.webrtc_camera_update,WebRTC Camera update,,,,,off,,
+,,update,update.auto_entities_update,auto-entities update,,,,,off,,
+,,update,update.spotify_lovelace_card_update,Spotify Lovelace Card update,,,,,off,,
+,,update,update.canvas_gauge_card_update,Canvas Gauge Card update,,,,,off,,
+,,update,update.matterbridge_whatsapp_custom_notification_notify_update,matterbridge whatsapp custom notification / notify update,,,,,off,,
+,,update,update.card_tools_update,card-tools update,,,,,off,,
+,,update,update.mini_climate_card_update,mini climate card update,,,,,off,,
+,,update,update.dwains_dashboard_update,Dwains Dashboard update,,,,,off,,
+,,update,update.energy_entity_row_update,Energy Entity row update,,,,,off,,
+,,update,update.balena_cloud_update,Balena Cloud update,,,,,off,,
+,,update,update.uptime_card_update,Uptime Card update,,,,,off,,
+,,update,update.battery_state_card_entity_row_update,Battery State Card / Entity Row update,,,,,off,,
+,,update,update.mushroom_dashboard_strategy_update,Mushroom Dashboard Strategy update,,,,,off,,
+,,update,update.mini_graph_card_update,mini-graph-card update,,,,,off,,
+,,update,update.microsoft_365_to_do_update,Microsoft 365 - To Do update,,,,,off,,
+,,update,update.surveillance_card_update,surveillance-card update,,,,,off,,
+,,update,update.extended_gauge_card_update,Extended Gauge Card update,,,,,off,,
+,,update,update.kiosk_mode_update,Kiosk Mode update,,,,,off,,
+,,update,update.microsoft_365_calendar_update,Microsoft 365 - Calendar update,,,,,off,,
+,,update,update.mqtt_discoverystream_alt_update,MQTT DiscoveryStream Alt update,,,,,off,,
+,,update,update.sankey_chart_card_update,Sankey Chart Card update,,,,,off,,
+,,update,update.slider_entity_row_update,slider-entity-row update,,,,,off,,
+,,update,update.smart_irrigation_update,Smart Irrigation update,,,,,off,,
+,,update,update.atomic_calendar_revive_update,Atomic Calendar Revive update,,,,,off,,
+,,update,update.stack_in_card_update,Stack In Card update,,,,,off,,
+,,update,update.flightradar24_update,Flightradar24 update,,,,,off,,
+,,update,update.youtube_update,youtube update,,,,,off,,
+,,update,update.frigate_update,Frigate update,,,,,off,,
+,,update,update.astroweather_card_update,AstroWeather Card update,,,,,off,,
+,,update,update.blitzortung_org_lightning_detector_update,Blitzortung.org Lightning Detector update,,,,,off,,
+,,update,update.load_shedding_update,Load Shedding update,,,,,off,,
+,,update,update.mushroom_better_sliders_update,Mushroom - Better Sliders update,,,,,off,,
+,,update,update.utility_meter_next_gen_update,Utility Meter Next Gen update,,,,,off,,
+,,update,update.ui_lovelace_minimalist_update,UI Lovelace Minimalist update,,,,,off,,
+,,update,update.banner_card_update,Banner Card update,,,,,off,,
+,,update,update.power_distribution_card_update,power-distribution-card update,,,,,off,,
+,,update,update.solar_optimizer_update,Solar Optimizer update,,,,,off,,
+,,update,update.iphone_device_tracker_update,iPhone Device Tracker update,,,,,off,,
+,,update,update.irrigation_unlimited_card_update,Irrigation Unlimited Card update,,,,,off,,
+,,update,update.navbar_card_update,Navbar card update,,,,,off,,
+,,update,update.lovelace_lock_card_update,Lovelace Lock Card update,,,,,off,,
+,,update,update.astroweather_update,AstroWeather update,,,,,off,,
+,,update,update.hikvision_nvr_ip_camera_update,Hikvision NVR / IP Camera update,,,,,off,,
+,,update,update.todoist_card_update,Todoist Card update,,,,,off,,
+,,update,update.anniversaries_update,Anniversaries update,,,,,off,,
+,,update,update.hik_connect_update,Hik-Connect update,,,,,off,,
+,,update,update.hacs_update,HACS update,,,,,off,,
+,,update,update.xtend_tuya_update,Xtend Tuya update,,,,,off,,
+,,update,update.blitzortung_lightning_card_update,Blitzortung Lightning Card update,,,,,off,,
+,,update,update.ai_automation_suggester_update,AI Automation Suggester update,,,,,off,,
+,,update,update.eskom_loadshedding_interface_update,Eskom Loadshedding Interface update,,,,,off,,
+,,update,update.developer_tools_update,Developer tools update,,,,,off,,
+,,update,update.energy_gauge_bundle_card_update,Energy Gauge Bundle Card update,,,,,off,,
+,,update,update.state_switch_update,state-switch update,,,,,off,,
+,,update,update.text_divider_row_update,Text Divider Row update,,,,,off,,
+,,update,update.cloudflare_speed_test_update,Cloudflare Speed Test update,,,,,off,,
+,,update,update.solar_bar_card_update,Solar Bar Card update,,,,,off,,
+,,update,update.node_red_companion_update,Node-RED Companion update,,,,,off,,
+,,update,update.wallpanel_update,WallPanel update,,,,,off,,
+,,update,update.gauge_card_pro_update,Gauge Card Pro update,,,,,off,,
+,,update,update.github_flexi_card_entity_row_update,Github Flexi Card / Entity Row update,,,,,off,,
+,,update,update.apexcharts_card_update,apexcharts-card update,,,,,off,,
+,,update,update.weather_radar_card_update,Weather Radar Card update,,,,,off,,
+,,update,update.ipv64_update,IPv64 update,,,,,off,,
+,,update,update.office_365_update,Office 365 update,,,,,off,,
+,,update,update.energy_overview_card_update,Energy Overview Card update,,,,,off,,
+,,update,update.vertical_stack_in_card_update,Vertical Stack In Card update,,,,,off,,
+,,update,update.better_thermostat_ui_update,Better Thermostat UI update,,,,,off,,
+,,update,update.home_maintenance_update,Home Maintenance update,,,,,off,,
+,,media_player,media_player.enricos_pod,Enrico’s Pod,,,,,off,,
+,,remote,remote.enricos_pod,Enrico’s Pod,,,,,off,,
+,energy,sensor,sensor.energy_production_today,Solar production forecast Estimated energy production - today,,,,,0.0,,kWh
+,energy,sensor,sensor.energy_production_today_remaining,Solar production forecast Estimated energy production - remaining today,,,,,0.0,,kWh
+,energy,sensor,sensor.energy_production_tomorrow,Solar production forecast Estimated energy production - tomorrow,,,,,0.0,,kWh
+,timestamp,sensor,sensor.power_highest_peak_time_today,Solar production forecast Highest power peak time - today,,,,,2025-10-23T03:24:40+00:00,,
+,timestamp,sensor,sensor.power_highest_peak_time_tomorrow,Solar production forecast Highest power peak time - tomorrow,,,,,2025-10-23T03:24:40+00:00,,
+,power,sensor,sensor.power_production_now,Solar production forecast Estimated power production - now,,,,,0,,W
+,power,sensor,sensor.power_production_next_hour,Solar production forecast Estimated power production - in 1 hour,,,,,0,,W
+,power,sensor,sensor.power_production_next_12hours,Solar production forecast Estimated power production - in 12 hours,,,,,0,,W
+,power,sensor,sensor.power_production_next_24hours,Solar production forecast Estimated power production - in 24 hours,,,,,0,,W
+,energy,sensor,sensor.energy_current_hour,Solar production forecast Estimated energy production - this hour,,,,,0.0,,kWh
+,energy,sensor,sensor.energy_next_hour,Solar production forecast Estimated energy production - next hour,,,,,0.0,,kWh
+,,notify,notify.notify_via_telegram,Johan Barkhuizen (6167623299),,,,,unknown,,
+,,notify,notify.telegram_bot_6968699549_4224498328,BarkieHome (-4224498328),,,,,unknown,,
+,,todo,todo.shopping_list,Shopping List,,,,,0,,
+,,weather,weather.forecast_home_2,Forecast Home,69,,,,sunny,10.5,
+,,sensor,sensor.current_version,Current Version,,,,,2025.10.3,,
+,,conversation,conversation.google_ai_conversation,Google AI Conversation,,,,,unknown,,
+,,stt,stt.google_ai_stt,Google AI STT,,,,,unknown,,
+,,tts,tts.google_ai_tts,Google AI TTS,,,,,unknown,,
+,,sensor,sensor.25_8408252_28_2475291,"-25.8408252, 28.2475291",,,,,0,,alerts
+,,conversation,conversation.openai_conversation,OpenAI Conversation,,,,,unknown,,
+,,weather,weather.forecast_home,Forecast Smart Home - Pierre van Ryneveld,69,,,,sunny,10.5,
+,,switch,switch.adguard_home_protection,AdGuard Home Protection,,,,,on,,
+,,sensor,sensor.adguard_home_dns_queries,AdGuard Home DNS queries,,,,,0,,queries
+,,sensor,sensor.adguard_home_parental_control_blocked,AdGuard Home Parental control blocked,,,,,0,,requests
+,,sensor,sensor.adguard_home_dns_queries_blocked_ratio,AdGuard Home DNS queries blocked ratio,,,,,0.00,,%
+,,sensor,sensor.adguard_home_dns_queries_blocked,AdGuard Home DNS queries blocked,,,,,0,,queries
+,,media_player,media_player.vlc_telnet,VLC-TELNET,,,,,idle,,
+,,ai_task,ai_task.google_ai_task,Google AI Task,,,,,unknown,,
+,,ai_task,ai_task.openai_ai_task,OpenAI AI Task,,,,,unknown,,
+,,switch,switch.adguard_home_parental_control,AdGuard Home Parental control,,,,,off,,
+,,sensor,sensor.adguard_home_safe_browsing_blocked,AdGuard Home Safe browsing blocked,,,,,0,,requests
+,,sensor,sensor.adguard_home_safe_searches_enforced,AdGuard Home Safe searches enforced,,,,,0,,requests
+,,sensor,sensor.adguard_home_rules_count,AdGuard Home Rules count,,,,,141643,,rules
+,,sensor,sensor.adguard_home_average_processing_speed,AdGuard Home Average processing speed,,,,,0,,ms
+,,sensor,sensor.ai_automation_suggestions_google,AI Automation Suggestions (Google),,,,,New Suggestions Available,,
+,,switch,switch.adguard_home_safe_search,AdGuard Home Safe search,,,,,on,,
+,,todo,todo.inbox,Inbox,,,,,4,,
+,,todo,todo.johan,Johan,,,,,14,,
+,,todo,todo.linandi,Linandi,,,,,0,,
+,,todo,todo.charlize,Charlize,,,,,2,,
+,,todo,todo.enrico,Enrico,,,,,0,,
+,,switch,switch.adguard_home_safe_browsing,AdGuard Home Safe browsing,,,,,off,,
+,,switch,switch.adguard_home_filtering,AdGuard Home Filtering,,,,,on,,
+,,switch,switch.adguard_home_query_log,AdGuard Home Query log,,,,,on,,
+,frequency,sensor,sensor.cpu_speed,CPU Speed,,,,,2.48,,GHz
+,,calendar,calendar.inbox,Inbox,,,,,on,,
+,,calendar,calendar.johan,Johan,,,,,on,,
+,,calendar,calendar.linandi,Linandi,,,,,off,,
+,,calendar,calendar.charlize,Charlize,,,,,on,,
+,,calendar,calendar.enrico,Enrico,,,,,off,,
+,,notify,notify.sensor_export,Export Sensors to CSV File,,,,,unknown,,
+,,sensor,sensor.flightradar24_current_in_area,FlightRadar24 Current in area,,,2025-10-23T05:59:50.902841,,0,,
+,,sensor,sensor.flightradar24_entered_area,FlightRadar24 Entered area,,,2025-10-23T05:59:50.903807,,0,,
+,,sensor,sensor.flightradar24_exited_area,FlightRadar24 Exited area,,,2025-10-23T05:59:50.904418,,0,,
+,,sensor,sensor.flightradar24_most_tracked,FlightRadar24 Most tracked,,,2025-10-23T05:59:50.905303,,10,,
+,,sensor,sensor.flightradar24_additional_tracked,FlightRadar24 Additional tracked,,,2025-10-23T05:59:50.905932,,0,,
+,,switch,switch.api_data_fetching,API data fetching,,,,,on,,
+,,text,text.flightradar24_add_to_track,FlightRadar24 Add to track,,,,,,,
+,,text,text.flightradar24_remove_from_track,FlightRadar24 Remove from track,,,,,,,
+,restart,button,button.clear_additional_tracked,Clear Additional tracked,,,,,unknown,,
+,,number,number.deyeinvertermaster_timezone1_soc,DeyeInverterMaster Timezone1 SoC,,,,,40.0,,%
+,,number,number.deyeinvertermaster_timezone2_soc,DeyeInverterMaster Timezone2 SoC,,,,,35.0,,%
+,,number,number.deyeinvertermaster_timezone3_soc,DeyeInverterMaster Timezone3 SoC,,,,,90.0,,%
+,,number,number.deyeinvertermaster_timezone4_soc,DeyeInverterMaster Timezone4 SoC,,,,,85.0,,%
+,,number,number.deyeinvertermaster_timezone5_soc,DeyeInverterMaster Timezone5 SoC,,,,,60.0,,%
+,,number,number.deyeinvertermaster_timezone6_soc,DeyeInverterMaster Timezone6 SoC,,,,,50.0,,%
+,,number,number.deyeinvertermaster_timezone1_power,DeyeInverterMaster Timezone1 power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_timezone2_power,DeyeInverterMaster Timezone2 power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_timezone3_power,DeyeInverterMaster Timezone3 power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_timezone4_power,DeyeInverterMaster Timezone4 power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_timezone5_power,DeyeInverterMaster Timezone5 power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_timezone6_power,DeyeInverterMaster Timezone6 power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_timezone1_voltage,DeyeInverterMaster Timezone1 Voltage,,,,,49.0,,V
+,,number,number.deyeinvertermaster_timezone2_voltage,DeyeInverterMaster Timezone2 Voltage,,,,,49.0,,V
+,,number,number.deyeinvertermaster_timezone3_voltage,DeyeInverterMaster Timezone3 Voltage,,,,,49.0,,V
+,,number,number.deyeinvertermaster_timezone4_voltage,DeyeInverterMaster Timezone4 Voltage,,,,,49.0,,V
+,,number,number.deyeinvertermaster_timezone5_voltage,DeyeInverterMaster Timezone5 Voltage,,,,,49.0,,V
+,,number,number.deyeinvertermaster_timezone6_voltage,DeyeInverterMaster Timezone6 Voltage,,,,,49.0,,V
+,,number,number.deyeinvertermaster_timezone1_time,DeyeInverterMaster Timezone1 Time,,,,,100.0,,
+,,number,number.deyeinvertermaster_timezone2_time,DeyeInverterMaster Timezone2 Time,,,,,500.0,,
+,,number,number.deyeinvertermaster_timezone3_time,DeyeInverterMaster Timezone3 Time,,,,,900.0,,
+,,number,number.deyeinvertermaster_timezone4_time,DeyeInverterMaster Timezone4 time,,,,,1300.0,,
+,,number,number.deyeinvertermaster_timezone5_time,DeyeInverterMaster Timezone5 time,,,,,1700.0,,
+,,number,number.deyeinvertermaster_timezone6_time,DeyeInverterMaster Timezone6 time,,,,,2100.0,,
+,current,number,number.deyeinvertermaster_battery_max_charge,DeyeInverterMaster Battery Max Charge,,,,,90.0,,A
+,current,number,number.deyeinvertermaster_battery_max_discharge,DeyeInverterMaster Battery Max Discharge,,,,,110.0,,A
+,battery,number,number.deyeinvertermaster_battery_shutdown,DeyeInverterMaster Battery Shutdown,,,,,20.0,,%
+,battery,number,number.deyeinvertermaster_battery_low_warning,DeyeInverterMaster Battery Low warning,,,,,25.0,,%
+,battery,number,number.deyeinvertermaster_battery_restart,DeyeInverterMaster Battery Restart,,,,,30.0,,%
+,current,number,number.deyeinvertermaster_grid_charge_current,DeyeInverterMaster Grid Charge Current,,,,,40.0,,A
+,current,number,number.deyeinvertermaster_generator_charge_current,DeyeInverterMaster Generator Charge Current,,,,,40.0,,A
+,power,number,number.deyeinvertermaster_export_limit,DeyeInverterMaster Export Limit,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_generator_peak_shaving_power,DeyeInverterMaster Generator Peak shaving power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_grid_peak_shaving_power,DeyeInverterMaster Grid Peak shaving power,,,,,8000.0,,W
+,,number,number.deyeinvertermaster_battery_equalization_voltage,DeyeInverterMaster Battery Equalization Voltage,,,,,55.2,,V
+,,number,number.deyeinvertermaster_battery_absorption_voltage,DeyeInverterMaster Battery Absorption Voltage,,,,,55.2,,V
+,,number,number.deyeinvertermaster_battery_float_voltage,DeyeInverterMaster Battery Float Voltage,,,,,53.6,,V
+,,number,number.deyeinvertermaster_battery_capacity_ah,DeyeInverterMaster Battery Capacity Ah,,,,,400.0,,Ah
+,,number,number.deyeinvertermaster_zero_export_grid_feed,DeyeInverterMaster Zero export Grid Feed,,,,,100.0,,W
+,battery,number,number.deyeinvertermaster_smart_load_on,DeyeInverterMaster Smart Load On,,,,,100.0,,%
+,battery,number,number.deyeinvertermaster_smart_load_off,DeyeInverterMaster Smart Load Off,,,,,95.0,,%
+,battery,number,number.deyeinvertermaster_generator_start_charge,DeyeInverterMaster Generator Start Charge,,,,,10.0,,%
+,,number,number.deyeinvertermaster_smart_load_power,DeyeInverterMaster Smart Load Power,,,,,0.0,,W
+,,number,number.deyeinvertermaster_generator_run_time,DeyeInverterMaster Generator Run Time,,,,,24.0,,H
+,,number,number.deyeinvertermaster_generator_down_time,DeyeInverterMaster Generator Down Time,,,,,0.0,,H
+,,switch,switch.deyeinvertermaster_wifi_logger_restart,DeyeInverterMaster Wifi logger Restart,,,,,off,,
+,,switch,switch.deyeinvertermaster_time_of_use,DeyeInverterMaster Time of Use,,,,,on,,
+,,switch,switch.deyeinvertermaster_export_solar_enabled,DeyeInverterMaster Export Solar Enabled,,,,,off,,
+,,switch,switch.deyeinvertermaster_battery_generator_charge_enabled,DeyeInverterMaster Battery Generator Charge Enabled,,,,,off,,
+,,switch,switch.deyeinvertermaster_battery_grid_charge_enabled,DeyeInverterMaster Battery Grid Charge Enabled,,,,,off,,
+,,switch,switch.deyeinvertermaster_force_generator,DeyeInverterMaster Force Generator,,,,,off,,
+,,switch,switch.deyeinvertermaster_signal_island_mode,DeyeInverterMaster Signal Island Mode,,,,,on,,
+,,sensor,sensor.deyeinvertermaster_wifi_logger_signal,DeyeInverterMaster Wifi logger signal,,,,,76.0,,%
+,duration,sensor,sensor.deyeinvertermaster_wifi_logger_uptime,DeyeInverterMaster Wifi logger Uptime,,,,,1204114.75,,s
+,energy,sensor,sensor.deyeinvertermaster_summary_total_battery_charge,DeyeInverterMaster Summary Total Battery Charge,,,,,0.293799996376038,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_battery_discharge,DeyeInverterMaster Summary Total Battery Discharge,,,,,0.135499998927116,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_grid_export_sell,DeyeInverterMaster Summary Total Grid Export(Sell),,,,,0.000199999994947575,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_grid_import_buy,DeyeInverterMaster Summary Total Grid Import(Buy),,,,,0.242500007152557,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_load,DeyeInverterMaster Summary Total Load,,,,,0.48759999871254,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_total_pv,DeyeInverterMaster Summary Total PV,,,,,0.532899975776672,,MWh
+,power,sensor,sensor.deyeinvertermaster_grid_load,DeyeInverterMaster Grid Load,,,,,742.0,,W
+,power,sensor,sensor.deyeinvertermaster_grid_load_l1,DeyeInverterMaster Grid Load L1,,,,,742.0,,W
+,power,sensor,sensor.deyeinvertermaster_grid_load_l2,DeyeInverterMaster Grid Load L2,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertermaster_load_power_l1,DeyeInverterMaster Load Power L1,,,,,122.0,,W
+,power,sensor,sensor.deyeinvertermaster_load_power_l2,DeyeInverterMaster Load Power L2,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertermaster_load_power,DeyeInverterMaster Load Power,,,,,122.0,,W
+,,sensor,sensor.deyeinvertermaster_pv1_voltage,DeyeInverterMaster PV1 Voltage,,,,,124.900001525879,,V
+,,sensor,sensor.deyeinvertermaster_pv1_current,DeyeInverterMaster PV1 Current,,,,,0.100000001490116,,A
+,power,sensor,sensor.deyeinvertermaster_pv1_power,DeyeInverterMaster PV1 Power,,,,,18.0,,W
+,,sensor,sensor.deyeinvertermaster_pv2_voltage,DeyeInverterMaster PV2 Voltage,,,,,238.5,,V
+,,sensor,sensor.deyeinvertermaster_pv2_current,DeyeInverterMaster PV2 Current,,,,,0.100000001490116,,A
+,power,sensor,sensor.deyeinvertermaster_pv2_power,DeyeInverterMaster PV2 Power,,,,,43.0,,W
+,,sensor,sensor.deyeinvertermaster_pv3_voltage,DeyeInverterMaster PV3 Voltage,,,,,0.0,,V
+,,sensor,sensor.deyeinvertermaster_pv3_current,DeyeInverterMaster PV3 Current,,,,,0.0,,A
+,,sensor,sensor.deyeinvertermaster_pv4_voltage,DeyeInverterMaster PV4 Voltage,,,,,0.0,,V
+,,sensor,sensor.deyeinvertermaster_pv4_current,DeyeInverterMaster PV4 Current,,,,,0.0,,A
+,power,sensor,sensor.deyeinvertermaster_pv3_power,DeyeInverterMaster PV3 Power,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertermaster_pv4_power,DeyeInverterMaster PV4 Power,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertermaster_pv_power,DeyeInverterMaster PV Power,,,,,58.0,,W
+,power,sensor,sensor.deyeinvertermaster_battery_output_power,DeyeInverterMaster Battery Output Power,,,,,-96.0,,W
+,battery,sensor,sensor.deyeinvertermaster_battery_soc,DeyeInverterMaster Battery SOC,,,,,0.0,,%
+,,sensor,sensor.deyeinvertermaster_grid_frequency,DeyeInverterMaster Grid Frequency,,,,,50.1499977111816,,hz
+,,sensor,sensor.deyeinvertermaster_load_frequency,DeyeInverterMaster Load Frequency,,,,,50.1499977111816,,hz
+,voltage,sensor,sensor.deyeinvertermaster_battery_voltage,DeyeInverterMaster Battery Voltage,,,,,52.25,,V
+,voltage,sensor,sensor.deyeinvertermaster_grid_voltage_l1,DeyeInverterMaster Grid Voltage L1,,,,,241.100006103516,,V
+,voltage,sensor,sensor.deyeinvertermaster_grid_voltage_l2,DeyeInverterMaster Grid Voltage L2,,,,,0.0,,V
+,voltage,sensor,sensor.deyeinvertermaster_grid_voltage_l1_l2,DeyeInverterMaster Grid Voltage L1 L2,,,,,241.100006103516,,V
+,voltage,sensor,sensor.deyeinvertermaster_inverter_mid_relay_voltage_l1_l2,DeyeInverterMaster Inverter Mid Relay Voltage L1 L2,,,,,241.0,,V
+,voltage,sensor,sensor.deyeinvertermaster_inverter_output_voltage_l1,DeyeInverterMaster Inverter Output Voltage L1,,,,,241.800003051758,,V
+,voltage,sensor,sensor.deyeinvertermaster_inverter_output_voltage_l2,DeyeInverterMaster Inverter Output Voltage L2,,,,,0.0,,V
+,voltage,sensor,sensor.deyeinvertermaster_inverter_output_voltage_l1_l2,DeyeInverterMaster Inverter Output Voltage L1-L2,,,,,241.800003051758,,V
+,voltage,sensor,sensor.deyeinvertermaster_load_voltage_l1,DeyeInverterMaster Load Voltage L1,,,,,241.0,,V
+,voltage,sensor,sensor.deyeinvertermaster_load_voltage_l2,DeyeInverterMaster Load Voltage L2,,,,,0.0,,V
+,voltage,sensor,sensor.deyeinvertermaster_battery_charge_voltage,DeyeInverterMaster Battery Charge Voltage,,,,,55.0,,V
+,power,sensor,sensor.deyeinvertermaster_grid_power_ct_clamp,DeyeInverterMaster Grid Power (CT Clamp),,,,,597.0,,W
+,power,sensor,sensor.deyeinvertermaster_grid_power_l1_ct_clamp,DeyeInverterMaster Grid Power L1 (CT Clamp),,,,,597.0,,W
+,power,sensor,sensor.deyeinvertermaster_grid_power_l2_ct_clamp,DeyeInverterMaster Grid Power L2 (CT Clamp),,,,,0.0,,W
+,power,sensor,sensor.deyeinvertermaster_generator_port_power,DeyeInverterMaster Generator Port Power,,,,,0.0,,W
+,current,sensor,sensor.deyeinvertermaster_grid_current_l1,DeyeInverterMaster Grid Current L1,,,,,3.23000001907349,,A
+,current,sensor,sensor.deyeinvertermaster_grid_current_l2,DeyeInverterMaster Grid Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinvertermaster_grid_external_current_l1,DeyeInverterMaster Grid External Current L1,,,,,3.76999998092651,,A
+,current,sensor,sensor.deyeinvertermaster_grid_external_current_l2,DeyeInverterMaster Grid External Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinvertermaster_inverter_output_current_l1,DeyeInverterMaster Inverter Output Current L1,,,,,0.5,,A
+,current,sensor,sensor.deyeinvertermaster_inverter_output_current_l2,DeyeInverterMaster Inverter Output Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinvertermaster_load_current_l1,DeyeInverterMaster Load Current L1,,,,,1.22000002861023,,A
+,current,sensor,sensor.deyeinvertermaster_load_current_l2,DeyeInverterMaster Load Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinvertermaster_battery_output_current,DeyeInverterMaster Battery Output Current,,,,,-1.83999991416931,,A
+,temperature,sensor,sensor.deyeinvertermaster_battery_temperature,DeyeInverterMaster Battery Temperature,,,,,22.2000007629395,,°C
+,temperature,sensor,sensor.deyeinvertermaster_temperature_dc_transformer,DeyeInverterMaster Temperature DC Transformer,,,,,49.1000022888184,,°C
+,temperature,sensor,sensor.deyeinvertermaster_temperature_ac_transformer,DeyeInverterMaster Temperature AC Transformer,,,,,44.2000007629395,,°C
+,energy,sensor,sensor.deyeinvertermaster_summary_day_grid_import_buy,DeyeInverterMaster Summary Day Grid Import(Buy),,,,,4.90000009536743,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_month_grid_delta,DeyeInverterMaster Summary Month Grid Delta,,,,,352.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_month_grid_import_buy,DeyeInverterMaster Summary Month Grid Import(Buy),,,,,107.899993896484,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_grid_export_sell,DeyeInverterMaster Summary Day Grid Export(Sell),,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_load,DeyeInverterMaster Summary Day Load,,,,,1.89999997615814,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_month_load,DeyeInverterMaster Summary Month Load,,,,,459.899993896484,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_year_load,DeyeInverterMaster Summary Year Load,,,,,0.459899991750717,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv,DeyeInverterMaster Summary Day PV,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_month_pv,DeyeInverterMaster Summary Month PV,,,,,525.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_year_pv,DeyeInverterMaster Summary Year PV,,,,,0.524999976158142,,MWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_battery_charge,DeyeInverterMaster Summary Day Battery Charge,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_battery_discharge,DeyeInverterMaster Summary Day Battery Discharge,,,,,1.39999997615814,,kWh
+,power,sensor,sensor.deyeinvertermaster_inverter_output_power,DeyeInverterMaster Inverter Output Power,,,,,-49.0,,W
+,power,sensor,sensor.deyeinvertermaster_inverter_output_power_l1,DeyeInverterMaster Inverter Output Power L1,,,,,-49.0,,W
+,power,sensor,sensor.deyeinvertermaster_inverter_output_power_l2,DeyeInverterMaster Inverter Output Power L2,,,,,0.0,,W
+,power,sensor,sensor.deyeinvertermaster_inverter_rated_power,DeyeInverterMaster Inverter Rated Power,,,,,8000.0,,W
+,energy,sensor,sensor.deyeinvertermaster_summary_day_aux_energy,DeyeInverterMaster Summary Day Aux Energy,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv1,DeyeInverterMaster Summary Day PV1,,,,,0.00103963061701506,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv2,DeyeInverterMaster Summary Day PV2,,,,,0.00698704365640879,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv3,DeyeInverterMaster Summary Day PV3,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinvertermaster_summary_day_pv4,DeyeInverterMaster Summary Day PV4,,,,,0.0,,kWh
+,,sensor,sensor.deyeinvertermaster_wifi_ip_address,DeyeInverterMaster Wifi IP Address,,,,,192.168.1.107,,
+,,sensor,sensor.deyeinvertermaster_wifi_logger_ssid,DeyeInverterMaster Wifi logger SSID,,,,,Barkie 2.4G,,
+,,sensor,sensor.deyeinvertermaster_wifi_logger_mac,DeyeInverterMaster Wifi logger MAC,,,,,7E:DA:88:CB:53:30,,
+,,sensor,sensor.deyeinvertermaster_wifi_mdns_name,DeyeInverterMaster Wifi mDNS Name,,,,,invertermaster.local,,
+,,sensor,sensor.deyeinvertermaster_inverter_system_state,DeyeInverterMaster Inverter System State,,,,,normal,,
+,,sensor,sensor.deyeinvertermaster_inverter_serial_number,DeyeInverterMaster Inverter Serial Number,,,,,2305148809,,
+,,sensor,sensor.deyeinvertermaster_inverter_warning,DeyeInverterMaster Inverter Warning,,,,,000000000000000000000000,,
+,,sensor,sensor.deyeinvertermaster_inverter_fault,DeyeInverterMaster Inverter fault,,,,,0000000000000000,,
+,,sensor,sensor.deyeinvertermaster_inverter_remote_lock,DeyeInverterMaster Inverter remote lock,,,,,00ff,,
+,,sensor,sensor.deyeinvertermaster_inverter_time,DeyeInverterMaster Inverter time,,,,,2025-10-23 05:59:26,,
+,,sensor,sensor.deyeinvertermaster_wifi_logger_firmware_function,DeyeInverterMaster Wifi Logger Firmware Function,,,,,Master,,
+,,select,select.deyeinvertermaster_load_limit_exp_ess_non_ess,DeyeInverterMaster Load Limit Exp/Ess/Non-Ess,,,,,Essentials,,
+,,select,select.deyeinvertermaster_energy_management_model,DeyeInverterMaster Energy Management Model,,,,,Load First Mode,,
+,,select,select.deyeinvertermaster_timezone1_charge,DeyeInverterMaster Timezone1 Charge,,,,,None,,
+,,select,select.deyeinvertermaster_timezone2_charge,DeyeInverterMaster Timezone2 Charge,,,,,None,,
+,,select,select.deyeinvertermaster_timezone3_charge,DeyeInverterMaster Timezone3 Charge,,,,,None,,
+,,select,select.deyeinvertermaster_timezone4_charge,DeyeInverterMaster Timezone4 Charge,,,,,None,,
+,,select,select.deyeinvertermaster_timezone5_charge,DeyeInverterMaster Timezone5 Charge,,,,,None,,
+,,select,select.deyeinvertermaster_timezone6_charge,DeyeInverterMaster Timezone6 Charge,,,,,None,,
+,,select,select.deyeinvertermaster_generator_peak_shaving,DeyeInverterMaster Generator Peak Shaving,,,,,Disable,,
+,,select,select.deyeinvertermaster_grid_peak_shaving,DeyeInverterMaster Grid Peak Shaving,,,,,Disable,,
+,,select,select.deyeinvertermaster_on_grid_always_on,DeyeInverterMaster On Grid Always On,,,,,Disable,,
+,,select,select.deyeinvertermaster_battery_control_mode,DeyeInverterMaster Battery control mode,,,,,Lithium,,
+,,select,select.deyeinvertermaster_battery_operation_mode,DeyeInverterMaster Battery operation mode,,,,,Capacity,,
+,,select,select.deyeinvertermaster_battery_wake_up_lithium,DeyeInverterMaster Battery Wake Up Lithium,,,,,Disable,,
+,,select,select.deyeinvertermaster_aux_port_function,DeyeInverterMaster Aux Port function,,,,,Generator input,,
+,,select,select.deyeinvertermaster_inverter_basic_settings_beep,DeyeInverterMaster Inverter Basic Settings Beep,,,,,Disable,,
+,,select,select.deyeinvertermaster_inverter_basic_settings_sync_clock,DeyeInverterMaster Inverter Basic Settings Sync Clock,,,,,Disable,,
+,,select,select.deyeinvertermaster_grid_signal,DeyeInverterMaster Grid Signal,,,,,Disable,,
+,,select,select.deyeinvertermaster_generator_signal,DeyeInverterMaster Generator Signal,,,,,Disable,,
+,connectivity,binary_sensor,binary_sensor.deyeinvertermaster_status_deyeinvertermaster,DeyeInverterMaster Status deyeinvertermaster,,,,,on,,
+,,binary_sensor,binary_sensor.deyeinvertermaster_grid_connected_status,DeyeInverterMaster Grid Connected Status,,,,,on,,
+,,binary_sensor,binary_sensor.deyeinvertermaster_generator_connected_status,DeyeInverterMaster Generator Connected Status,,,,,off,,
+,,button,button.deyeinvertermaster_inverter_sync_clock,DeyeInverterMaster Inverter Sync Clock,,,,,unknown,,
+,,number,number.deyeinverterslave_timezone1_soc,DeyeInverterSlave Timezone1 SoC,,,,,40.0,,%
+,,number,number.deyeinverterslave_timezone2_soc,DeyeInverterSlave Timezone2 SoC,,,,,35.0,,%
+,,number,number.deyeinverterslave_timezone3_soc,DeyeInverterSlave Timezone3 SoC,,,,,90.0,,%
+,,number,number.deyeinverterslave_timezone4_soc,DeyeInverterSlave Timezone4 SoC,,,,,85.0,,%
+,,number,number.deyeinverterslave_timezone5_soc,DeyeInverterSlave Timezone5 SoC,,,,,60.0,,%
+,,number,number.deyeinverterslave_timezone6_soc,DeyeInverterSlave Timezone6 SoC,,,,,50.0,,%
+,,number,number.deyeinverterslave_timezone1_power,DeyeInverterSlave Timezone1 power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_timezone2_power,DeyeInverterSlave Timezone2 power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_timezone3_power,DeyeInverterSlave Timezone3 power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_timezone4_power,DeyeInverterSlave Timezone4 power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_timezone5_power,DeyeInverterSlave Timezone5 power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_timezone6_power,DeyeInverterSlave Timezone6 power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_timezone1_voltage,DeyeInverterSlave Timezone1 Voltage,,,,,49.0,,V
+,,number,number.deyeinverterslave_timezone2_voltage,DeyeInverterSlave Timezone2 Voltage,,,,,49.0,,V
+,,number,number.deyeinverterslave_timezone3_voltage,DeyeInverterSlave Timezone3 Voltage,,,,,49.0,,V
+,,number,number.deyeinverterslave_timezone4_voltage,DeyeInverterSlave Timezone4 Voltage,,,,,49.0,,V
+,,number,number.deyeinverterslave_timezone5_voltage,DeyeInverterSlave Timezone5 Voltage,,,,,49.0,,V
+,,number,number.deyeinverterslave_timezone6_voltage,DeyeInverterSlave Timezone6 Voltage,,,,,49.0,,V
+,,number,number.deyeinverterslave_timezone1_time,DeyeInverterSlave Timezone1 Time,,,,,100.0,,
+,,number,number.deyeinverterslave_timezone2_time,DeyeInverterSlave Timezone2 Time,,,,,500.0,,
+,,number,number.deyeinverterslave_timezone3_time,DeyeInverterSlave Timezone3 Time,,,,,900.0,,
+,,number,number.deyeinverterslave_timezone4_time,DeyeInverterSlave Timezone4 time,,,,,1300.0,,
+,,number,number.deyeinverterslave_timezone5_time,DeyeInverterSlave Timezone5 time,,,,,1700.0,,
+,,number,number.deyeinverterslave_timezone6_time,DeyeInverterSlave Timezone6 time,,,,,2100.0,,
+,current,number,number.deyeinverterslave_battery_max_charge,DeyeInverterSlave Battery Max Charge,,,,,90.0,,A
+,current,number,number.deyeinverterslave_battery_max_discharge,DeyeInverterSlave Battery Max Discharge,,,,,110.0,,A
+,battery,number,number.deyeinverterslave_battery_shutdown,DeyeInverterSlave Battery Shutdown,,,,,20.0,,%
+,battery,number,number.deyeinverterslave_battery_low_warning,DeyeInverterSlave Battery Low warning,,,,,25.0,,%
+,battery,number,number.deyeinverterslave_battery_restart,DeyeInverterSlave Battery Restart,,,,,30.0,,%
+,current,number,number.deyeinverterslave_grid_charge_current,DeyeInverterSlave Grid Charge Current,,,,,40.0,,A
+,current,number,number.deyeinverterslave_generator_charge_current,DeyeInverterSlave Generator Charge Current,,,,,40.0,,A
+,power,number,number.deyeinverterslave_export_limit,DeyeInverterSlave Export Limit,,,,,8000.0,,W
+,,number,number.deyeinverterslave_generator_peak_shaving_power,DeyeInverterSlave Generator Peak shaving power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_grid_peak_shaving_power,DeyeInverterSlave Grid Peak shaving power,,,,,8000.0,,W
+,,number,number.deyeinverterslave_battery_equalization_voltage,DeyeInverterSlave Battery Equalization Voltage,,,,,55.2,,V
+,,number,number.deyeinverterslave_battery_absorption_voltage,DeyeInverterSlave Battery Absorption Voltage,,,,,55.2,,V
+,,number,number.deyeinverterslave_battery_float_voltage,DeyeInverterSlave Battery Float Voltage,,,,,53.6,,V
+,,number,number.deyeinverterslave_battery_capacity_ah,DeyeInverterSlave Battery Capacity Ah,,,,,400.0,,Ah
+,,number,number.deyeinverterslave_zero_export_grid_feed,DeyeInverterSlave Zero export Grid Feed,,,,,100.0,,W
+,battery,number,number.deyeinverterslave_smart_load_on,DeyeInverterSlave Smart Load On,,,,,100.0,,%
+,battery,number,number.deyeinverterslave_smart_load_off,DeyeInverterSlave Smart Load Off,,,,,95.0,,%
+,battery,number,number.deyeinverterslave_generator_start_charge,DeyeInverterSlave Generator Start Charge,,,,,10.0,,%
+,,number,number.deyeinverterslave_smart_load_power,DeyeInverterSlave Smart Load Power,,,,,0.0,,W
+,,number,number.deyeinverterslave_generator_run_time,DeyeInverterSlave Generator Run Time,,,,,24.0,,H
+,,number,number.deyeinverterslave_generator_down_time,DeyeInverterSlave Generator Down Time,,,,,0.0,,H
+,,switch,switch.deyeinverterslave_wifi_logger_restart,DeyeInverterSlave Wifi logger Restart,,,,,off,,
+,,switch,switch.deyeinverterslave_time_of_use,DeyeInverterSlave Time of Use,,,,,on,,
+,,switch,switch.deyeinverterslave_export_solar_enabled,DeyeInverterSlave Export Solar Enabled,,,,,off,,
+,,switch,switch.deyeinverterslave_battery_generator_charge_enabled,DeyeInverterSlave Battery Generator Charge Enabled,,,,,off,,
+,,switch,switch.deyeinverterslave_battery_grid_charge_enabled,DeyeInverterSlave Battery Grid Charge Enabled,,,,,off,,
+,,switch,switch.deyeinverterslave_force_generator,DeyeInverterSlave Force Generator,,,,,off,,
+,,switch,switch.deyeinverterslave_signal_island_mode,DeyeInverterSlave Signal Island Mode,,,,,on,,
+,,sensor,sensor.deyeinverterslave_wifi_logger_signal,DeyeInverterSlave Wifi logger signal,,,,,80.0,,%
+,duration,sensor,sensor.deyeinverterslave_wifi_logger_uptime,DeyeInverterSlave Wifi logger Uptime,,,,,1259137.625,,s
+,energy,sensor,sensor.deyeinverterslave_summary_total_battery_charge,DeyeInverterSlave Summary Total Battery Charge,,,,,0.056599996984005,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_total_battery_discharge,DeyeInverterSlave Summary Total Battery Discharge,,,,,0.214699998497963,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_total_grid_export_sell,DeyeInverterSlave Summary Total Grid Export(Sell),,,,,0.107499994337559,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_total_grid_import_buy,DeyeInverterSlave Summary Total Grid Import(Buy),,,,,0.110100001096725,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_total_load,DeyeInverterSlave Summary Total Load,,,,,0.48759999871254,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_total_pv,DeyeInverterSlave Summary Total PV,,,,,0.225400000810623,,MWh
+,power,sensor,sensor.deyeinverterslave_grid_load,DeyeInverterSlave Grid Load,,,,,-402.0,,W
+,power,sensor,sensor.deyeinverterslave_grid_load_l1,DeyeInverterSlave Grid Load L1,,,,,-402.0,,W
+,power,sensor,sensor.deyeinverterslave_grid_load_l2,DeyeInverterSlave Grid Load L2,,,,,0.0,,W
+,power,sensor,sensor.deyeinverterslave_load_power_l1,DeyeInverterSlave Load Power L1,,,,,122.0,,W
+,power,sensor,sensor.deyeinverterslave_load_power_l2,DeyeInverterSlave Load Power L2,,,,,0.0,,W
+,power,sensor,sensor.deyeinverterslave_load_power,DeyeInverterSlave Load Power,,,,,122.0,,W
+,,sensor,sensor.deyeinverterslave_pv1_voltage,DeyeInverterSlave PV1 Voltage,,,,,204.800003051758,,V
+,,sensor,sensor.deyeinverterslave_pv1_current,DeyeInverterSlave PV1 Current,,,,,0.0,,A
+,power,sensor,sensor.deyeinverterslave_pv1_power,DeyeInverterSlave PV1 Power,,,,,18.0,,W
+,,sensor,sensor.deyeinverterslave_pv2_voltage,DeyeInverterSlave PV2 Voltage,,,,,0.300000011920929,,V
+,,sensor,sensor.deyeinverterslave_pv2_current,DeyeInverterSlave PV2 Current,,,,,0.0,,A
+,power,sensor,sensor.deyeinverterslave_pv2_power,DeyeInverterSlave PV2 Power,,,,,0.0,,W
+,,sensor,sensor.deyeinverterslave_pv3_voltage,DeyeInverterSlave PV3 Voltage,,,,,0.0,,V
+,,sensor,sensor.deyeinverterslave_pv3_current,DeyeInverterSlave PV3 Current,,,,,0.0,,A
+,,sensor,sensor.deyeinverterslave_pv4_voltage,DeyeInverterSlave PV4 Voltage,,,,,0.0,,V
+,,sensor,sensor.deyeinverterslave_pv4_current,DeyeInverterSlave PV4 Current,,,,,0.0,,A
+,power,sensor,sensor.deyeinverterslave_pv3_power,DeyeInverterSlave PV3 Power,,,,,0.0,,W
+,power,sensor,sensor.deyeinverterslave_pv4_power,DeyeInverterSlave PV4 Power,,,,,0.0,,W
+,power,sensor,sensor.deyeinverterslave_pv_power,DeyeInverterSlave PV Power,,,,,83.0,,W
+,power,sensor,sensor.deyeinverterslave_battery_output_power,DeyeInverterSlave Battery Output Power,,,,,-24.0,,W
+,battery,sensor,sensor.deyeinverterslave_battery_soc,DeyeInverterSlave Battery SOC,,,,,0.0,,%
+,,sensor,sensor.deyeinverterslave_grid_frequency,DeyeInverterSlave Grid Frequency,,,,,50.1499977111816,,hz
+,,sensor,sensor.deyeinverterslave_load_frequency,DeyeInverterSlave Load Frequency,,,,,50.1499977111816,,hz
+,voltage,sensor,sensor.deyeinverterslave_battery_voltage,DeyeInverterSlave Battery Voltage,,,,,52.1599998474121,,V
+,voltage,sensor,sensor.deyeinverterslave_grid_voltage_l1,DeyeInverterSlave Grid Voltage L1,,,,,239.699996948242,,V
+,voltage,sensor,sensor.deyeinverterslave_grid_voltage_l2,DeyeInverterSlave Grid Voltage L2,,,,,0.0,,V
+,voltage,sensor,sensor.deyeinverterslave_grid_voltage_l1_l2,DeyeInverterSlave Grid Voltage L1 L2,,,,,239.699996948242,,V
+,voltage,sensor,sensor.deyeinverterslave_inverter_mid_relay_voltage_l1_l2,DeyeInverterSlave Inverter Mid Relay Voltage L1 L2,,,,,239.300003051758,,V
+,voltage,sensor,sensor.deyeinverterslave_inverter_output_voltage_l1,DeyeInverterSlave Inverter Output Voltage L1,,,,,240.900009155273,,V
+,voltage,sensor,sensor.deyeinverterslave_inverter_output_voltage_l2,DeyeInverterSlave Inverter Output Voltage L2,,,,,0.0,,V
+,voltage,sensor,sensor.deyeinverterslave_inverter_output_voltage_l1_l2,DeyeInverterSlave Inverter Output Voltage L1-L2,,,,,240.900009155273,,V
+,voltage,sensor,sensor.deyeinverterslave_load_voltage_l1,DeyeInverterSlave Load Voltage L1,,,,,239.300003051758,,V
+,voltage,sensor,sensor.deyeinverterslave_load_voltage_l2,DeyeInverterSlave Load Voltage L2,,,,,0.0,,V
+,voltage,sensor,sensor.deyeinverterslave_battery_charge_voltage,DeyeInverterSlave Battery Charge Voltage,,,,,0.0,,V
+,power,sensor,sensor.deyeinverterslave_grid_power_ct_clamp,DeyeInverterSlave Grid Power (CT Clamp),,,,,597.0,,W
+,power,sensor,sensor.deyeinverterslave_grid_power_l1_ct_clamp,DeyeInverterSlave Grid Power L1 (CT Clamp),,,,,597.0,,W
+,power,sensor,sensor.deyeinverterslave_grid_power_l2_ct_clamp,DeyeInverterSlave Grid Power L2 (CT Clamp),,,,,0.0,,W
+,power,sensor,sensor.deyeinverterslave_generator_port_power,DeyeInverterSlave Generator Port Power,,,,,0.0,,W
+,current,sensor,sensor.deyeinverterslave_grid_current_l1,DeyeInverterSlave Grid Current L1,,,,,3.94999980926514,,A
+,current,sensor,sensor.deyeinverterslave_grid_current_l2,DeyeInverterSlave Grid Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinverterslave_grid_external_current_l1,DeyeInverterSlave Grid External Current L1,,,,,4.29999971389771,,A
+,current,sensor,sensor.deyeinverterslave_grid_external_current_l2,DeyeInverterSlave Grid External Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinverterslave_inverter_output_current_l1,DeyeInverterSlave Inverter Output Current L1,,,,,0.5,,A
+,current,sensor,sensor.deyeinverterslave_inverter_output_current_l2,DeyeInverterSlave Inverter Output Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinverterslave_load_current_l1,DeyeInverterSlave Load Current L1,,,,,1.22000002861023,,A
+,current,sensor,sensor.deyeinverterslave_load_current_l2,DeyeInverterSlave Load Current L2,,,,,0.0,,A
+,current,sensor,sensor.deyeinverterslave_battery_output_current,DeyeInverterSlave Battery Output Current,,,,,-0.469999998807907,,A
+,temperature,sensor,sensor.deyeinverterslave_battery_temperature,DeyeInverterSlave Battery Temperature,,,,,-100.0,,°C
+,temperature,sensor,sensor.deyeinverterslave_temperature_dc_transformer,DeyeInverterSlave Temperature DC Transformer,,,,,53.7000007629395,,°C
+,temperature,sensor,sensor.deyeinverterslave_temperature_ac_transformer,DeyeInverterSlave Temperature AC Transformer,,,,,44.1000022888184,,°C
+,energy,sensor,sensor.deyeinverterslave_summary_day_grid_import_buy,DeyeInverterSlave Summary Day Grid Import(Buy),,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_month_grid_delta,DeyeInverterSlave Summary Month Grid Delta,,,,,346.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_month_grid_import_buy,DeyeInverterSlave Summary Month Grid Import(Buy),,,,,113.899993896484,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_grid_export_sell,DeyeInverterSlave Summary Day Grid Export(Sell),,,,,3.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_load,DeyeInverterSlave Summary Day Load,,,,,1.89999997615814,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_month_load,DeyeInverterSlave Summary Month Load,,,,,459.899993896484,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_year_load,DeyeInverterSlave Summary Year Load,,,,,0.459899991750717,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_pv,DeyeInverterSlave Summary Day PV,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_month_pv,DeyeInverterSlave Summary Month PV,,,,,217.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_year_pv,DeyeInverterSlave Summary Year PV,,,,,0.216999992728233,,MWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_battery_charge,DeyeInverterSlave Summary Day Battery Charge,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_battery_discharge,DeyeInverterSlave Summary Day Battery Discharge,,,,,1.39999997615814,,kWh
+,power,sensor,sensor.deyeinverterslave_inverter_output_power,DeyeInverterSlave Inverter Output Power,,,,,-53.0,,W
+,power,sensor,sensor.deyeinverterslave_inverter_output_power_l1,DeyeInverterSlave Inverter Output Power L1,,,,,-53.0,,W
+,power,sensor,sensor.deyeinverterslave_inverter_output_power_l2,DeyeInverterSlave Inverter Output Power L2,,,,,0.0,,W
+,power,sensor,sensor.deyeinverterslave_inverter_rated_power,DeyeInverterSlave Inverter Rated Power,,,,,8000.0,,W
+,energy,sensor,sensor.deyeinverterslave_summary_day_aux_energy,DeyeInverterSlave Summary Day Aux Energy,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_pv1,DeyeInverterSlave Summary Day PV1,,,,,0.0119212483987212,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_pv2,DeyeInverterSlave Summary Day PV2,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_pv3,DeyeInverterSlave Summary Day PV3,,,,,0.0,,kWh
+,energy,sensor,sensor.deyeinverterslave_summary_day_pv4,DeyeInverterSlave Summary Day PV4,,,,,0.0,,kWh
+,,sensor,sensor.deyeinverterslave_wifi_ip_address,DeyeInverterSlave Wifi IP Address,,,,,192.168.1.117,,
+,,sensor,sensor.deyeinverterslave_wifi_logger_ssid,DeyeInverterSlave Wifi logger SSID,,,,,Sunsync,,
+,,sensor,sensor.deyeinverterslave_wifi_logger_mac,DeyeInverterSlave Wifi logger MAC,,,,,74:DA:88:CB:53:30,,
+,,sensor,sensor.deyeinverterslave_wifi_mdns_name,DeyeInverterSlave Wifi mDNS Name,,,,,inverterslave.local,,
+,,sensor,sensor.deyeinverterslave_inverter_system_state,DeyeInverterSlave Inverter System State,,,,,normal,,
+,,sensor,sensor.deyeinverterslave_inverter_serial_number,DeyeInverterSlave Inverter Serial Number,,,,,2006184501,,
+,,sensor,sensor.deyeinverterslave_inverter_warning,DeyeInverterSlave Inverter Warning,,,,,000000000000000000000000,,
+,,sensor,sensor.deyeinverterslave_inverter_fault,DeyeInverterSlave Inverter fault,,,,,0000000000000000,,
+,,sensor,sensor.deyeinverterslave_inverter_remote_lock,DeyeInverterSlave Inverter remote lock,,,,,00ff,,
+,,sensor,sensor.deyeinverterslave_inverter_time,DeyeInverterSlave Inverter time,,,,,2025-10-23 05:59:06,,
+,,sensor,sensor.deyeinverterslave_wifi_logger_firmware_function,DeyeInverterSlave Wifi Logger Firmware Function,,,,,Slave,,
+,,select,select.deyeinverterslave_load_limit_exp_ess_non_ess,DeyeInverterSlave Load Limit Exp/Ess/Non-Ess,,,,,Essentials,,
+,,select,select.deyeinverterslave_energy_management_model,DeyeInverterSlave Energy Management Model,,,,,Load First Mode,,
+,,select,select.deyeinverterslave_timezone1_charge,DeyeInverterSlave Timezone1 Charge,,,,,None,,
+,,select,select.deyeinverterslave_timezone2_charge,DeyeInverterSlave Timezone2 Charge,,,,,None,,
+,,select,select.deyeinverterslave_timezone3_charge,DeyeInverterSlave Timezone3 Charge,,,,,None,,
+,,select,select.deyeinverterslave_timezone4_charge,DeyeInverterSlave Timezone4 Charge,,,,,None,,
+,,select,select.deyeinverterslave_timezone5_charge,DeyeInverterSlave Timezone5 Charge,,,,,None,,
+,,select,select.deyeinverterslave_timezone6_charge,DeyeInverterSlave Timezone6 Charge,,,,,None,,
+,,select,select.deyeinverterslave_generator_peak_shaving,DeyeInverterSlave Generator Peak Shaving,,,,,Disable,,
+,,select,select.deyeinverterslave_grid_peak_shaving,DeyeInverterSlave Grid Peak Shaving,,,,,Disable,,
+,,select,select.deyeinverterslave_on_grid_always_on,DeyeInverterSlave On Grid Always On,,,,,Disable,,
+,,select,select.deyeinverterslave_battery_control_mode,DeyeInverterSlave Battery control mode,,,,,Lithium,,
+,,select,select.deyeinverterslave_battery_operation_mode,DeyeInverterSlave Battery operation mode,,,,,Capacity,,
+,,select,select.deyeinverterslave_battery_wake_up_lithium,DeyeInverterSlave Battery Wake Up Lithium,,,,,Disable,,
+,,select,select.deyeinverterslave_aux_port_function,DeyeInverterSlave Aux Port function,,,,,Generator input,,
+,,select,select.deyeinverterslave_inverter_basic_settings_beep,DeyeInverterSlave Inverter Basic Settings Beep,,,,,Disable,,
+,,select,select.deyeinverterslave_inverter_basic_settings_sync_clock,DeyeInverterSlave Inverter Basic Settings Sync Clock,,,,,Enable,,
+,,select,select.deyeinverterslave_grid_signal,DeyeInverterSlave Grid Signal,,,,,Enable,,
+,,select,select.deyeinverterslave_generator_signal,DeyeInverterSlave Generator Signal,,,,,Disable,,
+,connectivity,binary_sensor,binary_sensor.deyeinverterslave_status_deyeinverterslave,DeyeInverterSlave Status deyeinverterslave,,,,,on,,
+,,binary_sensor,binary_sensor.deyeinverterslave_grid_connected_status,DeyeInverterSlave Grid Connected Status,,,,,on,,
+,,binary_sensor,binary_sensor.deyeinverterslave_generator_connected_status,DeyeInverterSlave Generator Connected Status,,,,,off,,
+,,button,button.deyeinverterslave_inverter_sync_clock,DeyeInverterSlave Inverter Sync Clock,,,,,unknown,,
+,connectivity,binary_sensor,binary_sensor.192_168_1_1,192.168.1.1,,,,,on,,
+,,device_tracker,device_tracker.192_168_1_1,192.168.1.1,,,,,home,,
+,duration,sensor,sensor.192_168_1_1_round_trip_time_average,192.168.1.1 Round-trip time average,,,,,3.653,,ms
+,duration,sensor,sensor.192_168_1_1_round_trip_time_maximum,192.168.1.1 Round-trip time maximum,,,,,14.075,,ms
+,duration,sensor,sensor.192_168_1_1_round_trip_time_minimum,192.168.1.1 Round-trip time minimum,,,,,0.781,,ms
+,duration,sensor,sensor.192_168_1_1_jitter,192.168.1.1 Jitter,,,,,3.358,,ms
+,,automation,automation.system_daily_export_all_entities_to_csv,System: Daily - Export All Entities to CSV,,,,,on,,
+,,automation,automation.gdacs_disaster_alert_notification,GDACS Disaster Alert Notification,,,,,on,,
+,,automation,automation.grafana_memory_high_alert,Grafana Memory High Alert,,,,,on,,
+,,automation,automation.prepaid_meter_recharge,Prepaid meter recharge,,,,,on,,
+,,automation,automation.solar_daily_production_report_at_22_00,Solar: Daily Production Report at 22:00,,,,,on,,
+,,automation,automation.solar_weekly_production_summary,Solar: Weekly Summary,,,,,on,,
+,,automation,automation.solar_high_production_day,Solar: High Production Day,,,,,on,,
+,,automation,automation.solar_low_production_alert,Solar: Low Production Alert,,,,,on,,
+,,automation,automation.solar_pv_string_imbalance,Solar: String Imbalance,,,,,on,,
+,,automation,automation.solar_monthly_summary,Solar: Monthly Summary,,,,,on,,
+,,automation,automation.morning_test_email_system_check,Morning Test Email - System Check,,,,,on,,
+,,automation,automation.morning_test_telegram_system_check,Morning Test Telegram & Email - System Check,,,,,on,,
+,,automation,automation.system_daily_update_status_report_at_09_15_telegram,System: Daily Update Status Report at 89:15 (Telegram),,,,,on,,
+,,automation,automation.system_daily_update_status_report_at_09_15_email,System: Daily Update Status Report at 08:00 (Email),,,,,on,,
+,,automation,automation.system_critical_update_alert_immediate,System: Critical Update Alert (Immediate),,,,,on,,
+,,automation,automation.battery_monitor_low_battery_alert,Battery Monitor: Low Battery Alert,,,,,on,,
+,,automation,automation.battery_monitor_critical_battery_alert,Battery Monitor: Critical Battery Alert,,,,,on,,
+,,automation,automation.battery_monitor_weekly_status_report,Battery Monitor: Weekly Status Report,,,,,on,,
+,,automation,automation.battery_monitor_daily_critical_battery_reminder,Battery Monitor: Daily Critical Battery Reminder,,,,,on,,
+,,automation,automation.inverter_switch_to_export_essentials_non_essentials_when_sun_sets_rises,Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises,,,,,on,,
+,,automation,automation.inverter_daily_morning_system_check_at_09_00,Inverter: Daily Morning System Check at 07:15,,,,,on,,
+,,automation,automation.inverter_daily_energy_mode_optimization_at_09_00,Inverter: Daily Energy Mode Optimization at 07:30,,,,,on,,
+,,automation,automation.inverter_battery_health_check_at_09_00,Inverter: Battery Health Check at 07:45,,,,,on,,
+,,automation,automation.inverter_weekly_performance_report,Inverter: Weekly Performance Report,,,,,on,,
+,,automation,automation.inverter_daily_health_check_enhanced_09_05,Inverter: Daily Health Check Enhanced (09:05),,,,,on,,
+,,automation,automation.energy_sync_mode_with_inverter,Energy: Sync Mode with Inverter,,,,,on,,
+,,automation,automation.network_auto_scan,Network Auto Scan,,,,,on,,
+,,automation,automation.network_device_change_alert,Network Device Change Alert,,,,,on,,
+,,automation,automation.inverterconfig_update_times,InverterConfig Update Times,,,,,on,,
+,,automation,automation.server_sync_clock,Server Sync Clock,,,,,on,,
+,,automation,automation.solar_power_turn_on_sonoff_device_priority_1,Solar Power - Turn ON SONOFF Device (Priority 1),,,,,on,,
+,,automation,automation.solar_power_turn_off_sonoff_device_when_solar_low,Solar Power - Turn OFF SONOFF Device When Solar Low,,,,,on,,
+,,automation,automation.solar_power_morning_check_at_07_15,Solar Power - Morning Check at 07:15,,,,,on,,
+,,automation,automation.solar_power_safety_turn_off_at_17_00,Solar Power - Safety Turn OFF at 17:00,,,,,on,,
+,,automation,automation.solar_power_manual_override_alert,Solar Power - Manual Override Alert,,,,,on,,
+,,automation,automation.system_health_high_cpu_usage_alert,System Health: High CPU Usage Alert,,,,,on,,
+,,automation,automation.system_health_critical_cpu_usage_alert,System Health: Critical CPU Usage Alert,,,,,on,,
+,,automation,automation.system_health_high_memory_usage_alert,System Health: High Memory Usage Alert,,,,,on,,
+,,automation,automation.system_health_daily_status_report,System Health: Daily Status Report,,,,,on,,
+,,automation,automation.system_health_high_disk_usage_alert,System Health: High Disk Usage Alert,,,,,on,,
+,,automation,automation.system_health_critical_disk_usage_alert,System Health: Critical Disk Usage Alert,,,,,on,,
+,restart,button,button.nvt_reboot,NVT Reboot,,,,,unknown,,
+,,button,button.nvt_set_system_date_and_time,NVT Set System Date and Time,,,,,unknown,,
+,,camera,camera.nvt_mainstream,Front Gate,,,,,idle,,
+,,camera,camera.nvt_substream,NVT subStream,,,,,idle,,
+,,binary_sensor,binary_sensor.nvt_digital_input,NVT Digital Input,,,,,on,,
+,motion,binary_sensor,binary_sensor.nvt_motion_alarm,NVT Motion Alarm,,,,,on,,
+,motion,binary_sensor,binary_sensor.nvt_cell_motion_detection,NVT Cell Motion Detection,,,,,on,,
+,problem,binary_sensor,binary_sensor.nvt_tamper_detection,NVT Tamper Detection,,,,,on,,
+,,switch,switch.nvt_autofocus,Front Gate Autofocus,,,,,unknown,,
+,,switch,switch.nvt_ir_lamp,Front Gate IR lamp,,,,,unknown,,
+,,switch,switch.nvt_wiper,Front Gate Wiper,,,,,unknown,,
+,,todo,todo.home_assistant_actions,Home Assistant Actions,,,,,1,,
+,data_size,sensor,sensor.onedrive_total_available_storage,OneDrive Total available storage,,,,,1039.0,,GiB
+,data_size,sensor,sensor.onedrive_used_storage,OneDrive Used storage,,,,,681.200000000186,,GiB
+,data_size,sensor,sensor.onedrive_remaining_storage,OneDrive Remaining storage,,,,,357.799999999814,,GiB
+,enum,sensor,sensor.onedrive_drive_state,OneDrive Drive state,,,,,normal,,
+44.0,,climate,climate.geyserwise_max1,Geyserwise Max1,,,,,off,,
+,,select,select.top_floor_power_on_behavior,Top Floor Power on behavior,,,,,last,,
+,,select,select.laundry_power_on_behavior,Laundry Power on behavior,,,,,last,,
+,,select,select.main_pc_setup_power_on_behavior,Main PC Setup Power on behavior,,,,,unavailable,,
+,,select,select.main_pc_setup_indicator_light_mode,Main PC Setup Indicator light mode,,,,,unavailable,,
+,,select,select.printers_router_power_on_behavior,Printers & Router Power on behavior,,,,,last,,
+,,select,select.printers_router_indicator_light_mode,Printers & Router Indicator light mode,,,,,relay,,
+,current,sensor,sensor.boorgat_current,Boorgat Current,,,,,0.0,,A
+,power,sensor,sensor.boorgat_power,Boorgat Power,,,,,0.0,,W
+,voltage,sensor,sensor.boorgat_voltage,Boorgat Voltage,,,,,169.5,,V
+,energy,sensor,sensor.boorgat_total_energy,Boorgat Total energy,,,,,0.0,,kWh
+,current,sensor,sensor.top_floor_current,Top Floor Current,,,,,0.0,,A
+,power,sensor,sensor.top_floor_power,Top Floor Power,,,,,0.0,,W
+,voltage,sensor,sensor.top_floor_voltage,Top Floor Voltage,,,,,226.3,,V
+,energy,sensor,sensor.top_floor_total_energy,Top Floor Total energy,,,,,0.003,,kWh
+,current,sensor,sensor.laundry_current,Laundry Current,,,,,0.0,,A
+,power,sensor,sensor.laundry_power,Laundry Power,,,,,0.0,,W
+,voltage,sensor,sensor.laundry_voltage,Laundry Voltage,,,,,225.8,,V
+,energy,sensor,sensor.laundry_total_energy,Laundry Total energy,,,,,0.004,,kWh
+,energy,sensor,sensor.main_eskom_switch_total_energy,Main Eskom Switch Total energy,,,,,0.06,,kWh
+,current,sensor,sensor.main_eskom_switch_current,Main Eskom Switch Current,,,,,5.7,,A
+,power,sensor,sensor.main_eskom_switch_power,Main Eskom Switch Power,,,,,1248.0,,W
+,voltage,sensor,sensor.main_eskom_switch_voltage,Main Eskom Switch Voltage,,,,,245.0,,V
+,,sensor,sensor.db_switch_pool_outbuilding_total_energy,DB switch pool & Outbuilding Total energy,,,,,0.012,,
+,current,sensor,sensor.db_switch_pool_outbuilding_current,DB switch pool & Outbuilding Current,,,,,0.227,,A
+,power,sensor,sensor.db_switch_pool_outbuilding_power,DB switch pool & Outbuilding Power,,,,,26.7,,W
+,voltage,sensor,sensor.db_switch_pool_outbuilding_voltage,DB switch pool & Outbuilding Voltage,,,,,238.6,,V
+,,sensor,sensor.plugs_kas_total_energy,Plugs Kas Total energy,,,,,0.001,,
+,current,sensor,sensor.plugs_kas_current,Plugs Kas Current,,,,,0.0,,A
+,power,sensor,sensor.plugs_kas_power,Plugs Kas Power,,,,,0.0,,W
+,voltage,sensor,sensor.plugs_kas_voltage,Plugs Kas Voltage,,,,,242.5,,V
+,,sensor,sensor.plugs_1_total_energy,Plugs 1 Total energy,,,,,0.084,,
+,current,sensor,sensor.plugs_1_current,Plugs 1 Current,,,,,0.864,,A
+,power,sensor,sensor.plugs_1_power,Plugs 1 Power,,,,,172.5,,W
+,voltage,sensor,sensor.plugs_1_voltage,Plugs 1 Voltage,,,,,242.2,,V
+,,sensor,sensor.plugs_2_total_energy,Plugs 2 Total energy,,,,,0.002,,
+,current,sensor,sensor.plugs_2_current,Plugs 2 Current,,,,,0.09,,A
+,power,sensor,sensor.plugs_2_power,Plugs 2 Power,,,,,5.1,,W
+,voltage,sensor,sensor.plugs_2_voltage,Plugs 2 Voltage,,,,,239.4,,V
+,,sensor,sensor.plugs_3_total_energy,Plugs 3 Total energy,,,,,unavailable,,
+,current,sensor,sensor.plugs_3_current,Plugs 3 Current,,,,,unavailable,,A
+,power,sensor,sensor.plugs_3_power,Plugs 3 Power,,,,,unavailable,,W
+,voltage,sensor,sensor.plugs_3_voltage,Plugs 3 Voltage,,,,,unavailable,,V
+,temperature,sensor,sensor.top_floor_temperature_humidity_sensor_temperature,Top Floor Temperature & Humidity Sensor Temperature,,,,,unavailable,,°C
+,humidity,sensor,sensor.top_floor_temperature_humidity_sensor_humidity,Top Floor Temperature & Humidity Sensor Humidity,,,,,unavailable,,%
+,battery,sensor,sensor.top_floor_temperature_humidity_sensor_battery,Top Floor Temperature & Humidity Sensor Battery,,,,,unavailable,,%
+,temperature,sensor,sensor.tv_room_temperature_humidity_sensor_temperature,TV Room Temperature & Humidity Sensor Temperature,,,,,unavailable,,°C
+,humidity,sensor,sensor.tv_room_temperature_humidity_sensor_humidity,TV Room Temperature & Humidity Sensor Humidity,,,,,unavailable,,%
+,battery,sensor,sensor.tv_room_temperature_humidity_sensor_battery,TV Room Temperature & Humidity Sensor Battery,,,,,unavailable,,%
+,temperature,sensor,sensor.study_smart_ir_with_t_h_sensor_temperature,Study Smart IR with T&H Sensor Temperature,,,,,19.8,,°C
+,humidity,sensor,sensor.study_smart_ir_with_t_h_sensor_humidity,Study Smart IR with T&H Sensor Humidity,,,,,45.0,,%
+,current,sensor,sensor.no_2_smart_meter_with_ct_2_current,No 2 smart meter with CT-2 Current,,,,,unavailable,,A
+,power,sensor,sensor.no_2_smart_meter_with_ct_2_power,No 2 smart meter with CT-2 Power,,,,,unavailable,,W
+,voltage,sensor,sensor.no_2_smart_meter_with_ct_2_voltage,No 2 smart meter with CT-2 Voltage,,,,,unavailable,,V
+,energy,sensor,sensor.no_2_smart_meter_with_ct_2_total_energy,No 2 smart meter with CT-2 Total energy,,,,,unavailable,,kWh
+,current,sensor,sensor.no_1_smart_meter_with_ct_2_current,No 1 smart meter with CT-2 Current,,,,,unavailable,,A
+,power,sensor,sensor.no_1_smart_meter_with_ct_2_power,No 1 smart meter with CT-2 Power,,,,,unavailable,,W
+,voltage,sensor,sensor.no_1_smart_meter_with_ct_2_voltage,No 1 smart meter with CT-2 Voltage,,,,,unavailable,,V
+,energy,sensor,sensor.no_1_smart_meter_with_ct_2_total_energy,No 1 smart meter with CT-2 Total energy,,,,,unavailable,,kWh
+,,sensor,sensor.geyser_indoor_total_energy,Geyser Indoor Total energy,,,,,0.002,,
+,current,sensor,sensor.geyser_indoor_current,Geyser Indoor Current,,,,,0.027,,A
+,power,sensor,sensor.geyser_indoor_power,Geyser Indoor Power,,,,,4.0,,W
+,voltage,sensor,sensor.geyser_indoor_voltage,Geyser Indoor Voltage,,,,,239.0,,V
+,,sensor,sensor.plugs_kas_total_energy_2,Plugs Kas Total energy,,,,,0.024,,
+,current,sensor,sensor.plugs_kas_current_2,Plugs Kas Current,,,,,0.247,,A
+,power,sensor,sensor.plugs_kas_power_2,Plugs Kas Power,,,,,45.6,,W
+,voltage,sensor,sensor.plugs_kas_voltage_2,Plugs Kas Voltage,,,,,242.3,,V
+,,sensor,sensor.geyser_external_total_energy,Geyser External Total energy,,,,,0.001,,
+,current,sensor,sensor.geyser_external_current,Geyser External Current,,,,,0.0,,A
+,power,sensor,sensor.geyser_external_power,Geyser External Power,,,,,0.0,,W
+,voltage,sensor,sensor.geyser_external_voltage,Geyser External Voltage,,,,,244.8,,V
+,,sensor,sensor.woonstel_total_energy,Woonstel Total energy,,,,,0.1,,
+,current,sensor,sensor.woonstel_current,Woonstel Current,,,,,1.78,,A
+,power,sensor,sensor.woonstel_power,Woonstel Power,,,,,310.6,,W
+,voltage,sensor,sensor.woonstel_voltage,Woonstel Voltage,,,,,243.1,,V
+,temperature,sensor,sensor.kitchen_temperature_humidity_temperature,Kitchen Temperature & Humidity Temperature,,,,,unavailable,,°C
+,humidity,sensor,sensor.kitchen_temperature_humidity_humidity,Kitchen Temperature & Humidity Humidity,,,,,unavailable,,%
+,battery,sensor,sensor.kitchen_temperature_humidity_battery,Kitchen Temperature & Humidity Battery,,,,,unavailable,,%
+,current,sensor,sensor.main_pc_setup_current,Main PC Setup Current,,,,,unavailable,,A
+,power,sensor,sensor.main_pc_setup_power,Main PC Setup Power,,,,,unavailable,,W
+,voltage,sensor,sensor.main_pc_setup_voltage,Main PC Setup Voltage,,,,,unavailable,,V
+,,sensor,sensor.main_pc_setup_total_energy,Main PC Setup Total energy,,,,,unavailable,,
+,current,sensor,sensor.printers_router_current,Printers & Router Current,,,,,0.16,,A
+,power,sensor,sensor.printers_router_power,Printers & Router Power,,,,,35.3,,W
+,voltage,sensor,sensor.printers_router_voltage,Printers & Router Voltage,,,,,240.9,,V
+,,sensor,sensor.printers_router_total_energy,Printers & Router Total energy,,,,,0.014,,
+,outlet,switch,switch.boorgat_switch_1,Boorgat Switch 1,,,,,off,,
+,outlet,switch,switch.top_floor_switch_1,Top Floor Switch 1,,,,,off,,
+,outlet,switch,switch.laundry_switch_1,Laundry Switch 1,,,,,off,,
+,,switch,switch.main_eskom_switch_switch,Main Eskom Switch Switch,,,,,on,,
+,,switch,switch.db_switch_pool_outbuilding_child_lock,DB switch pool & Outbuilding Child lock,,,,,off,,
+,,switch,switch.db_switch_pool_outbuilding_switch,DB switch pool & Outbuilding Switch,,,,,on,,
+,,switch,switch.plugs_kas_child_lock,Plugs Kas Child lock,,,,,off,,
+,,switch,switch.plugs_kas_switch,Plugs Kas Switch,,,,,on,,
+,,switch,switch.plugs_1_child_lock,Plugs 1 Child lock,,,,,off,,
+,,switch,switch.plugs_1_switch,Plugs 1 Switch,,,,,on,,
+,,switch,switch.plugs_2_child_lock,Plugs 2 Child lock,,,,,off,,
+,,switch,switch.plugs_2_switch,Plugs 2 Switch,,,,,on,,
+,,switch,switch.plugs_3_child_lock,Plugs 3 Child lock,,,,,unavailable,,
+,,switch,switch.plugs_3_switch,Plugs 3 Switch,,,,,unavailable,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_1,16 Zone Smart Sprinkler Controller Switch 1,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_2,16 Zone Smart Sprinkler Controller Switch 2,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_3,16 Zone Smart Sprinkler Controller Switch 3,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_4,16 Zone Smart Sprinkler Controller Switch 4,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_5,16 Zone Smart Sprinkler Controller Switch 5,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_6,16 Zone Smart Sprinkler Controller Switch 6,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_7,16 Zone Smart Sprinkler Controller Switch 7,,,,,off,,
+,,switch,switch.16_zone_smart_sprinkler_controller_switch_8,16 Zone Smart Sprinkler Controller Switch 8,,,,,off,,
+,outlet,switch,switch.no_2_smart_meter_with_ct_2_socket_1,No 2 smart meter with CT-2 Socket 1,,,,,unavailable,,
+,outlet,switch,switch.no_2_smart_meter_with_ct_2_socket_2,No 2 smart meter with CT-2 Socket 2,,,,,unavailable,,
+,outlet,switch,switch.no_1_smart_meter_with_ct_2_socket_1,No 1 smart meter with CT-2 Socket 1,,,,,unavailable,,
+,outlet,switch,switch.no_1_smart_meter_with_ct_2_socket_2,No 1 smart meter with CT-2 Socket 2,,,,,unavailable,,
+,,switch,switch.geyser_indoor_child_lock,Geyser Indoor Child lock,,,,,off,,
+,,switch,switch.geyser_indoor_switch,Geyser Indoor Switch,,,,,on,,
+,,switch,switch.plugs_kas_child_lock_2,Plugs Kas Child lock,,,,,off,,
+,,switch,switch.plugs_kas_switch_2,Plugs Kas Switch,,,,,on,,
+,,switch,switch.geyser_external_child_lock,Geyser External Child lock,,,,,off,,
+,,switch,switch.geyser_external_switch,Geyser External Switch,,,,,off,,
+,,switch,switch.woonstel_child_lock,Woonstel Child lock,,,,,off,,
+,,switch,switch.woonstel_switch,Woonstel Switch,,,,,on,,
+,,switch,switch.main_pc_setup_child_lock,Main PC Setup Child lock,,,,,unavailable,,
+,outlet,switch,switch.main_pc_setup_socket_1,Main PC Setup Socket 1,,,,,unavailable,,
+,,switch,switch.printers_router_child_lock,Printers & Router Child lock,,,,,off,,
+,outlet,switch,switch.printers_router_socket_1,Printers & Router Socket 1,,,,,on,,
+,door,binary_sensor,binary_sensor.window_door_sensor_door,Window/Door Sensor Door,,,,,unavailable,,
+,motion,binary_sensor,binary_sensor.motion_sensor_motion,Motion Sensor Motion,,,,,unavailable,,
+,door,binary_sensor,binary_sensor.window_door_sensor_door_2,Window/Door Sensor Door,,,,,unavailable,,
+,door,binary_sensor,binary_sensor.dw2_wi_fi_door,DW2-Wi-Fi Door,,,,,off,,
+,door,binary_sensor,binary_sensor.dw2_wi_fi_door_2,DW2-Wi-Fi Door,,,,,off,,
+,motion,binary_sensor,binary_sensor.motion_sensor_motion_2,Motion Sensor Motion,,,,,unavailable,,
+,,binary_sensor,binary_sensor.washer_child_lock,Washer Child lock,,,,,off,,
+,,binary_sensor,binary_sensor.washer_remote_control,Washer Remote control,,,,,off,,
+,power,binary_sensor,binary_sensor.washer_power,Washer Power,,,,,off,,
+,door,binary_sensor,binary_sensor.dw2_wi_fi_door_3,DW2-Wi-Fi Door,,,,,unavailable,,
+,door,binary_sensor,binary_sensor.dw2_wi_fi_l_door,DW2-Wi-Fi-L Door,,,,,off,,
+,door,binary_sensor,binary_sensor.dw2_wi_fi_l_door_2,DW2-Wi-Fi-L Door,,,,,unavailable,,
+,moisture,binary_sensor,binary_sensor.snzb_05p_moisture,SNZB-05P Moisture,,,,,off,,
+,tv,media_player,media_player.samsung_7_series_65,Samsung 7 Series (65),,,,,unavailable,,
+,,number,number.washer_rinse_cycles,Washer Rinse cycles,,,,,2,,cycles
+,,select,select.washer,Washer,,,,,stop,,
+,,select,select.washer_detergent_dispense_amount,Washer Detergent dispense amount,,,,,none,,
+,,select,select.washer_spin_level,Washer Spin level,,,,,400,,
+,battery,sensor,sensor.motion_sensor_battery,Motion Sensor Battery,,,,,unavailable,,%
+,battery,sensor,sensor.temperature_humidity_sensor_battery,Temperature/Humidity Sensor Battery,,,,,84,,%
+,humidity,sensor,sensor.temperature_humidity_sensor_humidity,Temperature/Humidity Sensor Humidity,,,,,41,,%
+,temperature,sensor,sensor.temperature_humidity_sensor_temperature,Temperature/Humidity Sensor Temperature,,,,,23.7,,°C
+,,sensor,sensor.samsung_7_series_65_tv_channel,Samsung 7 Series (65) TV channel,,,,,unavailable,,
+,,sensor,sensor.samsung_7_series_65_tv_channel_name,Samsung 7 Series (65) TV channel name,,,,,unavailable,,
+,battery,sensor,sensor.temperature_humidity_sensor_battery_2,Temperature/Humidity Sensor Battery,,,,,69,,%
+,humidity,sensor,sensor.temperature_humidity_sensor_humidity_2,Temperature/Humidity Sensor Humidity,,,,,52.2,,%
+,temperature,sensor,sensor.temperature_humidity_sensor_temperature_2,Temperature/Humidity Sensor Temperature,,,,,20,,°C
+,battery,sensor,sensor.motion_sensor_battery_2,Motion Sensor Battery,,,,,unavailable,,%
+,energy,sensor,sensor.washer_energy,Washer Energy,,,,,15.4,,kWh
+,power,sensor,sensor.washer_power,Washer Power,,,,,0,,W
+,energy,sensor,sensor.washer_energy_difference,Washer Energy difference,,,,,0.0,,kWh
+,energy,sensor,sensor.washer_power_energy,Washer Power energy,,,,,0.0,,kWh
+,energy,sensor,sensor.washer_energy_saved,Washer Energy saved,,,,,0.0,,kWh
+,enum,sensor,sensor.washer_machine_state,Washer Machine state,,,,,stop,,
+,enum,sensor,sensor.washer_job_state,Washer Job state,,,,,none,,
+,timestamp,sensor,sensor.washer_completion_time,Washer Completion time,,,,,2025-10-22T13:43:18+00:00,,
+,water,sensor,sensor.washer_water_consumption,Washer Water consumption,,,,,2378.8,,L
+,battery,sensor,sensor.snzb_05p_battery,SNZB-05P Battery,,,,,100,,%
+,,switch,switch.washer_bubble_soak,Washer Bubble Soak,,,,,off,,
+,,switch,switch.tx3ctong_dao_3,TX3C通道3,,,,,off,,
+,,switch,switch.tx2ctong_dao_1,TX2C通道1,,,,,off,,
+,,switch,switch.device2a5897,Device2a5897,,,,,off,,
+,,switch,switch.if_centurion_weather_rainy_send_notificationmessage_center,"If Centurion Weather:Rainy,Send NotificationMessage Center",,,,,unavailable,,
+,,switch,switch.routers,Routers,,,,,on,,
+,,switch,switch.pool_pump,Pool Pump,,,,,off,,
+,,switch,switch.nspanel_outlet2,NSPanel Outlet2,,,,,off,,
+,,switch,switch.pool_lights,Pool Lights,,,,,off,,
+,,switch,switch.tx2c,TX2C,,,,,off,,
+,,switch,switch.backyard_lights,Backyard lights,,,,,off,,
+,,switch,switch.freezer_braai_area_left,Freezer Braai Area Left,,,,,unavailable,,
+,,switch,switch.freezer_braai_area_regs,Freezer Braai Area Regs,,,,,on,,
+,,switch,switch.backyard_lightstong_dao_2,Backyard lights通道2,,,,,off,,
+,,switch,switch.tx3ctong_dao_1,TX3C通道1,,,,,off,,
+,,switch,switch.device3b8a5d,Device3b8a5d,,,,,off,,
+,,switch,switch.nspanel_outlet1,NSPanel Outlet1,,,,,on,,
+,,switch,switch.tx3c,TX3C,,,,,off,,
+,,switch,switch.mini,MINI,,,,,on,,
+,,switch,switch.tx3ctong_dao_2,TX3C通道2,,,,,off,,
+,,switch,switch.ice_maker,Ice Maker,,,,,on,,
+,,switch,switch.powr2,POWR2,,,,,on,,
+,,switch,switch.device40424b,Device40424b,,,,,off,,
+,,switch,switch.devicee17c4d,Devicee17c4d,,,,,unavailable,,
+,,switch,switch.nspanel,NSPanel,,,,,on,,
+,,switch,switch.device404240,Device404240,,,,,off,,
+,,switch,switch.backyard_lightstong_dao_1,Backyard lights通道1,,,,,off,,
+,,switch,switch.device3b8a40,Device3b8a40,,,,,off,,
+,,switch,switch.basicr2,BASICR2,,,,,off,,
+,,switch,switch.tx2ctong_dao_2,TX2C通道2,,,,,off,,
+,,switch,switch.devicee75f9e,Devicee75f9e,,,,,unavailable,,
+,,sensor,sensor.network_scanner,Network Scanner,,,,,42,,Devices
+,,sensor,sensor.jbarkhuizen_automation_code_discussions,Discussions,,,,True,unavailable,,discussions
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_discussions,Discussions,,,,True,unavailable,,discussions
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_discussions,Discussions,,,,True,unavailable,,discussions
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_discussions,Discussions,,,,True,unavailable,,discussions
+,,sensor,sensor.jbarkhuizen_automation_code_stars,Stars,,,,True,unavailable,,stars
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_stars,Stars,,,,True,unavailable,,stars
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_stars,Stars,,,,True,unavailable,,stars
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_stars,Stars,,,,True,unavailable,,stars
+,,sensor,sensor.jbarkhuizen_automation_code_watchers,Watchers,,,,True,unavailable,,watchers
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_watchers,Watchers,,,,True,unavailable,,watchers
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_watchers,Watchers,,,,True,unavailable,,watchers
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_watchers,Watchers,,,,True,unavailable,,watchers
+,,sensor,sensor.jbarkhuizen_automation_code_forks,Forks,,,,True,unavailable,,forks
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_forks,Forks,,,,True,unavailable,,forks
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_forks,Forks,,,,True,unavailable,,forks
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_forks,Forks,,,,True,unavailable,,forks
+,,sensor,sensor.jbarkhuizen_automation_code_issues,Issues,,,,True,unavailable,,issues
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_issues,Issues,,,,True,unavailable,,issues
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_issues,Issues,,,,True,unavailable,,issues
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_issues,Issues,,,,True,unavailable,,issues
+,,sensor,sensor.jbarkhuizen_automation_code_pull_requests,Pull requests,,,,True,unavailable,,pull requests
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_pull_requests,Pull requests,,,,True,unavailable,,pull requests
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_pull_requests,Pull requests,,,,True,unavailable,,pull requests
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_pull_requests,Pull requests,,,,True,unavailable,,pull requests
+,,sensor,sensor.jbarkhuizen_automation_code_latest_commit,Latest commit,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_latest_commit,Latest commit,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_latest_commit,Latest commit,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_latest_commit,Latest commit,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_automation_code_latest_discussion,Latest discussion,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_latest_discussion,Latest discussion,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_latest_discussion,Latest discussion,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_latest_discussion,Latest discussion,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_automation_code_latest_release,Latest release,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_latest_release,Latest release,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_latest_release,Latest release,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_latest_release,Latest release,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_automation_code_latest_issue,Latest issue,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_latest_issue,Latest issue,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_latest_issue,Latest issue,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_latest_issue,Latest issue,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_automation_code_latest_pull_request,Latest pull request,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_latest_pull_request,Latest pull request,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_latest_pull_request,Latest pull request,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_latest_pull_request,Latest pull request,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_automation_code_latest_tag,Latest tag,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_testing_latest_tag,Latest tag,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v2_latest_tag,Latest tag,,,,True,unavailable,,
+,,sensor,sensor.jbarkhuizen_homeassistant_config_v3_latest_tag,Latest tag,,,,True,unavailable,,
+,,sensor,sensor.johanba_server_status,Status,,,,True,unavailable,,
+,temperature,sensor,sensor.johanba_server_system_temperature,System temperature,,,,True,unavailable,,°C
+,timestamp,sensor,sensor.johanba_server_uptime,Uptime,,,,True,unavailable,,
+,temperature,sensor,sensor.johanba_server_cpu_temperature,CPU temperature,,,,True,unavailable,,°C
+,,sensor,sensor.johanba_server_cpu_usage,CPU usage,,,,True,unavailable,,%
+,data_size,sensor,sensor.johanba_server_memory_size,Memory size,,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_memory_available,Memory available,,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_memory_used,Memory used,,,,True,unavailable,,GiB
+,,sensor,sensor.johanba_server_memory_usage,Memory usage,,,,True,unavailable,,%
+,,sensor,sensor.johanba_server_eth0_link,eth0 link,,,,True,unavailable,,
+,data_rate,sensor,sensor.johanba_server_eth0_upload,eth0 upload,,,,True,unavailable,,Mbit/s
+,data_rate,sensor,sensor.johanba_server_eth0_download,eth0 download,,,,True,unavailable,,Mbit/s
+,,sensor,sensor.johanba_server_eth0_packet_errors,eth0 packet errors,,,,True,unavailable,,
+,data_rate,sensor,sensor.johanba_server_eth0_maximum_speed,eth0 maximum speed,,,,True,unavailable,,Mbit/s
+,,sensor,sensor.johanba_server_eth1_link,eth1 link,,,,True,unavailable,,
+,data_rate,sensor,sensor.johanba_server_eth1_upload,eth1 upload,,,,True,unavailable,,Mbit/s
+,data_rate,sensor,sensor.johanba_server_eth1_download,eth1 download,,,,True,unavailable,,Mbit/s
+,,sensor,sensor.johanba_server_eth1_packet_errors,eth1 packet errors,,,,True,unavailable,,
+,data_rate,sensor,sensor.johanba_server_eth1_maximum_speed,eth1 maximum speed,,,,True,unavailable,,Mbit/s
+,,sensor,sensor.johanba_server_drive_1_status,Drive 1 status,,,,True,unavailable,,
+,temperature,sensor,sensor.johanba_server_drive_1_temperature,Drive 1 temperature,,,,True,unavailable,,°C
+,,sensor,sensor.johanba_server_drive_2_status,Drive 2 status,,,,True,unavailable,,
+,temperature,sensor,sensor.johanba_server_drive_2_temperature,Drive 2 temperature,,,,True,unavailable,,°C
+,,sensor,sensor.johanba_server_drive_3_status,Drive 3 status,,,,True,unavailable,,
+,temperature,sensor,sensor.johanba_server_drive_3_temperature,Drive 3 temperature,,,,True,unavailable,,°C
+,,sensor,sensor.johanba_server_drive_4_status,Drive 4 status,,,,True,unavailable,,
+,temperature,sensor,sensor.johanba_server_drive_4_temperature,Drive 4 temperature,,,,True,unavailable,,°C
+,data_size,sensor,sensor.johanba_server_volume_size,Volume size,,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_used_space_volume_1,Used space (Volume 1),,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_free_space_volume_1,Free space (Volume 1),,,,True,unavailable,,GiB
+,,sensor,sensor.johanba_server_volume_used_volume_1,Volume used (Volume 1),,,,True,unavailable,,%
+,data_size,sensor,sensor.johanba_server_volume_size_2,Volume size,,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_used_space_volume_2,Used space (Volume 2),,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_free_space_volume_2,Free space (Volume 2),,,,True,unavailable,,GiB
+,,sensor,sensor.johanba_server_volume_used_volume_2,Volume used (Volume 2),,,,True,unavailable,,%
+,data_size,sensor,sensor.johanba_server_volume_size_3,Volume size,,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_used_space_volume_3,Used space (Volume 3),,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_free_space_volume_3,Free space (Volume 3),,,,True,unavailable,,GiB
+,,sensor,sensor.johanba_server_volume_used_volume_3,Volume used (Volume 3),,,,True,unavailable,,%
+,data_size,sensor,sensor.johanba_server_volume_size_4,Volume size,,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_used_space_volume_4,Used space (Volume 4),,,,True,unavailable,,GiB
+,data_size,sensor,sensor.johanba_server_free_space_volume_4,Free space (Volume 4),,,,True,unavailable,,GiB
+,,sensor,sensor.johanba_server_volume_used_volume_4,Volume used (Volume 4),,,,True,unavailable,,%
+,,device_tracker,device_tracker.dsldevice,dsldevice,,,,,home,,
+,,device_tracker,device_tracker.tp_link_technologies_cb_53_30,TP-Link Technologies CB:53:30,,,,,home,,
+,,device_tracker,device_tracker.d_link_international_18_cb_12,D-Link International 18:CB:12,,,,,home,,
+,,device_tracker,device_tracker.huawei_device_7b_5e_60,Huawei Device 7B:5E:60,,,,,home,,
+,,device_tracker,device_tracker.tp_link_pte_f4_db_04,TP-Link PTE. F4:DB:04,,,,,home,,
+,,device_tracker,device_tracker.netgear_bb_07_e0,Netgear BB:07:E0,,,,,home,,
+,,device_tracker,device_tracker.tp_link_technologies_a5_80_20,TP-Link Technologies A5:80:20,,,,,home,,
+,,device_tracker,device_tracker.icp_electronics_c2_e5_13,ICP Electronics C2:E5:13,,,,True,unavailable,,
+,,device_tracker,device_tracker.icp_electronics_c2_e5_14,ICP Electronics C2:E5:14,,,,True,unavailable,,
+,,device_tracker,device_tracker.iomega_2a_18_6d,Iomega 2A:18:6D,,,,,home,,
+,,device_tracker,device_tracker.iomega_2a_18_6e,Iomega 2A:18:6E,,,,,home,,
+,,device_tracker,device_tracker.espressif_d0_d1_88,Espressif D0:D1:88,,,,,home,,
+,,device_tracker,device_tracker.hewlett_packard_ae_f5_cc,Hewlett Packard AE:F5:CC,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_b6_3b_45,Espressif B6:3B:45,,,,,home,,
+,,device_tracker,device_tracker.microchip_technology_96_e8_77,Microchip Technology 96:E8:77,,,,,home,,
+,,device_tracker,device_tracker.altobeam_dc_2c_b4,AltoBeam DC:2C:B4,,,,,home,,
+,,device_tracker,device_tracker.altobeam_china_a9_76_65,AltoBeam (China) A9:76:65,,,,,home,,
+,,device_tracker,device_tracker.nmap_tracker_2a_a3_07_91_a7_1a,Nmap Tracker 2A:A3:07:91:A7:1A,,,,,not_home,,
+,,device_tracker,device_tracker.espressif_41_e2_98,Espressif 41:E2:98,,,,,home,,
+,,device_tracker,device_tracker.espressif_a7_18_f6,Espressif A7:18:F6,,,,,home,,
+,,device_tracker,device_tracker.altobeam_china_4c_a4_06,AltoBeam (China) 4C:A4:06,,,,,home,,
+,,device_tracker,device_tracker.microchip_technology_a6_33_fc,Microchip Technology A6:33:FC,,,,,home,,
+,,device_tracker,device_tracker.espressif_a7_18_f8,Espressif A7:18:F8,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_ad_5f_af,Tuya Smart AD:5F:AF,,,,True,unavailable,,
+,,device_tracker,device_tracker.private_1c_9b_84,Private 1C:9B:84,,,,True,unavailable,,
+,,device_tracker,device_tracker.tuya_smart_14_b6_cc,Tuya Smart 14:B6:CC,,,,,home,,
+,,device_tracker,device_tracker.apple_cd_c0_59,Apple CD:C0:59,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_7a_5f_fb,Espressif 7A:5F:FB,,,,,home,,
+,,device_tracker,device_tracker.espressif_10_f8_72,Espressif 10:F8:72,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_ad_59_53,Tuya Smart AD:59:53,,,,True,unavailable,,
+,,device_tracker,device_tracker.shenzhen_trolink_technology_ca_a8_a4,Shenzhen Trolink Technology CA:A8:A4,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_78_66_b3,Tuya Smart 78:66:B3,,,,True,unavailable,,
+,,device_tracker,device_tracker.compal_information_kunshan_c4_8e_bb,Compal Information (Kunshan) C4:8E:BB,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_b2_3b_9c_fd_7e_89,Nmap Tracker B2:3B:9C:FD:7E:89,,,,,home,,
+,,device_tracker,device_tracker.espressif_67_4c_29,Espressif 67:4C:29,,,,,home,,
+,,device_tracker,device_tracker.altobeam_de_a3_c0,AltoBeam DE:A3:C0,,,,True,unavailable,,
+,,device_tracker,device_tracker.tuya_smart_8c_63_a3,Tuya Smart 8C:63:A3,,,,,not_home,,
+,,device_tracker,device_tracker.sony_interactive_entertainment_b7_18_7b,Sony Interactive Entertainment B7:18:7B,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_50_86_9a,Espressif 50:86:9A,,,,,home,,
+,,device_tracker,device_tracker.espressif_68_03_30,Espressif 68:03:30,,,,,home,,
+,,device_tracker,device_tracker.espressif_98_b7_35,Espressif 98:B7:35,,,,,home,,
+,,device_tracker,device_tracker.sjit_ba_16_c1,Sjit BA:16:C1,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_33_2c_ce,Tuya Smart 33:2C:CE,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_c1_b3_c8,Tuya Smart C1:B3:C8,,,,,home,,
+,,device_tracker,device_tracker.espressif_a5_58_32,Espressif A5:58:32,,,,,home,,
+,,device_tracker,device_tracker.espressif_21_6c_95,Espressif 21:6C:95,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_66_c9_d0_9d_6d_77,Nmap Tracker 66:C9:D0:9D:6D:77,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_7d_16_d4,Espressif 7D:16:D4,,,,,home,,
+,,device_tracker,device_tracker.qingdao_intelligent_precise_electronics_08_4a_54,Qingdao Intelligent&Precise Electronics 08:4A:54,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_5a_e7_77_96_33_53,Nmap Tracker 5A:E7:77:96:33:53,,,,True,unavailable,,
+,,device_tracker,device_tracker.cisco_systems_1f_8c_67,Cisco Systems 1F:8C:67,,,,,home,,
+,,device_tracker,device_tracker.espressif_05_4a_70,Espressif 05:4A:70,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_e0_b5_3d,Tuya Smart E0:B5:3D,,,,True,unavailable,,
+,,device_tracker,device_tracker.cloud_network_technology_singapore_pte_32_46_49,Cloud Network Technology Singapore PTE. 32:46:49,,,,,not_home,,
+,,device_tracker,device_tracker.nmap_tracker_b2_b4_15_79_49_f2,Nmap Tracker B2:B4:15:79:49:F2,,,,True,unavailable,,
+,connectivity,binary_sensor,binary_sensor.internet_home_gateway_device_wan_status,WAN status,,,,True,unavailable,,
+,data_size,sensor,sensor.internet_home_gateway_device_data_received,Data received,,,,True,unavailable,,B
+,data_size,sensor,sensor.internet_home_gateway_device_data_sent,Data sent,,,,True,unavailable,,B
+,,sensor,sensor.internet_home_gateway_device_packets_received,Packets received,,,,True,unavailable,,packets
+,,sensor,sensor.internet_home_gateway_device_packets_sent,Packets sent,,,,True,unavailable,,packets
+,,sensor,sensor.internet_home_gateway_device_external_ip,External IP,,,,True,unavailable,,
+,duration,sensor,sensor.internet_home_gateway_device_uptime,Uptime,,,,True,unavailable,,s
+,,sensor,sensor.internet_home_gateway_device_wan_status,WAN status,,,,True,unavailable,,
+,,sensor,sensor.internet_home_gateway_device_number_of_port_mapping_entries_ipv4,Number of port mapping entries (IPv4),,,,True,unavailable,,
+,data_rate,sensor,sensor.internet_home_gateway_device_download_speed,Download speed,,,,True,unavailable,,KiB/s
+,data_rate,sensor,sensor.internet_home_gateway_device_upload_speed,Upload speed,,,,True,unavailable,,KiB/s
+,,sensor,sensor.internet_home_gateway_device_packet_download_speed,Packet download speed,,,,True,unavailable,,packets/s
+,,sensor,sensor.internet_home_gateway_device_packet_upload_speed,Packet upload speed,,,,True,unavailable,,packets/s
+,timestamp,sensor,sensor.hp_color_laserjet_mfp_m476nw_uptime,Uptime,,,,True,unavailable,,
+,,sensor,sensor.hp_color_laserjet_mfp_m476nw_black_cartridge_hp_cf380a,Black Cartridge HP CF380X,,,,True,unavailable,,%
+,,sensor,sensor.hp_color_laserjet_mfp_m476nw_cyan_cartridge_hp_cf381a,Cyan Cartridge HP CF381A,,,,True,unavailable,,%
+,,sensor,sensor.hp_color_laserjet_mfp_m476nw_magenta_cartridge_hp_cf383a,Magenta Cartridge HP CF383A,,,,True,unavailable,,%
+,,sensor,sensor.hp_color_laserjet_mfp_m476nw_yellow_cartridge_hp_cf382a,Yellow Cartridge HP CF382A,,,,True,unavailable,,%
+,enum,sensor,sensor.hp_color_laserjet_mfp_m476nw,,,,,True,unavailable,,
+,,device_tracker,device_tracker.xiaomi_communications_91_dc_4b,Xiaomi Communications 91:DC:4B,,,,,not_home,,
+,,device_tracker,device_tracker.nmap_tracker_82_fe_57_34_7f_85,Nmap Tracker 82:FE:57:34:7F:85,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_a2_42_25_38_7c_c5,Nmap Tracker A2:42:25:38:7C:C5,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_a2_f3_8d_9b_25_d2,Nmap Tracker A2:F3:8D:9B:25:D2,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_f6_88_a1_96_99_83,Nmap Tracker F6:88:A1:96:99:83,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_92_14_72_d7_d3_fb,Nmap Tracker 92:14:72:D7:D3:FB,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_d0_78_01_03_b2_17,Nmap Tracker D0:78:01:03:B2:17,,,,True,unavailable,,
+,,device_tracker,device_tracker.samsung_electronics_b3_23_39,Samsung Electronics B3:23:39,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_6b_d3_3c,Espressif 6B:D3:3C,,,,,home,,
+,,device_tracker,device_tracker.espressif_9d_c2_27,Espressif 9D:C2:27,,,,,home,,
+,,device_tracker,device_tracker.tuya_smart_8c_64_11,Tuya Smart 8C:64:11,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_96_31_09_3b_07_54,Nmap Tracker 96:31:09:3B:07:54,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_86_40_4c_69_18_51,Nmap Tracker 86:40:4C:69:18:51,,,,,not_home,,
+,,device_tracker,device_tracker.nmap_tracker_5a_72_02_a1_9f_a7,Nmap Tracker 5A:72:02:A1:9F:A7,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_4a_da_aa_e0_78_75,Nmap Tracker 4A:DA:AA:E0:78:75,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_6a_e8_5f_8c_ba_27,Nmap Tracker 6A:E8:5F:8C:BA:27,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_2a_38_30_6a_be_1a,Nmap Tracker 2A:38:30:6A:BE:1A,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_2a_cd_1c_e3_f3_ac,Nmap Tracker 2A:CD:1C:E3:F3:AC,,,,True,unavailable,,
+,,device_tracker,device_tracker.oracle_virtualbox_virtual_nic_39_cd_f1,Oracle VirtualBox virtual NIC 39:CD:F1,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_be_e2_12_d6_58_da,Nmap Tracker BE:E2:12:D6:58:DA,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_de_c4_dc_87_5d_1f,Nmap Tracker DE:C4:DC:87:5D:1F,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_0e_21_1f_47_ef_59,Nmap Tracker 0E:21:1F:47:EF:59,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_4a_33_89_88_de_54,Nmap Tracker 4A:33:89:88:DE:54,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_6e_4b_c8_d2_e8_86,Nmap Tracker 6E:4B:C8:D2:E8:86,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_7a_ff_07_82_8a_93,Nmap Tracker 7A:FF:07:82:8A:93,,,,True,unavailable,,
+,,device_tracker,device_tracker.raspberry_pi_trading_4b_74_1d,Raspberry Pi (Trading) 4B:74:1D,,,,True,unavailable,,
+,,device_tracker,device_tracker.intel_corporate_a3_d4_55,Intel Corporate A3:D4:55,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_58_62_dc,Espressif 58:62:DC,,,,,home,,
+,,device_tracker,device_tracker.nmap_tracker_b2_25_15_63_bb_99,Nmap Tracker B2:25:15:63:BB:99,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_ce_38_c7_9f_95_fd,Nmap Tracker CE:38:C7:9F:95:FD,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_d2_69_42_0c_4d_35,Nmap Tracker D2:69:42:0C:4D:35,,,,True,unavailable,,
+,,device_tracker,device_tracker.amazon_technologies_29_68_bf,Amazon Technologies 29:68:BF,,,,True,unavailable,,
+,,device_tracker,device_tracker.altobeam_69_a1_45,AltoBeam 69:A1:45,,,,,home,,
+,,device_tracker,device_tracker.nmap_tracker_16_4a_ef_75_53_ed,Nmap Tracker 16:4A:EF:75:53:ED,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_ca_02_31_ec_bc_ab,Nmap Tracker CA:02:31:EC:BC:AB,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_8e_69_ed_06_54_07,Nmap Tracker 8E:69:ED:06:54:07,,,,True,unavailable,,
+,,device_tracker,device_tracker.tuya_smart_ad_56_08,Tuya Smart AD:56:08,,,,True,unavailable,,
+,,device_tracker,device_tracker.tuya_smart_e0_af_e6,Tuya Smart E0:AF:E6,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_06_fa_b6_b7_02_80,Nmap Tracker 06:FA:B6:B7:02:80,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_9e_6f_40_e6_06_c2,Nmap Tracker 9E:6F:40:E6:06:C2,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_a6_49_cd_51_32_8d,Nmap Tracker A6:49:CD:51:32:8D,,,,True,unavailable,,
+,,device_tracker,device_tracker.qingdao_intelligent_precise_electronics_12_80_dc,Qingdao Intelligent&Precise Electronics 12:80:DC,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_22_e1_32_58_92_72,Nmap Tracker 22:E1:32:58:92:72,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_f6_f0_98_36_93_21,Nmap Tracker F6:F0:98:36:93:21,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_be_ad_46_09_a0_48,Nmap Tracker BE:AD:46:09:A0:48,,,,True,unavailable,,
+,,device_tracker,device_tracker.apple_b8_28_21,Apple B8:28:21,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_32_b7_a9_d9_25_71,Nmap Tracker 32:B7:A9:D9:25:71,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_a2_42_82_f1_b7_32,Nmap Tracker A2:42:82:F1:B7:32,,,,True,unavailable,,
+,restart,button,button.nvt_reboot_2,NVT Reboot,,,,True,unavailable,,
+,,button,button.nvt_set_system_date_and_time_2,NVT Set System Date and Time,,,,True,unavailable,,
+,,camera,camera.nvt_mainstream_2,NVT mainStream,,,,True,unavailable,,
+,,camera,camera.nvt_substream_2,NVT subStream,,,,True,unavailable,,
+,,switch,switch.nvt_autofocus_2,Autofocus,,,,True,unavailable,,
+,,switch,switch.nvt_ir_lamp_2,IR lamp,,,,True,unavailable,,
+,,switch,switch.nvt_wiper_2,Wiper,,,,True,unavailable,,
+,,automation,automation.test_simple_telegram_message,Test: Simple Telegram Message,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_c2_a0_63_99_60_38,Nmap Tracker C2:A0:63:99:60:38,,,,,home,,
+,,device_tracker,device_tracker.espressif_67_e6_72,Espressif 67:E6:72,,,,,home,,
+,,device_tracker,device_tracker.espressif_e6_be_bd,Espressif E6:BE:BD,,,,,home,,
+,,device_tracker,device_tracker.nmap_tracker_d6_7e_e4_16_22_df,Nmap Tracker D6:7E:E4:16:22:DF,,,,True,unavailable,,
+,,device_tracker,device_tracker.espressif_b1_d6_44,Espressif B1:D6:44,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_8e_ce_ab_cd_bd_bf,Nmap Tracker 8E:CE:AB:CD:BD:BF,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_96_9b_5e_78_d7_38,Nmap Tracker 96:9B:5E:78:D7:38,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_56_af_9c_da_a2_fe,Nmap Tracker 56:AF:9C:DA:A2:FE,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_42_24_99_b0_f8_d2,Nmap Tracker 42:24:99:B0:F8:D2,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_ea_c2_d8_08_08_22,Nmap Tracker EA:C2:D8:08:08:22,,,,,home,,
+,,device_tracker,device_tracker.nmap_tracker_2e_23_73_c3_66_47,Nmap Tracker 2E:23:73:C3:66:47,,,,True,unavailable,,
+,,device_tracker,device_tracker.nmap_tracker_c6_9d_78_7d_c7_09,Nmap Tracker C6:9D:78:7D:C7:09,,,,True,unavailable,,
+,,switch,switch.blitzortung_org_lightning_detector_pre_release,Blitzortung.org Lightning Detector Pre-release,,,,,off,,
+,,device_tracker,device_tracker.nmap_tracker_f2_33_b1_83_25_a7,Nmap Tracker F2:33:B1:83:25:A7,,,,,not_home,,
+,,sensor,sensor.blitzortung_lightning_azimuth,Lighting - Pierre van Ryneveld Lightning azimuth,,,,,unknown,,°
+,,sensor,sensor.blitzortung_lightning_counter,Lighting - Pierre van Ryneveld Lightning counter,,,,,0,,↯
+,distance,sensor,sensor.blitzortung_lightning_distance,Lighting - Pierre van Ryneveld Lightning distance,,,,,unknown,,km
+,,device_tracker,device_tracker.sm_g996b,SM-G996B,,,,,not_home,,
+,enum,sensor,sensor.sm_g996b_audio_mode,SM-G996B Audio mode,,,,,normal,,
+,,binary_sensor,binary_sensor.sm_g996b_headphones,SM-G996B Headphones,,,,,off,,
+,,binary_sensor,binary_sensor.sm_g996b_mic_muted,SM-G996B Mic muted,,,,,off,,
+,,binary_sensor,binary_sensor.sm_g996b_speakerphone,SM-G996B Speakerphone,,,,,off,,
+,,binary_sensor,binary_sensor.sm_g996b_music_active,SM-G996B Music active,,,,,off,,
+,,sensor,sensor.sm_g996b_volume_level_alarm,SM-G996B Volume level alarm,,,,,11,,
+,,sensor,sensor.sm_g996b_volume_level_call,SM-G996B Volume level call,,,,,8,,
+,,sensor,sensor.sm_g996b_volume_level_music,SM-G996B Volume level music,,,,,4,,
+,,sensor,sensor.sm_g996b_volume_level_ringer,SM-G996B Volume level ringer,,,,,15,,
+,,sensor,sensor.sm_g996b_volume_level_notification,SM-G996B Volume level notification,,,,,0,,
+,,sensor,sensor.sm_g996b_volume_level_system,SM-G996B Volume level system,,,,,6,,
+,,sensor,sensor.sm_g996b_volume_level_dtmf,SM-G996B Volume level DTMF,,,,,15,,
+,,sensor,sensor.sm_g996b_volume_level_accessibility,SM-G996B Volume level accessibility,,,,,5,,
+,battery,sensor,sensor.sm_g996b_battery_level,SM-G996B Battery level,,,,,38,,%
+,enum,sensor,sensor.sm_g996b_battery_state,SM-G996B Battery state,,,,,discharging,,
+,plug,binary_sensor,binary_sensor.sm_g996b_is_charging,SM-G996B Is charging,,,,,off,,
+,enum,sensor,sensor.sm_g996b_charger_type,SM-G996B Charger type,,,,,none,,
+,enum,sensor,sensor.sm_g996b_battery_health,SM-G996B Battery health,,,,,good,,
+,temperature,sensor,sensor.sm_g996b_battery_temperature,SM-G996B Battery temperature,,,,,28.2,,°C
+,power,sensor,sensor.sm_g996b_battery_power,SM-G996B Battery power,,,,,0.0,,W
+,duration,sensor,sensor.sm_g996b_remaining_charge_time,SM-G996B Remaining charge time,,,,,0,,min
+,,sensor,sensor.sm_g996b_battery_cycle_count,SM-G996B Battery cycle count,,,,,0,,
+,,sensor,sensor.sm_g996b_bluetooth_connection,SM-G996B Bluetooth connection,,,,,0,,connection(s)
+,,binary_sensor,binary_sensor.sm_g996b_bluetooth_state,SM-G996B Bluetooth state,,,,,on,,
+,,sensor,sensor.sm_g996b_car_name,SM-G996B Car name,,,,,unavailable,,
+,plug,sensor,sensor.sm_g996b_car_charging_status,SM-G996B Car charging status,,,,,unavailable,,
+,,sensor,sensor.sm_g996b_screen_brightness,SM-G996B Screen brightness,,,,,33,,
+,duration,sensor,sensor.sm_g996b_screen_off_timeout,SM-G996B Screen off timeout,,,,,300000,,ms
+,,sensor,sensor.sm_g996b_screen_orientation,SM-G996B Screen orientation,,,,,portrait,,
+,,sensor,sensor.sm_g996b_screen_rotation,SM-G996B Screen rotation,,,,,0,,°
+,enum,sensor,sensor.sm_g996b_detected_activity,SM-G996B Detected activity,,,,,still,,
+,enum,sensor,sensor.sm_g996b_do_not_disturb_sensor,SM-G996B Do Not Disturb sensor,,,,,off,,
+,,sensor,sensor.sm_g996b_accent_color,SM-G996B Accent color,,,,,#2F628C,,
+,,sensor,sensor.sm_g996b_sleep_confidence,SM-G996B Sleep confidence,,,,,97,,%
+,,binary_sensor,binary_sensor.sm_g996b_work_profile,SM-G996B Work profile,,,,,unknown,,
+,duration,sensor,sensor.sm_g996b_sleep_segment,SM-G996B Sleep segment,,,,,unknown,,ms
+,connectivity,binary_sensor,binary_sensor.sm_g996b_android_auto,SM-G996B Android Auto,,,,,unknown,,
+,,sensor,sensor.sm_g996b_os_version,SM-G996B OS version,,,,,15,,
+,,sensor,sensor.sm_g996b_security_patch,SM-G996B Security patch,,,,,2025-08-01,,
+,,sensor,sensor.sm_g996b_current_version,SM-G996B Current version,,,,,2025.8.7-full,,
+,,sensor,sensor.sm_g996b_app_rx_gb,SM-G996B App Rx GB,,,,,0.0624,,GB
+,,sensor,sensor.sm_g996b_app_tx_gb,SM-G996B App Tx GB,,,,,0.2507,,GB
+,,sensor,sensor.sm_g996b_app_memory,SM-G996B App memory,,,,,0.018,,GB
+,,binary_sensor,binary_sensor.sm_g996b_app_inactive,SM-G996B App inactive,,,,,off,,
+,enum,sensor,sensor.sm_g996b_app_standby_bucket,SM-G996B App standby bucket,,,,,never,,
+,enum,sensor,sensor.sm_g996b_app_importance,SM-G996B App importance,,,,,foreground_service,,
+,enum,sensor,sensor.sm_g996b_ringer_mode,SM-G996B Ringer mode,,,,,normal,,
+,,binary_sensor,binary_sensor.sm_g996b_device_locked,SM-G996B Device locked,,,,,on,,
+,,binary_sensor,binary_sensor.sm_g996b_device_secure,SM-G996B Device secure,,,,,on,,
+,,binary_sensor,binary_sensor.sm_g996b_keyguard_locked,SM-G996B Keyguard locked,,,,,on,,
+,,binary_sensor,binary_sensor.sm_g996b_keyguard_secure,SM-G996B Keyguard secure,,,,,on,,
+,timestamp,sensor,sensor.sm_g996b_last_reboot,SM-G996B Last reboot,,,,,unknown,,
+,,sensor,sensor.sm_g996b_last_update_trigger,SM-G996B Last update trigger,,,,,io.homeassistant.companion.android.UPDATE_SENSORS,,
+,illuminance,sensor,sensor.sm_g996b_light_sensor,SM-G996B Light sensor,,,,,0,,lx
+,,sensor,sensor.sm_g996b_public_ip_address,SM-G996B Public IP address,,,,,105.245.173.201,,
+,,binary_sensor,binary_sensor.sm_g996b_hotspot_state,SM-G996B Hotspot state,,,,,off,,
+,enum,sensor,sensor.sm_g996b_network_type,SM-G996B Network type,,,,,cellular,,
+,,binary_sensor,binary_sensor.sm_g996b_nfc_state,SM-G996B NFC state,,,,,on,,
+,timestamp,sensor,sensor.sm_g996b_next_alarm,SM-G996B Next alarm,,,,,2025-10-23T04:00:00+00:00,,
+,,sensor,sensor.sm_g996b_last_notification,SM-G996B Last notification,,,,,unknown,,
+,,sensor,sensor.sm_g996b_last_removed_notification,SM-G996B Last removed notification,,,,,unknown,,
+,,sensor,sensor.sm_g996b_active_notification_count,SM-G996B Active notification count,,,,,176,,notifications
+,enum,sensor,sensor.sm_g996b_media_session,SM-G996B Media session,,,,,unavailable,,
+,,binary_sensor,binary_sensor.sm_g996b_interactive,SM-G996B Interactive,,,,,off,,
+,,binary_sensor,binary_sensor.sm_g996b_doze_mode,SM-G996B Doze mode,,,,,off,,
+,,binary_sensor,binary_sensor.sm_g996b_power_save,SM-G996B Power save,,,,,off,,
+,pressure,sensor,sensor.sm_g996b_pressure_sensor,SM-G996B Pressure sensor,,,,,1011.3,,hPa
+,,sensor,sensor.sm_g996b_proximity_sensor,SM-G996B Proximity sensor,,,,,far,,
+,,sensor,sensor.sm_g996b_steps_sensor,SM-G996B Steps sensor,,,,,10563,,steps
+,,sensor,sensor.sm_g996b_internal_storage,SM-G996B Internal storage,,,,,68,,%
+,,sensor,sensor.sm_g996b_external_storage,SM-G996B External storage,,,,,0,,%
+,,sensor,sensor.sm_g996b_current_time_zone,SM-G996B Current time zone,,,,,South Africa Standard Time,,
+,,sensor,sensor.sm_g996b_mobile_rx_gb,SM-G996B Mobile Rx GB,,,,,3.194,,GB
+,,sensor,sensor.sm_g996b_mobile_tx_gb,SM-G996B Mobile Tx GB,,,,,0.689,,GB
+,,sensor,sensor.sm_g996b_total_rx_gb,SM-G996B Total Rx GB,,,,,4.756,,GB
+,,sensor,sensor.sm_g996b_total_tx_gb,SM-G996B Total Tx GB,,,,,1.155,,GB

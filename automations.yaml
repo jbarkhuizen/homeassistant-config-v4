@@ -1,268 +1,214 @@
-#===============================================================================
-# Automation to export sensirs data to CSV
-#===============================================================================
-
-- alias: "Export sensors to CSV"
+- alias: Export sensors to CSV
   trigger:
-      - platform: time_pattern
-        minutes: /30  # Every 30 minutes
+  - platform: time_pattern
+    minutes: /30
   action:
-      - action: notify.send_message  # NOT notify.sensor_export
-        data:
-          entity_id: notify.sensor_export  # Target the entity here
-          message: >-
-            "{{ now().strftime('%Y-%m-%d') }}",
-            "{{ now().strftime('%H:%M:%S') }}",
-            "{{ states('sensor.temperature') }}",
-            "{{ states('sensor.humidity') }}",
-            "{{ states('sensor.pressure') }}"
-
-- alias: "Export entities weekly"
+  - action: notify.send_message
+    data:
+      entity_id: notify.sensor_export
+      message: '"{{ now().strftime(''%Y-%m-%d'') }}", "{{ now().strftime(''%H:%M:%S'')
+        }}", "{{ states(''sensor.temperature'') }}", "{{ states(''sensor.humidity'')
+        }}", "{{ states(''sensor.pressure'') }}"'
+  id: 6bcbadd1d9704cdfa452201d98ddb8aa
+- alias: Export entities weekly
   trigger:
-      - platform: time
-        at: "03:00:00"
+  - platform: time
+    at: 03:00:00
   condition:
-      - condition: time
-        weekday:
-          - mon
+  - condition: time
+    weekday:
+    - mon
   action:
-      - service: pyscript.export_all_entities
-
-      # ==============================================================================
-# Daily Entity Export with Email Delivery
-# File: automations/daily_email_entity_export.yaml
-# Purpose: Export all entities to CSV and email at 06:00 daily
-# ==============================================================================
-
-# ------------------------------------------------------------------------------
-# OPTION 1: Using Pyscript (RECOMMENDED - Most Reliable)
-# ------------------------------------------------------------------------------
-# This assumes you're using the pyscript solution from the guide
-
-- id: 'daily_entity_export_email'
-  alias: "System: Daily Entity Export and Email"
-  description: "Export entities to CSV at 06:00 and email the file"
-    
+  - service: pyscript.export_all_entities
+  id: 1deab5e536824e628e1ac0a13e82ccc9
+- id: daily_entity_export_email
+  alias: 'System: Daily Entity Export and Email'
+  description: Export entities to CSV at 06:00 and email the file
   trigger:
-      - platform: time
-        at: "06:00:00"
-    
+  - platform: time
+    at: 06:00:00
   action:
-      # Step 1: Run the pyscript export
-      - service: pyscript.export_all_entities
-        data: {}
-      
-      # Step 2: Wait for file to be written
-      - delay:
-          seconds: 10
-      
-      # Step 3: Send email with attachment
-      - service: notify.email_notification  # Change to your email service name
-        data:
-          title: "Home Assistant Entity Export - {{ now().strftime('%Y-%m-%d') }}"
-          message: |
-            Daily entity export completed successfully.
-            
-            Export Details:
-            - Date: {{ now().strftime('%A, %d %B %Y') }}
-            - Time: {{ now().strftime('%H:%M:%S') }}
-            - Total Entities: {{ states | count }}
-            - System: Smart Home - Pierre van Ryneveld
-            
-            The complete entity list is attached as a CSV file.
-            
-            This is an automated export from your Home Assistant system.
-          data:
-            attachments:
-              - /config/exports/entities_full_export_*.csv  # Latest file
+  - service: pyscript.export_all_entities
+    data: {}
+  - delay:
+      seconds: 10
+  - service: notify.email_notification
+    data:
+      title: Home Assistant Entity Export - {{ now().strftime('%Y-%m-%d') }}
+      message: 'Daily entity export completed successfully.
 
 
-# ------------------------------------------------------------------------------
-# OPTION 2: Using Bash Script with Fixed Filename
-# ------------------------------------------------------------------------------
-# If using the shell command/bash script method
+        Export Details:
 
-- id: 'daily_bash_export_email'
-  alias: "System: Daily Bash Export and Email"
-  description: "Export via bash script and email at 06:00"
-    
+        - Date: {{ now().strftime(''%A, %d %B %Y'') }}
+
+        - Time: {{ now().strftime(''%H:%M:%S'') }}
+
+        - Total Entities: {{ states | count }}
+
+        - System: Smart Home - Pierre van Ryneveld
+
+
+        The complete entity list is attached as a CSV file.
+
+
+        This is an automated export from your Home Assistant system.
+
+        '
+      data:
+        attachments:
+        - /config/exports/entities_full_export_*.csv
+- id: daily_bash_export_email
+  alias: 'System: Daily Bash Export and Email'
+  description: Export via bash script and email at 06:00
   trigger:
-      - platform: time
-        at: "06:00:00"
-    
+  - platform: time
+    at: 06:00:00
   action:
-      # Step 1: Run the shell command
-      - service: shell_command.export_entities_bash
-        data: {}
-      
-      # Step 2: Wait for export to complete
-      - delay:
-          seconds: 5
-      
-      # Step 3: Email the file
-      - service: notify.email_notification
-        data:
-          title: "HA Entity Export - {{ now().strftime('%Y-%m-%d') }}"
-          message: "Daily entity export completed. See attached CSV file."
-          data:
-            attachments:
-              - "/config/exports/entities_export_{{ now().strftime('%Y%m%d') }}_*.csv"
-
-
-# ------------------------------------------------------------------------------
-# OPTION 3: Fixed Daily Filename (Simplest)
-# ------------------------------------------------------------------------------
-# Creates one file per day with predictable name for easy emailing
-
-
-- id: 'daily_export_fixed_name'
-  alias: "System: Daily Export with Fixed Filename"
-  description: "Export to fixed filename for reliable email attachment"
-    
+  - service: shell_command.export_entities_bash
+    data: {}
+  - delay:
+      seconds: 5
+  - service: notify.email_notification
+    data:
+      title: HA Entity Export - {{ now().strftime('%Y-%m-%d') }}
+      message: Daily entity export completed. See attached CSV file.
+      data:
+        attachments:
+        - /config/exports/entities_export_{{ now().strftime('%Y%m%d') }}_*.csv
+- id: daily_export_fixed_name
+  alias: 'System: Daily Export with Fixed Filename'
+  description: Export to fixed filename for reliable email attachment
   trigger:
-      - platform: time
-        at: "06:00:00"
-    
+  - platform: time
+    at: 06:00:00
   action:
-      # Export using pyscript with today's date
-      - service: pyscript.export_entities_daily
-        data: {}
-      
-      - delay:
-          seconds: 5
-      
-      # Email with predictable filename
-      - service: notify.email_notification
-        data:
-          title: "📊 Daily HA Entity Report - {{ now().strftime('%d %B %Y') }}"
-          message: |
-            Good morning!
-            
-            Your daily Home Assistant entity export is ready.
-            
-            📅 Export Date: {{ now().strftime('%A, %d %B %Y') }}
-            ⏰ Export Time: 06:00 AM
-            🏠 System: Smart Home - Pierre van Ryneveld
-            📊 Total Entities: {{ states | count }}
-            
-            Key Statistics:
-            - Sensors: {{ states.sensor | count }}
-            - Lights: {{ states.light | count }}
-            - Switches: {{ states.switch | count }}
-            - Automations: {{ states.automation | count }}
-            
-            The complete entity export is attached.
-            
-            Have a great day!
-          data:
-            attachments:
-              - /config/exports/entities_daily_{{ now().strftime('%Y%m%d') }}.csv
-
-
-# ------------------------------------------------------------------------------
-# OPTION 4: Weekly Summary (Alternative Schedule)
-# ------------------------------------------------------------------------------
-# Send weekly instead of daily to reduce email volume
-
-- id: 'weekly_export_email'
-  alias: "System: Weekly Entity Export Email"
-  description: "Email entity export every Monday at 06:00"
-    
+  - service: pyscript.export_entities_daily
+    data: {}
+  - delay:
+      seconds: 5
+  - service: notify.email_notification
+    data:
+      title: "\U0001F4CA Daily HA Entity Report - {{ now().strftime('%d %B %Y') }}"
+      message: "Good morning!\n\nYour daily Home Assistant entity export is ready.\n\n\U0001F4C5
+        Export Date: {{ now().strftime('%A, %d %B %Y') }}\n⏰ Export Time: 06:00 AM\n\U0001F3E0
+        System: Smart Home - Pierre van Ryneveld\n\U0001F4CA Total Entities: {{ states
+        | count }}\n\nKey Statistics:\n- Sensors: {{ states.sensor | count }}\n- Lights:
+        {{ states.light | count }}\n- Switches: {{ states.switch | count }}\n- Automations:
+        {{ states.automation | count }}\n\nThe complete entity export is attached.\n\nHave
+        a great day!\n"
+      data:
+        attachments:
+        - /config/exports/entities_daily_{{ now().strftime('%Y%m%d') }}.csv
+- id: weekly_export_email
+  alias: 'System: Weekly Entity Export Email'
+  description: Email entity export every Monday at 06:00
   trigger:
-      - platform: time
-        at: "06:00:00"
-  
+  - platform: time
+    at: 06:00:00
   condition:
-      - condition: time
-        weekday:
-          - mon
-    
+  - condition: time
+    weekday:
+    - mon
   action:
-      - service: pyscript.export_all_entities
-        data: {}
-      
-      - delay:
-          seconds: 10
-      
-      - service: notify.email_notification
-        data:
-          title: "📋 Weekly HA Entity Report - Week {{ now().strftime('%W, %Y') }}"
-          message: |
-            Weekly Home Assistant entity export for monitoring and backup.
-            
-            Week: {{ now().strftime('%W') }}
-            Date: {{ now().strftime('%A, %d %B %Y') }}
-            
-            System Health:
-            - Total Entities: {{ states | count }}
-            - Unavailable: {{ states | selectattr('state', 'eq', 'unavailable') | list | count }}
-            - Unknown: {{ states | selectattr('state', 'eq', 'unknown') | list | count }}
-            
-            Attached: Complete entity export CSV
-          data:
-            attachments:
-              - /config/exports/entities_full_export_*.csv
-#===============================================================================
-# Automation to monitor unavailable entities
-#===============================================================================
+  - service: pyscript.export_all_entities
+    data: {}
+  - delay:
+      seconds: 10
+  - service: notify.email_notification
+    data:
+      title: "\U0001F4CB Weekly HA Entity Report - Week {{ now().strftime('%W, %Y')
+        }}"
+      message: 'Weekly Home Assistant entity export for monitoring and backup.
+
+
+        Week: {{ now().strftime(''%W'') }}
+
+        Date: {{ now().strftime(''%A, %d %B %Y'') }}
+
+
+        System Health:
+
+        - Total Entities: {{ states | count }}
+
+        - Unavailable: {{ states | selectattr(''state'', ''eq'', ''unavailable'')
+        | list | count }}
+
+        - Unknown: {{ states | selectattr(''state'', ''eq'', ''unknown'') | list |
+        count }}
+
+
+        Attached: Complete entity export CSV
+
+        '
+      data:
+        attachments:
+        - /config/exports/entities_full_export_*.csv
 - id: system_unavailable_entity_monitor
   alias: 'System: Unavailable Entity Monitor'
-  description: 'Monitor and alert on unavailable entities daily at 07:00'
+  description: Monitor and alert on unavailable entities daily at 07:00
   trigger:
-    - platform: time
-      at: "07:00:00"
+  - platform: time
+    at: 07:00:00
   condition: []
   action:
-    - service: python_script.get_unavailable_entities
-      response_variable: unavailable_list
-    - condition: template
-      value_template: "{{ unavailable_list.entities | length > 0 }}"
-    - service: notify.email_notification
-      data:
-        title: "⚠️ Unavailable Entities Report"
-        message: >
-          **Unavailable Entities Found:**
-          
-          {% for entity in unavailable_list.entities %}
-          • {{ entity.entity_id }} - {{ entity.friendly_name }}
-          {% endfor %}
-          
-          **Total Count:** {{ unavailable_list.entities | length }}
-          
-          **Action Required:**
-          • Check device batteries
-          • Verify Wi-Fi connectivity
-          • Restart affected devices
-          • Remove entities if devices are permanently offline
+  - service: python_script.get_unavailable_entities
+    response_variable: unavailable_list
+  - condition: template
+    value_template: '{{ unavailable_list.entities | length > 0 }}'
+  - service: notify.email_notification
+    data:
+      title: ⚠️ Unavailable Entities Report
+      message: '**Unavailable Entities Found:**
+
+        {% for entity in unavailable_list.entities %} • {{ entity.entity_id }} - {{
+        entity.friendly_name }} {% endfor %}
+
+        **Total Count:** {{ unavailable_list.entities | length }}
+
+        **Action Required:** • Check device batteries • Verify Wi-Fi connectivity
+        • Restart affected devices • Remove entities if devices are permanently offline
+
+        '
   mode: single
-
-
-- alias: 'Lightning Alert - Close Strike'
+- alias: Lightning Alert - Close Strike
   trigger:
-      platform: numeric_state
-      entity_id: sensor.blitzortung_lightning_distance
-      below: 10
+    platform: numeric_state
+    entity_id: sensor.blitzortung_lightning_distance
+    below: 10
   action:
-      - service: notify.mobile_app_your_phone
-        data:
-          title: "⚡ LIGHTNING WARNING"
-          message: "Lightning detected {{ states('sensor.blitzortung_lightning_distance') }}km away!"
-          data:
-            priority: high
-            ttl: 0
-
-
-- alias: 'Storm Approaching Alert'
+  - service: notify.mobile_app_your_phone
+    data:
+      title: ⚡ LIGHTNING WARNING
+      message: Lightning detected {{ states('sensor.blitzortung_lightning_distance')
+        }}km away!
+      data:
+        priority: high
+        ttl: 0
+  id: 4ce0c20f5ed849eeaeb9f5fe440aadf1
+- alias: Storm Approaching Alert
   trigger:
-      platform: numeric_state
-      entity_id: sensor.blitzortung_lightning_counter
-      above: 5
+    platform: numeric_state
+    entity_id: sensor.blitzortung_lightning_counter
+    above: 5
   condition:
-      condition: numeric_state
-      entity_id: sensor.blitzortung_lightning_distance
-      below: 30
+    condition: numeric_state
+    entity_id: sensor.blitzortung_lightning_distance
+    below: 30
   action:
-      - service: notify.persistent_notification
-        data:
-          title: "Storm Detected"
-          message: "{{ states('sensor.blitzortung_lightning_counter') }} strikes within 30km. Storm approaching Centurion area."
+  - service: notify.persistent_notification
+    data:
+      title: Storm Detected
+      message: '{{ states(''sensor.blitzortung_lightning_counter'') }} strikes within
+        30km. Storm approaching Centurion area.'
+  id: 499bed89667542a1872632accd8a250c
+- id: '1761284733872'
+  alias: 'System: Daily - Export All Entities to CSV 1'
+  description: Runs a script at 07:00 to generate a CSV file of all entities.
+  triggers:
+  - at: 07:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - action: script.export_all_entities_to_csv
+  mode: single
