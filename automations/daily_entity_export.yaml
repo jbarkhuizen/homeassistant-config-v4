@@ -6,13 +6,17 @@
 #
 # ==============================================================================
 
-- id: 'daily_entity_export_to_csv'
-  alias: "System: Daily - Export All Entities to CSV"
-  description: "Runs a script at 07:00 to generate a CSV file of all entities."
-  trigger:
-    - platform: time
-      at: "07:00:00"
-  condition: []
-  action:
-    - service: script.export_all_entities_to_csv
-  mode: single
+#===============================================================================
+# Disabled due to process not functioning correctly
+#===============================================================================
+
+#- id: 'daily_entity_export_to_csv'
+#  alias: "System: Daily - Export All Entities to CSV"
+#  description: "Runs a script at 07:00 to generate a CSV file of all entities."
+#  trigger:
+#    - platform: time
+#      at: "07:00:00"
+#  condition: []
+#  action:
+#    - service: script.export_all_entities_to_csv
+#  mode: single

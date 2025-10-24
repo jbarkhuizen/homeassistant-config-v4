@@ -1,6 +1,0 @@
-counter:
-  prepaid_units_tracker:
-    name: Eskom Units Bought (Total)
-    initial: 0
-    step: 1
-    icon: mdi:counter
